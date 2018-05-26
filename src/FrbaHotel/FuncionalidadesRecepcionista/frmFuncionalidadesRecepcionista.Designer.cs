@@ -38,9 +38,10 @@
             // 
             // btnABMClientes
             // 
-            this.btnABMClientes.Location = new System.Drawing.Point(87, 45);
+            this.btnABMClientes.Location = new System.Drawing.Point(116, 55);
+            this.btnABMClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnABMClientes.Name = "btnABMClientes";
-            this.btnABMClientes.Size = new System.Drawing.Size(110, 23);
+            this.btnABMClientes.Size = new System.Drawing.Size(147, 28);
             this.btnABMClientes.TabIndex = 0;
             this.btnABMClientes.Text = "ABM de Clientes";
             this.btnABMClientes.UseVisualStyleBackColor = true;
@@ -48,9 +49,10 @@
             // 
             // btnGenerarModificacionReserva
             // 
-            this.btnGenerarModificacionReserva.Location = new System.Drawing.Point(72, 204);
+            this.btnGenerarModificacionReserva.Location = new System.Drawing.Point(96, 251);
+            this.btnGenerarModificacionReserva.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGenerarModificacionReserva.Name = "btnGenerarModificacionReserva";
-            this.btnGenerarModificacionReserva.Size = new System.Drawing.Size(145, 23);
+            this.btnGenerarModificacionReserva.Size = new System.Drawing.Size(193, 28);
             this.btnGenerarModificacionReserva.TabIndex = 2;
             this.btnGenerarModificacionReserva.Text = "Generar modificacion";
             this.btnGenerarModificacionReserva.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // btnCancelarReserva
             // 
-            this.btnCancelarReserva.Location = new System.Drawing.Point(242, 204);
+            this.btnCancelarReserva.Location = new System.Drawing.Point(323, 251);
+            this.btnCancelarReserva.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelarReserva.Name = "btnCancelarReserva";
-            this.btnCancelarReserva.Size = new System.Drawing.Size(127, 23);
+            this.btnCancelarReserva.Size = new System.Drawing.Size(169, 28);
             this.btnCancelarReserva.TabIndex = 4;
             this.btnCancelarReserva.Text = "Cancelar";
             this.btnCancelarReserva.UseVisualStyleBackColor = true;
@@ -70,17 +73,19 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(40, 168);
+            this.label1.Location = new System.Drawing.Point(63, 184);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 22);
+            this.label1.Size = new System.Drawing.Size(110, 26);
             this.label1.TabIndex = 5;
             this.label1.Text = "Reservas:";
             // 
             // btnRegistrarEstadia
             // 
-            this.btnRegistrarEstadia.Location = new System.Drawing.Point(222, 45);
+            this.btnRegistrarEstadia.Location = new System.Drawing.Point(296, 55);
+            this.btnRegistrarEstadia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRegistrarEstadia.Name = "btnRegistrarEstadia";
-            this.btnRegistrarEstadia.Size = new System.Drawing.Size(130, 23);
+            this.btnRegistrarEstadia.Size = new System.Drawing.Size(173, 28);
             this.btnRegistrarEstadia.TabIndex = 6;
             this.btnRegistrarEstadia.Text = "Registrar Estadia";
             this.btnRegistrarEstadia.UseVisualStyleBackColor = true;
@@ -88,24 +93,26 @@
             // 
             // btnRegistrarConsumible
             // 
-            this.btnRegistrarConsumible.Location = new System.Drawing.Point(142, 90);
+            this.btnRegistrarConsumible.Location = new System.Drawing.Point(189, 111);
+            this.btnRegistrarConsumible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRegistrarConsumible.Name = "btnRegistrarConsumible";
-            this.btnRegistrarConsumible.Size = new System.Drawing.Size(147, 23);
+            this.btnRegistrarConsumible.Size = new System.Drawing.Size(196, 28);
             this.btnRegistrarConsumible.TabIndex = 7;
             this.btnRegistrarConsumible.Text = "Registrar consumible";
             this.btnRegistrarConsumible.UseVisualStyleBackColor = true;
             // 
             // frmFuncionalidadesRecepcionista
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 382);
+            this.ClientSize = new System.Drawing.Size(583, 348);
             this.Controls.Add(this.btnRegistrarConsumible);
             this.Controls.Add(this.btnRegistrarEstadia);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelarReserva);
             this.Controls.Add(this.btnGenerarModificacionReserva);
             this.Controls.Add(this.btnABMClientes);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmFuncionalidadesRecepcionista";
             this.Text = "Funcionalidades recepcionista";
             this.ResumeLayout(false);

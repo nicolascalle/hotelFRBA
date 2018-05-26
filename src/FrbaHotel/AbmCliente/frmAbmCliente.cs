@@ -8,37 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FrbaHotel.AbmCliente
-{
-    public partial class frmABMCliente : Form
-    {
-        public frmABMCliente()
-        {
-            InitializeComponent();
-        }
+namespace FrbaHotel.AbmCliente {
+    public partial class frmABMCliente : Form {
 
-        private void btnListado_Click(object sender, EventArgs e)
-        {
+        public frmABMCliente() { InitializeComponent(); }
+
+        private void btnListado_Click(object sender, EventArgs e) {
             frmListado i = new frmListado();
             i.Show();
         }
 
-        private void frmAlta_Click(object sender, EventArgs e)
-        {
+        private void frmAlta_Click(object sender, EventArgs e) {
             frmAlta i = new frmAlta();
             i.Show();
         }
 
-        private void frmBaja_Click(object sender, EventArgs e)
-        {
+        private void frmBaja_Click(object sender, EventArgs e) {
             frmBaja i = new frmBaja();
             i.Show();
         }
 
-        private void frmModificacion_Click(object sender, EventArgs e)
-        {
+        private void frmModificacion_Click(object sender, EventArgs e) {
             frmModificacion i = new frmModificacion();
             i.Show();
+        }
+
+        private void btnAtras_Click(object sender, EventArgs e) {
+            Close();
         }
 
     }

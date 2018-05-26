@@ -64,7 +64,7 @@ CREATE TABLE [FAAE].[Cliente] (
 	[clie_doc_nro] [numeric](10),
 	[clie_nombre] [nvarchar](10),
 	[clie_apellido] [nvarchar](10),
-	[clie_mail] [nvarchar](25) NOT NULL,
+	[clie_mail] [nvarchar](25) UNIQUE NOT NULL,
 	[clie_telefono] [numeric](10),
 	[clie_dire_calle] [nvarchar](10),
 	[clie_localidad] [nvarchar](10),
@@ -108,7 +108,7 @@ CREATE TABLE [FAAE].[Reserva] (
 )
 CREATE TABLE [FAAE].[Rol] (
     [rol_nombre] [nvarchar](10) PRIMARY KEY,
-	[rol_habilitado] [bit]
+	[rol_habilitado] [bit] DEFAULT 1
 )
 CREATE TABLE [FAAE].[Item_Factura] (
     [item_fact_tipo] [nvarchar](10),
@@ -152,7 +152,7 @@ CREATE TABLE [FAAE].[Factura] (
 	[fact_habi_nro] [numeric](10),
 	[fact_hote_codigo] [nvarchar](10),
 	PRIMARY KEY (fact_tipo,fact_nro),
-	CONSTRAINT [forma_pago] CHECK (fact_forma_pago IN ('Efectivo', 'Crédito', 'Débito', 'Sin especificar'))
+	CONSTRAINT [forma_pago] CHECK (fact_forma_pago IN ('Efectivo', 'Credito', 'Debito', 'Sin especificar'))
 )
 CREATE TABLE [FAAE].[Hotel] (
     [hote_codigo] [nvarchar](10) PRIMARY KEY,
@@ -198,7 +198,7 @@ CREATE TABLE [FAAE].[Hotel_Usuario] (
 CREATE TABLE [FAAE].[Usuario] (
     [usua_doc_tipo] [nvarchar](10),
 	[usua_doc_nro] [numeric](10),
-	[usua_username] [nvarchar](10),
+	[usua_username] [nvarchar](10) UNIQUE,
 	[usua_password] [nvarchar](10),
 	[usua_nombre] [nvarchar](10),
 	[usua_apellido] [nvarchar](10),
@@ -209,7 +209,7 @@ CREATE TABLE [FAAE].[Usuario] (
 	[usua_fecha_nacimiento] [smalldatetime],
 	[usua_cant_log_in_fallidos] [numeric](1),
 	[usua_hote_codigo_ultimo_log_in] [nvarchar](10),
-	PRIMARY KEY (usua_doc_tipo,usua_doc_nro)
+	PRIMARY KEY (usua_doc_tipo, usua_doc_nro)
 )
 
 ALTER TABLE [FAAE].[Historial_Reserva] ADD CONSTRAINT Historial_Reserva_Reserva FOREIGN KEY (hire_rese_codigo) REFERENCES [FAAE].[Reserva](rese_codigo)
@@ -285,3 +285,25 @@ CREATE TABLE [FAAE].[Hotel] (
 	[hote_fecha_creacion] [smalldatetime],
 	[hote_recarga_estrellas] [decimal](2,2)
 )
+
+
+INSERT INTO [FAAE].[Rol] (rol_nombre)
+VALUES ('Admin'),
+       ('Recepcion'),
+       ('Guest')
+
+INSERT INTO [FAAE].[Usuario] (usua_doc_tipo, usua_doc_nro, usua_username, usua_password, usua_nombre)
+VALUES ('Pasaporte', '0', 'admin', 'w23e', 'Admin Gral')
+
+INSERT INTO [FAAE].[Rol_Usuario] (rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre)
+VALUES ('Pasaporte', '0', 'Admin'),
+	   ('Pasaporte', '0', 'Recepcion'),
+	   ('Pasaporte', '0', 'Guest')
+
+GO
+CREATE VIEW [FAAE].[RolXUsuario]
+AS
+SELECT u.usua_username username, ru.rous_rol_nombre rol_nombre
+	FROM [FAAE].[Usuario] u JOIN [FAAE].[Rol_Usuario] ru ON ( u.usua_doc_tipo = ru.rous_clie_doc_tipo AND usua_doc_nro = rous_clie_doc_nro )
+
+
