@@ -12,7 +12,10 @@ using System.Data.SqlClient;
 namespace FrbaHotel.Login {
     public partial class frmLogin : Form  {
 
-        public frmLogin() { InitializeComponent(); }
+        public frmLogin() {
+            InitializeComponent();
+            tbPassword.PasswordChar = '*'; 
+        }
 
         private void btnSalir_Click(object sender, EventArgs e) {
             DBConnection.getInstance().getConnection().Close();
@@ -67,6 +70,7 @@ namespace FrbaHotel.Login {
                 return false;
             }
         }
+
 
     }
 }
