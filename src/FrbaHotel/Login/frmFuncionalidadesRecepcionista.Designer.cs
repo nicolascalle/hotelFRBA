@@ -33,6 +33,7 @@
             this.btnABMCliente = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnRegistroConsumible = new System.Windows.Forms.Button();
+            this.btnRegistroEstadia = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerarModificacionReserva
@@ -57,7 +58,7 @@
             // 
             // btnABMCliente
             // 
-            this.btnABMCliente.Location = new System.Drawing.Point(71, 124);
+            this.btnABMCliente.Location = new System.Drawing.Point(40, 90);
             this.btnABMCliente.Name = "btnABMCliente";
             this.btnABMCliente.Size = new System.Drawing.Size(75, 23);
             this.btnABMCliente.TabIndex = 19;
@@ -77,7 +78,7 @@
             // 
             // btnRegistroConsumible
             // 
-            this.btnRegistroConsumible.Location = new System.Drawing.Point(166, 124);
+            this.btnRegistroConsumible.Location = new System.Drawing.Point(40, 146);
             this.btnRegistroConsumible.Name = "btnRegistroConsumible";
             this.btnRegistroConsumible.Size = new System.Drawing.Size(140, 23);
             this.btnRegistroConsumible.TabIndex = 21;
@@ -85,9 +86,19 @@
             this.btnRegistroConsumible.UseVisualStyleBackColor = true;
             this.btnRegistroConsumible.Click += new System.EventHandler(this.btnRegistroConsumible_Click);
             // 
+            // btnRegistroEstadia
+            // 
+            this.btnRegistroEstadia.Location = new System.Drawing.Point(249, 166);
+            this.btnRegistroEstadia.Name = "btnRegistroEstadia";
+            this.btnRegistroEstadia.Size = new System.Drawing.Size(75, 23);
+            this.btnRegistroEstadia.TabIndex = 22;
+            this.btnRegistroEstadia.Text = "Registrar estadia";
+            this.btnRegistroEstadia.UseVisualStyleBackColor = true;
+            // 
             // frmFuncionalidadesRecepcionista
             // 
             this.ClientSize = new System.Drawing.Size(425, 442);
+            this.Controls.Add(this.btnRegistroEstadia);
             this.Controls.Add(this.btnRegistroConsumible);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnABMCliente);
@@ -113,5 +124,6 @@
         private System.Windows.Forms.Button btnABMCliente;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnRegistroConsumible;
+        private System.Windows.Forms.Button btnRegistroEstadia;
     }
 }
