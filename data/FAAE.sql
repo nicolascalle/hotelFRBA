@@ -5,7 +5,7 @@ GO
 /** CREACION DE SCHEMA **/
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'FAAE')
 BEGIN
-    EXEC ('CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018')
+    EXEC ('CREATE SCHEMA FAAE AUTHORIZATION gd')
 END
 GO
 
@@ -113,10 +113,10 @@ CREATE TABLE [FAAE].[Rol] (
 CREATE TABLE [FAAE].[Item_Factura] (
     [item_fact_tipo] [nvarchar](10),
 	[item_fact_nro] [numeric](10),
-	[item_consu_codigo] [nvarchar](10),
+	[item_cons_codigo] [nvarchar](10),
 	[item_cantidad] [numeric](10),
 	[item_precio] [decimal](3,2),
-	PRIMARY KEY (item_fact_tipo,item_fact_nro,item_consu_codigo)
+	PRIMARY KEY (item_fact_tipo,item_fact_nro,item_cons_codigo)
 )
 CREATE TABLE [FAAE].[Habitacion] (
     [habi_nro] [numeric](10),
@@ -182,7 +182,7 @@ CREATE TABLE [FAAE].[Motivo] (
     [moti_codigo] [nvarchar](10) PRIMARY KEY,
 	[moti_descripcion] [nvarchar](50)
 )
-CREATE TABLE [FAAE].[Historial_Inhabilitad] (
+CREATE TABLE [FAAE].[Historial_Inhabilitado] (
     [hiin_codigo] [nvarchar](10) PRIMARY KEY,
 	[hiin_hote_codigo] [nvarchar](10),
 	[hiin_moti_codigo] [nvarchar](10),
@@ -192,8 +192,8 @@ CREATE TABLE [FAAE].[Historial_Inhabilitad] (
 CREATE TABLE [FAAE].[Hotel_Usuario] (
     [hous_usua_doc_tipo] [nvarchar](10),
 	[hous_usua_doc_nro] [numeric](10),
-	[hous_rol_nombre] [nvarchar](10),
-	PRIMARY KEY (hous_usua_doc_tipo,hous_usua_doc_nro,hous_rol_nombre)
+	[hous_hote_codigo] [nvarchar](10),
+	PRIMARY KEY (hous_usua_doc_tipo,hous_usua_doc_nro,hous_hote_codigo)
 )
 CREATE TABLE [FAAE].[Usuario] (
     [usua_doc_tipo] [nvarchar](10),
@@ -219,7 +219,7 @@ ALTER TABLE [FAAE].[Historial_Reserva] ADD CONSTRAINT Historial_Reserva_Usuario 
 ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_tipo) REFERENCES [FAAE].[Usuario](usua_doc_tipo)
 ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_nro) REFERENCES [FAAE].[Usuario](usua_doc_nro)
 ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Ciente FOREIGN KEY (rous_clie_doc_tipo) REFERENCES [FAAE].[Cliente](clie_doc_tipo)
-ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Ciente FOREIGN KEY (rous_clie_doc_nro) REFERENCES [FAAE].[Usuarios](clie_doc_nro)
+ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Ciente FOREIGN KEY (rous_clie_doc_nro) REFERENCES [FAAE].[Cliente](clie_doc_nro)
 ALTER TABLE [FAAE].[Rol_Usuario] ADD CONSTRAINT Rol_Usuario_Rol FOREIGN KEY (rous_rol_nombre) REFERENCES [FAAE].[Rol](rol_nombre)
 
 ALTER TABLE [FAAE].[Estadia] ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_rese_codigo) REFERENCES [FAAE].[Reserva_Habitacion](reha_rese_codigo)
@@ -237,3 +237,51 @@ ALTER TABLE [FAAE].[Reserva] ADD CONSTRAINT Reserva_Regimen_Hotel FOREIGN KEY (r
 ALTER TABLE [FAAE].[Reserva] ADD CONSTRAINT Reserva_Cliente FOREIGN KEY (rese_clie_doc_tipo) REFERENCES [FAAE].[Cliente](clie_doc_tipo)
 ALTER TABLE [FAAE].[Reserva] ADD CONSTRAINT Reserva_Cliente FOREIGN KEY (rese_clie_doc_nro) REFERENCES [FAAE].[Cliente](clie_doc_nro)
 
+ALTER TABLE [FAAE].[Item_Factura] ADD CONSTRAINT Item_Factura_Factura FOREIGN KEY (item_fact_tipo) REFERENCES [FAAE].[Factura](fact_tipo)
+ALTER TABLE [FAAE].[Item_Factura] ADD CONSTRAINT Item_Factura_Factura FOREIGN KEY (item_fact_nro) REFERENCES [FAAE].[Factura](fact_nro)
+ALTER TABLE [FAAE].[Item_Factura] ADD CONSTRAINT Item_Factura_Consumible FOREIGN KEY (item_cons_codigo) REFERENCES [FAAE].[Consumible](cons_codigo)
+
+ALTER TABLE [FAAE].[Habitacion] ADD CONSTRAINT Habitacion_Hotel FOREIGN KEY (habi_hote_codigo) REFERENCES [FAAE].[Hotel](hote_codigo)
+ALTER TABLE [FAAE].[Habitacion] ADD CONSTRAINT Habitacion_Tipo FOREIGN KEY (habi_tipo_codigo) REFERENCES [FAAE].[Tipo](tipo_codigo)
+
+ALTER TABLE [FAAE].[Funcionalidad] ADD CONSTRAINT Funcionalidad_Rol FOREIGN KEY (func_rol_nombre) REFERENCES [FAAE].[Rol](rol_nombre)
+
+ALTER TABLE [FAAE].[Factura] ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_rese_codigo) REFERENCES [FAAE].[Reserva_Habitacion](reha_rese_codigo)
+ALTER TABLE [FAAE].[Factura] ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_habi_nro) REFERENCES [FAAE].[Reserva_Habitacion](reha_habi_nro)
+ALTER TABLE [FAAE].[Factura] ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_hote_codigo) REFERENCES [FAAE].[Reserva_Habitacion](reha_hote_codigo)
+
+ALTER TABLE [FAAE].[Regimen_Hotel] ADD CONSTRAINT Regimen_Hotel_Hotel FOREIGN KEY (reho_hote_codigo) REFERENCES [FAAE].[Hotel](hote_codigo)
+ALTER TABLE [FAAE].[Regimen_Hotel] ADD CONSTRAINT Regimen_Hotel_Regimen FOREIGN KEY (reho_regi_codigo) REFERENCES [FAAE].[Regimen](regi_codigo)
+
+ALTER TABLE [FAAE].[Historial_Inhabilitado] ADD CONSTRAINT Historial_Inhabilitado_Hotel FOREIGN KEY (hiin_hote_codigo) REFERENCES [FAAE].[Hotel](hote_codigo)
+ALTER TABLE [FAAE].[Historial_Inhabilitado] ADD CONSTRAINT Historial_Inhabilitado_Motivo FOREIGN KEY (hiin_moti_codigo) REFERENCES [FAAE].[Motivo](moti_codigo)
+
+ALTER TABLE [FAAE].[Hotel_Usuario] ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_tipo) REFERENCES [FAAE].[Usuario](usua_doc_tipo)
+ALTER TABLE [FAAE].[Hotel_Usuario] ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_nro) REFERENCES [FAAE].[Usuario](usua_doc_nro)
+ALTER TABLE [FAAE].[Hotel_Usuario] ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_tipo) REFERENCES [FAAE].[Cliente](clie_doc_tipo)
+ALTER TABLE [FAAE].[Hotel_Usuario] ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_nro) REFERENCES [FAAE].[Cliente](clie_doc_nro)
+ALTER TABLE [FAAE].[Hotel_Usuario] ADD CONSTRAINT Hotel_Usuario_Hotel FOREIGN KEY (hous_hote_codigo) REFERENCES [FAAE].[Hotel](hote_codigo)
+
+ALTER TABLE [FAAE].[Usuario] ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_codigo_ultimo_log_in) REFERENCES [FAAE].[Hotel](hote_codigo)
+
+/** Migración **/
+--Insert Hotel
+INSERT INTO FAAE.Hotel(hote_ciudad, hote_dire_calle)
+    SELECT DISTINCT Publicacion_Rubro_Descripcion 
+    FROM gd_esquema.Maestra 
+    WHERE Publicacion_Rubro_Descripcion IS NOT NULL
+GO
+
+CREATE TABLE [FAAE].[Hotel] (
+    [hote_codigo] [nvarchar](10) PRIMARY KEY,
+	[hote_nombre] [nvarchar](10),
+	[hote_mail] [nvarchar](25),
+	[hote_telefono] [numeric](10),
+	[hote_dire_calle] [nvarchar](10),
+	[hote_dire_nro] [numeric](10),
+	[hote_cant_estrellas] [numeric](1),
+	[hote_ciudad] [nvarchar](10),
+	[hote_pais] [nvarchar](10),
+	[hote_fecha_creacion] [smalldatetime],
+	[hote_recarga_estrellas] [decimal](2,2)
+)
