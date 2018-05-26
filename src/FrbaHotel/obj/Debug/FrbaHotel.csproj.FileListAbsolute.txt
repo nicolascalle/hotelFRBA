@@ -64,3 +64,32 @@ C:\Users\agust\workspace\TP Hotel Frba 1.0 - 1C 2018\Aplicacion Desktop\FrbaHote
 C:\Users\agust\workspace\TP Hotel Frba 1.0 - 1C 2018\Aplicacion Desktop\FrbaHotel - Nico\obj\Debug\FrbaHotel.RegistrarEstadia.frmRegistrarEstadia.resources
 C:\Users\agust\workspace\TP Hotel Frba 1.0 - 1C 2018\Aplicacion Desktop\FrbaHotel - Nico\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
 C:\Users\agust\workspace\TP Hotel Frba 1.0 - 1C 2018\Aplicacion Desktop\FrbaHotel - Nico\obj\Debug\FrbaHotel.Inicio.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\bin\Debug\FrbaHotel.exe.config
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.exe
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.pdb
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\bin\Debug\FrbaHotel.exe
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\bin\Debug\FrbaHotel.pdb
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.csprojResolveAssemblyReference.cache
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmABMCliente.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.frmAbmHabitacion.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmAbmHotel.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.frmAbmRegimen.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRol.frmABMRol.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmUsuario.frmABMUsuario.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmAlta.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmBaja.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmListado.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmModificacion.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.CancelarReserva.frmCancelarReserva.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Inicio.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarModificacionReserva.frmGenerarModificacion.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.ListadoEstadistico.frmListadoEstadistico.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmLogin.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmSeleccionRol.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Properties.Resources.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.RegistrarConsumible.frmRegistrarConsumible.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.RegistrarEstadia.frmRegistrarEstadia.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmFuncionalidadesAdministrador.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmFuncionalidadesCliente.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmFuncionalidadesRecepcionista.resources

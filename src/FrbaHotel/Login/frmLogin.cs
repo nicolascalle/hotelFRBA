@@ -20,7 +20,7 @@ namespace FrbaHotel.Login {
         }
 
         private void btnIngresarHuesped_Click(object sender, EventArgs e) {
-            FuncionalidadesCliente.frmFuncionalidadesCliente i = new FuncionalidadesCliente.frmFuncionalidadesCliente();
+            Login.frmFuncionalidadesCliente i = new Login.frmFuncionalidadesCliente();
             i.Show();
         }
 

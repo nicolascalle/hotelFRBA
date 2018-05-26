@@ -112,34 +112,16 @@
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="DBConnection.cs" />
+    <Compile Include="GD1C2018DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD1C2018DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FuncionalidadesAdministrador\frmFuuncionalidadesAdministrador.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FuncionalidadesAdministrador\frmFuuncionalidadesAdministrador.Designer.cs">
-      <DependentUpon>frmFuuncionalidadesAdministrador.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FuncionalidadesCliente\frmFuncionalidadesCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FuncionalidadesCliente\frmFuncionalidadesCliente.Designer.cs">
-      <DependentUpon>frmFuncionalidadesCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FuncionalidadesRecepcionista\frmFuncionalidadesRecepcionista.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FuncionalidadesRecepcionista\frmFuncionalidadesRecepcionista.Designer.cs">
-      <DependentUpon>frmFuncionalidadesRecepcionista.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GD1C2018DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GD1C2018DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="GenerarModificacionReserva\frmGenerarModificacionReserva.cs">
       <SubType>Form</SubType>
@@ -152,6 +134,24 @@
     </Compile>
     <Compile Include="ListadoEstadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesAdministrador.Designer.cs">
+      <DependentUpon>frmFuncionalidadesAdministrador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesCliente.Designer.cs">
+      <DependentUpon>frmFuncionalidadesCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesRecepcionista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\frmFuncionalidadesRecepcionista.Designer.cs">
+      <DependentUpon>frmFuncionalidadesRecepcionista.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\frmLogin.cs">
       <SubType>Form</SubType>
@@ -215,20 +215,20 @@
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FuncionalidadesAdministrador\frmFuuncionalidadesAdministrador.resx">
-      <DependentUpon>frmFuuncionalidadesAdministrador.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FuncionalidadesCliente\frmFuncionalidadesCliente.resx">
-      <DependentUpon>frmFuncionalidadesCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FuncionalidadesRecepcionista\frmFuncionalidadesRecepcionista.resx">
-      <DependentUpon>frmFuncionalidadesRecepcionista.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GenerarModificacionReserva\frmGenerarModificacionReserva.resx">
       <DependentUpon>frmGenerarModificacionReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmFuncionalidadesAdministrador.resx">
+      <DependentUpon>frmFuncionalidadesAdministrador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmFuncionalidadesCliente.resx">
+      <DependentUpon>frmFuncionalidadesCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\frmFuncionalidadesRecepcionista.resx">
+      <DependentUpon>frmFuncionalidadesRecepcionista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

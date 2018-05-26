@@ -28,7 +28,7 @@ namespace FrbaHotel.Login {
 
         // Tendria que abrir distintas ventanas de funcionalidades segun el Rol elegido en el ComboBox
         private void continuar_Click(object sender, EventArgs e) {
-            FuncionalidadesAdministrador.frmFuncionalidadesAdministrador i = new FuncionalidadesAdministrador.frmFuncionalidadesAdministrador();
+            Login.frmFuncionalidadesAdministrador i = new Login.frmFuncionalidadesAdministrador();
             i.Show();
             Close();
         }
