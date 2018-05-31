@@ -19,7 +19,7 @@ namespace FrbaHotel.Login {
 
         private void agregarRolesDisponibles() {
             SqlDataReader dataReader = DBConnection.getInstance()
-                                       .executeQuery("SELECT rol_nombre FROM FAAE.RolXUsuario WHERE username ='" + DBConnection.getInstance().getAppUsername() + "'");
+                                       .executeQuery("SELECT rol_nombre FROM FAAE.RolXUsuario WHERE username ='" + DBConnection.getInstance().getUsuario().getUsername() + "'");
             while( dataReader.Read() ) {
                 this.cbListaRoles.Items.Add( dataReader["rol_nombre"].ToString() );
             }

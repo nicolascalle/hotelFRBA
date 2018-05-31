@@ -12,14 +12,14 @@ namespace FrbaHotel {
 
         private static readonly DBConnection instance = new DBConnection();
         private SqlConnection connection;
-        private string appUsername;
+        private Usuario usuario;
 
         private DBConnection() { }
 
         public static DBConnection getInstance() { return instance; }
 
-        public string getAppUsername() { return appUsername; }
-        public void setAppUsername(string username) { appUsername = username; }
+        public Usuario getUsuario() { return usuario; }
+        public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
         public SqlConnection getConnection() {
             if (connection == null ) {
@@ -35,6 +35,15 @@ namespace FrbaHotel {
             SqlDataReader dataReader = command.ExecuteReader();
             command.Dispose();
             return dataReader;
+        }
+
+
+        public bool conexionCorrecta() {
+            try {
+                this.getConnection();
+                return true;
+            }
+            catch (Exception ex) { return false; }
         }
 
     }

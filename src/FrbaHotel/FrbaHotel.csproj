@@ -179,6 +179,7 @@
     <Compile Include="RegistrarEstadia\frmRegistrarEstadia.Designer.cs">
       <DependentUpon>frmRegistrarEstadia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>

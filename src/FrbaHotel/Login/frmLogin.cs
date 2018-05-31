@@ -29,48 +29,53 @@ namespace FrbaHotel.Login {
 
         //Cuando el usuario tiene mas de un rol se abre un formulario para selccionar el rol
         private void btnIngresar_Click(object sender, EventArgs e) {
-            if ( !this.conexionCorrecta() )
-                return;
-            if (this.usuarioContrasenaVacios() || !this.usuarioCorrecto())
-                MessageBox.Show("Usuario o contraseña incorrectos", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else {
-                Login.frmSeleccionRol sr = new frmSeleccionRol();
-                sr.Show();
-            }
+
+            if (!this.usuarioContrasenaVacios()) {
+
+                if (DBConnection.getInstance().conexionCorrecta()) {
+
+                    Usuario usuarioActual = new Usuario(tbUsername.Text.ToString(), tbPassword.Text.ToString());
+                    if ( this.verficarUsuario(usuarioActual) ) {
+
+                        DBConnection.getInstance().setUsuario(usuarioActual);
+                        Login.frmSeleccionRol sr = new frmSeleccionRol();
+                        sr.Show();
+                    }
+
+                } else this.msgNoSePudoConectarConBD();
+
+            } else this.msgUsuarioContrasenaIncorrectos();
+
+        }
+
+        private bool verficarUsuario(Usuario usuario) {
+
+            if (!usuario.registrarIngresoOK()) {
+
+                if (!usuario.estaHabilitado())
+                    this.msgUsuarioInhabilitado();
+                else 
+                    this.msgUsuarioContrasenaIncorrectos();
+
+            } 
+            return usuario.registrarIngresoOK();
         }
 
         private bool usuarioContrasenaVacios() {
             return tbUsername.Text.ToString().Length == 0 || tbPassword.Text.ToString().Length == 0;
         }
 
-        private bool usuarioCorrecto() {
-            String user, pass;
-            SqlDataReader dataReader = DBConnection.getInstance()
-                                                   .executeQuery("SELECT usua_username, usua_password FROM FAAE.Usuario");
-            while( dataReader.Read() ) {
-                user = (dataReader["usua_username"].ToString());
-                pass = (dataReader["usua_password"].ToString());
-                if ( user.Equals( tbUsername.Text.ToString() ) && pass.Equals( tbPassword.Text.ToString() ) ) {
-                    DBConnection.getInstance().setAppUsername( user );
-                    dataReader.Close();
-                    return true;
-                }
-            }
-            dataReader.Close();
-            return false;
+        private void msgUsuarioContrasenaIncorrectos() {
+            MessageBox.Show("Usuario o contraseña incorrectos", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);            
         }
 
-        private bool conexionCorrecta() {
-            try {
-                DBConnection.getInstance().getConnection();
-                return true;
-            }
-            catch (Exception ex) {
-                MessageBox.Show("No se pudo conectar con la base de datos", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+        private void msgUsuarioInhabilitado() {
+            MessageBox.Show("Usuario inhabilitado", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void msgNoSePudoConectarConBD() {
+            MessageBox.Show("No se pudo conectar con la base de datos", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
     }
 }

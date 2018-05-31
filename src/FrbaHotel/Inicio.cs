@@ -14,13 +14,11 @@ namespace FrbaHotel {
         public Inicio() { InitializeComponent(); }
 
         private void button1_Click(object sender, EventArgs e) {
-            this.conectarseBD();
             Login.frmLogin i = new Login.frmLogin();
             i.Show();
             i.Closed += (s, args) => this.Close();
             this.Hide();
         }
 
-        private void conectarseBD() { }
     }
 }
