@@ -50,15 +50,17 @@ namespace FrbaHotel.Login {
 
         private bool verficarUsuario(Usuario usuario) {
 
-            if (!usuario.registrarIngresoOK()) {
+            usuario.ingresar();
+            if(!usuario.getExists()) {
+                this.msgUsuarioContrasenaIncorrectos();
+                return false;
+            }
+            else if (!usuario.getHabilitado()) {
+                this.msgUsuarioInhabilitado();
+                return false;
+            }
 
-                if (!usuario.estaHabilitado())
-                    this.msgUsuarioInhabilitado();
-                else 
-                    this.msgUsuarioContrasenaIncorrectos();
-
-            } 
-            return usuario.registrarIngresoOK();
+            return true;
         }
 
         private bool usuarioContrasenaVacios() {

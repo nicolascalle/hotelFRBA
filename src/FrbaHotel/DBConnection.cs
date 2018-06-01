@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -37,6 +38,18 @@ namespace FrbaHotel {
             return dataReader;
         }
 
+        public void executeProcedure(String procName, string[] parameters, string[] args) {
+            SqlCommand command = new SqlCommand(procName, this.connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            if(args.Length != 0 && args.Length == parameters.Length) {
+                for (int i = 0; i < args.Length ; i++) 
+                    command.Parameters.AddWithValue(parameters[i], args[i]);
+            }
+
+            command.ExecuteNonQuery();
+            command.Dispose();
+        }
 
         public bool conexionCorrecta() {
             try {

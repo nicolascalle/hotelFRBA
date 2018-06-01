@@ -38,7 +38,7 @@
             // 
             // btnGenerarModificacionReserva
             // 
-            this.btnGenerarModificacionReserva.Location = new System.Drawing.Point(146, 267);
+            this.btnGenerarModificacionReserva.Location = new System.Drawing.Point(146, 294);
             this.btnGenerarModificacionReserva.Name = "btnGenerarModificacionReserva";
             this.btnGenerarModificacionReserva.Size = new System.Drawing.Size(137, 23);
             this.btnGenerarModificacionReserva.TabIndex = 18;
@@ -50,9 +50,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(55, 225);
+            this.label1.Location = new System.Drawing.Point(55, 252);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 22);
+            this.label1.Size = new System.Drawing.Size(110, 26);
             this.label1.TabIndex = 17;
             this.label1.Text = "Reservas:";
             // 
@@ -60,7 +60,7 @@
             // 
             this.btnABMCliente.Location = new System.Drawing.Point(40, 90);
             this.btnABMCliente.Name = "btnABMCliente";
-            this.btnABMCliente.Size = new System.Drawing.Size(75, 23);
+            this.btnABMCliente.Size = new System.Drawing.Size(125, 23);
             this.btnABMCliente.TabIndex = 19;
             this.btnABMCliente.Text = "ABM Cliente";
             this.btnABMCliente.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(146, 322);
+            this.btnCancelar.Location = new System.Drawing.Point(146, 349);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(137, 23);
             this.btnCancelar.TabIndex = 20;
@@ -78,9 +78,9 @@
             // 
             // btnRegistroConsumible
             // 
-            this.btnRegistroConsumible.Location = new System.Drawing.Point(40, 146);
+            this.btnRegistroConsumible.Location = new System.Drawing.Point(99, 165);
             this.btnRegistroConsumible.Name = "btnRegistroConsumible";
-            this.btnRegistroConsumible.Size = new System.Drawing.Size(140, 23);
+            this.btnRegistroConsumible.Size = new System.Drawing.Size(184, 38);
             this.btnRegistroConsumible.TabIndex = 21;
             this.btnRegistroConsumible.Text = "Registrar consumible";
             this.btnRegistroConsumible.UseVisualStyleBackColor = true;
@@ -88,9 +88,9 @@
             // 
             // btnRegistroEstadia
             // 
-            this.btnRegistroEstadia.Location = new System.Drawing.Point(249, 166);
+            this.btnRegistroEstadia.Location = new System.Drawing.Point(191, 75);
             this.btnRegistroEstadia.Name = "btnRegistroEstadia";
-            this.btnRegistroEstadia.Size = new System.Drawing.Size(75, 23);
+            this.btnRegistroEstadia.Size = new System.Drawing.Size(128, 53);
             this.btnRegistroEstadia.TabIndex = 22;
             this.btnRegistroEstadia.Text = "Registrar estadia";
             this.btnRegistroEstadia.UseVisualStyleBackColor = true;

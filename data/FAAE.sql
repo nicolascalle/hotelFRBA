@@ -2,13 +2,13 @@
 USE GD1C2018
 GO
 
-/** CREACION DE SCHEMA **/
-CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018
-GO
+--/** CREACION DE SCHEMA **/
+--CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018
+--GO
 
 /** CREACION DE TABLAS **/
 CREATE TABLE FAAE.Historial_Reserva (
-    hire_codigo nvarchar(10) PRIMARY KEY,
+    hire_codigo numeric(10,0) PRIMARY KEY,
     hire_rese_codigo nvarchar(10),
 	hire_descripcion nvarchar(50),
 	hire_usua_doc_tipo nvarchar(10),
@@ -39,7 +39,7 @@ CREATE TABLE FAAE.Rol_Usuario (
 	PRIMARY KEY (rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre)
 )
 CREATE TABLE FAAE.Estadia (
-    esta_rese_codigo nvarchar(10),
+    esta_rese_codigo numeric(10,0),
 	esta_habi_nro numeric(10),
 	esta_hote_codigo nvarchar(10),
 	esta_clie_doc_tipo nvarchar(10),
@@ -167,6 +167,7 @@ CREATE TABLE FAAE.Usuario (
 	usua_fecha_nacimiento smalldatetime not null,
 	usua_cant_log_in_fallidos numeric(1) default 0,
 	usua_hote_codigo_ultimo_log_in nvarchar(10),
+	usua_habilitado bit default 1,
 	PRIMARY KEY (usua_doc_tipo,usua_doc_nro)
 )
 
@@ -227,14 +228,12 @@ create PROCEDURE FAAE.sp_cargar_tablas
 AS
 BEGIN
 	insert FAAE.Usuario(usua_doc_tipo,usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle,usua_dire_nro,usua_fecha_nacimiento) 
-		values	('pasaporte','0000000000','admin','sha256','admin','admin','admin@admin.com','00000000','admin','0000',0000-00-00)
-	
-	insert FAAE.Rol values ('admin')
-	insert FAAE.Rol values ('cliente')
-	insert FAAE.Rol values ('recepcion')
+		values	('pasaporte',0000000000,'admin','w23e','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
 
-	insert FAAE.Rol_Usuario values	('pasaporte','0000000000', 'admin')
-	insert FAAE.Rol_Usuario values	('pasaporte','0000000000', 'cliente')
+	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
+
+	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'admin')
+	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'cliente')
 
 	insert FAAE.Funcionalidad values ('admin', 'ABM rol') -- no se sabe bien a quien se le asigna
 	insert FAAE.Funcionalidad values	('admin','ABM usuario')
@@ -311,4 +310,49 @@ create TRIGGER FAAE.t_agregar_Reserva
 AS 
 BEGIN
 	insert FAAE.Reserva(rese_fecha_realizacion) values (getdate())
+END
+
+
+--NECESARIO PARA EL LOGIN
+
+create view FAAE.RolXUsuario 
+as
+select usua_username username, rous_rol_nombre rol_nombre
+from faae.Usuario u join faae.Rol_Usuario ru on (u.usua_doc_tipo = ru.rous_clie_doc_tipo AND u.usua_doc_nro = ru.rous_clie_doc_nro)
+
+
+GO
+CREATE PROCEDURE login_fallido
+@username VARCHAR(10)
+AS
+BEGIN
+	
+	DECLARE @nueva_cant_login_fallidos NUMERIC(1)
+	SET @nueva_cant_login_fallidos = (SELECT usua_cant_log_in_fallidos 
+										FROM FAAE.Usuario 
+										WHERE usua_username = @username) + 1
+
+	IF @nueva_cant_login_fallidos >= 3
+		BEGIN
+			UPDATE FAAE.Usuario 
+				SET usua_cant_log_in_fallidos = @nueva_cant_login_fallidos, usua_habilitado = 0
+				WHERE usua_username = @username
+		END
+	ELSE
+		BEGIN
+			UPDATE FAAE.Usuario 
+				SET usua_cant_log_in_fallidos = @nueva_cant_login_fallidos
+				WHERE usua_username = @username
+		END
+
+END
+
+GO
+CREATE PROCEDURE limpiar_login_fallidos
+@username VARCHAR(10)
+AS
+BEGIN
+	UPDATE FAAE.Usuario 
+		SET usua_cant_log_in_fallidos = 0
+		WHERE usua_username = @username
 END
