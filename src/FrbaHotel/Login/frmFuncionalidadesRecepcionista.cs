@@ -41,6 +41,7 @@ namespace FrbaHotel.Login
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             CancelarReserva.frmCancelarReserva i = new CancelarReserva.frmCancelarReserva();
+            i.canceladaPor("Cancelada por recepcionista");
             i.Show();
             //Close();
         }
