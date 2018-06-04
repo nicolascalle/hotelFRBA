@@ -35,6 +35,7 @@
             this.btnRegistroConsumible = new System.Windows.Forms.Button();
             this.btnRegistroEstadia = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerarModificacionReserva
@@ -43,7 +44,7 @@
             this.btnGenerarModificacionReserva.Name = "btnGenerarModificacionReserva";
             this.btnGenerarModificacionReserva.Size = new System.Drawing.Size(133, 49);
             this.btnGenerarModificacionReserva.TabIndex = 18;
-            this.btnGenerarModificacionReserva.Text = "Generar modificacion";
+            this.btnGenerarModificacionReserva.Text = "Generar o modificar reserva";
             this.btnGenerarModificacionReserva.UseVisualStyleBackColor = true;
             this.btnGenerarModificacionReserva.Click += new System.EventHandler(this.btnGenerarModificacionReserva_Click);
             // 
@@ -53,7 +54,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(24, 240);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 29);
+            this.label1.Size = new System.Drawing.Size(91, 22);
             this.label1.TabIndex = 17;
             this.label1.Text = "Reservas:";
             // 
@@ -89,7 +90,7 @@
             // 
             // btnRegistroEstadia
             // 
-            this.btnRegistroEstadia.Location = new System.Drawing.Point(143, 69);
+            this.btnRegistroEstadia.Location = new System.Drawing.Point(61, 69);
             this.btnRegistroEstadia.Name = "btnRegistroEstadia";
             this.btnRegistroEstadia.Size = new System.Drawing.Size(133, 48);
             this.btnRegistroEstadia.TabIndex = 22;
@@ -102,13 +103,23 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(120, 21);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(179, 29);
+            this.label3.Size = new System.Drawing.Size(142, 24);
             this.label3.TabIndex = 23;
             this.label3.Text = "Recepcionista";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(220, 69);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 48);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Facturar estadia";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // frmFuncionalidadesRecepcionista
             // 
             this.ClientSize = new System.Drawing.Size(412, 382);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnRegistroEstadia);
             this.Controls.Add(this.btnRegistroConsumible);
@@ -138,5 +149,6 @@
         private System.Windows.Forms.Button btnRegistroConsumible;
         private System.Windows.Forms.Button btnRegistroEstadia;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }

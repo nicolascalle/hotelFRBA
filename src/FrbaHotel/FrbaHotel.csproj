@@ -113,6 +113,12 @@
     </Compile>
     <Compile Include="Consumible.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="FacturarEstadia\frmFacturarEstadia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FacturarEstadia\frmFacturarEstadia.Designer.cs">
+      <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
+    </Compile>
     <Compile Include="GD1C2018DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

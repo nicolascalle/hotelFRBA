@@ -17,11 +17,6 @@ namespace FrbaHotel.Login
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnGenerarModificacionReserva_Click(object sender, EventArgs e)
         {
             GenerarModificacionReserva.frmGenerarModificacion i = new GenerarModificacionReserva.frmGenerarModificacion();
@@ -32,6 +27,7 @@ namespace FrbaHotel.Login
         private void btnCancelarReserva_Click(object sender, EventArgs e)
         {
             CancelarReserva.frmCancelarReserva i = new CancelarReserva.frmCancelarReserva();
+            i.canceladaPor("Cancelada por cliente");
             i.Show();
             Close();
         }
