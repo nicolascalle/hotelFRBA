@@ -111,6 +111,7 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Consumible.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="GD1C2018DataSet.Designer.cs">
       <AutoGen>True</AutoGen>

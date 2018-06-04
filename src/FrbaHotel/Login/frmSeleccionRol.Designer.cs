@@ -45,17 +45,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 48);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(24, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 17);
+            this.label1.Size = new System.Drawing.Size(149, 24);
             this.label1.TabIndex = 1;
             this.label1.Text = "Continuar como:";
             // 
             // continuar
             // 
-            this.continuar.Location = new System.Drawing.Point(138, 150);
+            this.continuar.Location = new System.Drawing.Point(138, 145);
             this.continuar.Name = "continuar";
-            this.continuar.Size = new System.Drawing.Size(87, 25);
+            this.continuar.Size = new System.Drawing.Size(87, 30);
             this.continuar.TabIndex = 2;
             this.continuar.Text = "Continuar";
             this.continuar.UseVisualStyleBackColor = true;

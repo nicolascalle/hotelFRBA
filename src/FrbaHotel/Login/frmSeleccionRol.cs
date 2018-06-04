@@ -19,18 +19,25 @@ namespace FrbaHotel.Login {
 
         private void agregarRolesDisponibles() {
             SqlDataReader dataReader = DBConnection.getInstance()
-                                       .executeQuery("SELECT rol_nombre FROM FAAE.RolXUsuario WHERE username ='" + DBConnection.getInstance().getUsuario().getUsername() + "'");
-            while( dataReader.Read() ) {
+                                                   .executeQuery("SELECT rol_nombre FROM FAAE.RolXUsuario WHERE username ='" + DBConnection.getInstance().getUsuario().getUsername() + "'");
+            while( dataReader.Read() ) 
                 this.cbListaRoles.Items.Add( dataReader["rol_nombre"].ToString() );
-            }
+
             dataReader.Close();
         }
 
-        // Tendria que abrir distintas ventanas de funcionalidades segun el Rol elegido en el ComboBox
         private void continuar_Click(object sender, EventArgs e) {
-            Login.frmFuncionalidadesAdministrador i = new Login.frmFuncionalidadesAdministrador();
-            i.Show();
-            Close();
+            String seleccion = this.cbListaRoles.Text.ToString();
+            if (seleccion.Equals("admin")) {
+                Login.frmFuncionalidadesAdministrador i = new Login.frmFuncionalidadesAdministrador();
+                i.Show();
+                Close();
+            }
+            else if (seleccion.Equals("recepcion")) {
+                Login.frmFuncionalidadesRecepcionista i = new Login.frmFuncionalidadesRecepcionista();
+                i.Show();
+                Close();            
+            }
         }
 
     }
