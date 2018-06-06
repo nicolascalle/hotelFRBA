@@ -79,15 +79,5 @@ namespace FrbaHotel.Login {
             MessageBox.Show("No se pudo conectar con la base de datos", "Login error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void tbUsername_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbUsername_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

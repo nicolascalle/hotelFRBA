@@ -33,20 +33,16 @@
             this.frmAlta = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.lvHoteles = new System.Windows.Forms.ListView();
-            this.Nombre = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.cbCantidadEstrellas = new System.Windows.Forms.ComboBox();
             this.tbNombreHotel = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.Estrellas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Ciudad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Pais = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // frmModificacion
             // 
-            this.frmModificacion.Location = new System.Drawing.Point(563, 217);
+            this.frmModificacion.Location = new System.Drawing.Point(661, 217);
             this.frmModificacion.Margin = new System.Windows.Forms.Padding(4);
             this.frmModificacion.Name = "frmModificacion";
             this.frmModificacion.Size = new System.Drawing.Size(100, 28);
@@ -57,7 +53,7 @@
             // 
             // frmBaja
             // 
-            this.frmBaja.Location = new System.Drawing.Point(563, 171);
+            this.frmBaja.Location = new System.Drawing.Point(661, 171);
             this.frmBaja.Margin = new System.Windows.Forms.Padding(4);
             this.frmBaja.Name = "frmBaja";
             this.frmBaja.Size = new System.Drawing.Size(100, 28);
@@ -68,17 +64,18 @@
             // 
             // frmAlta
             // 
-            this.frmAlta.Location = new System.Drawing.Point(563, 125);
+            this.frmAlta.Location = new System.Drawing.Point(661, 125);
             this.frmAlta.Margin = new System.Windows.Forms.Padding(4);
             this.frmAlta.Name = "frmAlta";
             this.frmAlta.Size = new System.Drawing.Size(100, 28);
             this.frmAlta.TabIndex = 5;
             this.frmAlta.Text = "Alta";
             this.frmAlta.UseVisualStyleBackColor = true;
+            this.frmAlta.Click += new System.EventHandler(this.frmAlta_Click);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(441, 396);
+            this.btnBuscar.Location = new System.Drawing.Point(546, 397);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(100, 28);
@@ -89,25 +86,15 @@
             // 
             // lvHoteles
             // 
-            this.lvHoteles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Nombre,
-            this.Estrellas,
-            this.Ciudad,
-            this.Pais});
             this.lvHoteles.FullRowSelect = true;
             this.lvHoteles.GridLines = true;
             this.lvHoteles.Location = new System.Drawing.Point(29, 66);
             this.lvHoteles.MultiSelect = false;
             this.lvHoteles.Name = "lvHoteles";
-            this.lvHoteles.Size = new System.Drawing.Size(512, 256);
+            this.lvHoteles.Size = new System.Drawing.Size(617, 256);
             this.lvHoteles.TabIndex = 8;
             this.lvHoteles.UseCompatibleStateImageBehavior = false;
             this.lvHoteles.View = System.Windows.Forms.View.Details;
-            // 
-            // Nombre
-            // 
-            this.Nombre.Text = "Nombre";
-            this.Nombre.Width = 132;
             // 
             // label1
             // 
@@ -158,26 +145,11 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Cantidad de estrellas:";
             // 
-            // Estrellas
-            // 
-            this.Estrellas.Text = "Estrellas";
-            this.Estrellas.Width = 59;
-            // 
-            // Ciudad
-            // 
-            this.Ciudad.Text = "Ciudad";
-            this.Ciudad.Width = 110;
-            // 
-            // Pais
-            // 
-            this.Pais.Text = "Pais";
-            this.Pais.Width = 87;
-            // 
             // frmAbmHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 450);
+            this.ClientSize = new System.Drawing.Size(774, 450);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbNombreHotel);
@@ -203,14 +175,10 @@
         private System.Windows.Forms.Button frmAlta;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.ListView lvHoteles;
-        private System.Windows.Forms.ColumnHeader Nombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbCantidadEstrellas;
         private System.Windows.Forms.TextBox tbNombreHotel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ColumnHeader Estrellas;
-        private System.Windows.Forms.ColumnHeader Ciudad;
-        private System.Windows.Forms.ColumnHeader Pais;
     }
 }

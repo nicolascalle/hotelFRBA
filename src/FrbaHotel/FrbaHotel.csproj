@@ -69,6 +69,18 @@
     <Compile Include="AbmHotel\frmAbmHotel.Designer.cs">
       <DependentUpon>frmAbmHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmHotel\frmAltaHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmHotel\frmAltaHotel.Designer.cs">
+      <DependentUpon>frmAltaHotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmHotel\frmModificacionHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmHotel\frmModificacionHotel.Designer.cs">
+      <DependentUpon>frmModificacionHotel.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRegimen\AltaRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD1C2018DataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Hotel.cs" />
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +230,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmHotel\frmAbmHotel.resx">
       <DependentUpon>frmAbmHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmHotel\frmAltaHotel.resx">
+      <DependentUpon>frmAltaHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmHotel\frmModificacionHotel.resx">
+      <DependentUpon>frmModificacionHotel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRegimen\AltaRegimen.resx">
       <DependentUpon>AltaRegimen.cs</DependentUpon>

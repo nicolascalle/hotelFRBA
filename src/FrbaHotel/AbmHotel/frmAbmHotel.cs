@@ -12,7 +12,10 @@ using System.Data.SqlClient;
 namespace FrbaHotel.AbmHotel {
     public partial class frmAbmHotel : Form {
 
-        public frmAbmHotel() { InitializeComponent(); }
+        public frmAbmHotel() { 
+            InitializeComponent();
+            this.setLvProperties();
+        }
 
         private void btnBuscar_Click(object sender, EventArgs e) {
 
@@ -21,42 +24,53 @@ namespace FrbaHotel.AbmHotel {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             while (dataReader.Read()) {
-
-                ListViewItem listItems = new ListViewItem(dataReader["hote_nombre"].ToString());
-                listItems.SubItems.Add(dataReader["hote_cant_estrellas"].ToString());
-                listItems.SubItems.Add(dataReader["hote_ciudad"].ToString());
-                listItems.SubItems.Add(dataReader["hote_pais"].ToString());
-                this.lvHoteles.Items.Add(listItems);
+                ListViewItem listItem = this.nuevoItem(dataReader);
+                this.lvHoteles.Items.Add(listItem);
             }
             dataReader.Close();
         }
 
-        private void frmBaja_Click(object sender, EventArgs e) {
+        private void frmAlta_Click(object sender, EventArgs e) {
+            AbmHotel.frmAltaHotel frmA = new AbmHotel.frmAltaHotel();
+            frmA.Show();
+        }
 
+        private void frmBaja_Click(object sender, EventArgs e) {
+            if (this.lvHoteles.SelectedItems.Count == 1) {
+                int codigoHotel = Convert.ToInt32(this.lvHoteles.SelectedItems[0].Text.ToString());
+                new Hotel(codigoHotel).eliminar();
+            }
         }
 
         private void frmModificacion_Click(object sender, EventArgs e) {
-
+            if (this.lvHoteles.SelectedItems.Count == 1) {
+                int codigoHotel = Convert.ToInt32(this.lvHoteles.SelectedItems[0].Text.ToString());
+                Hotel hotelModificar = new Hotel(codigoHotel);
+                hotelModificar.buscar();
+                AbmHotel.frmModificacionHotel frmM = new AbmHotel.frmModificacionHotel();
+                frmM.setHotel(hotelModificar);
+                frmM.Show();
+            }
         }
 
         private string generateQuery() {
 
-            string query = "SELECT hote_nombre, hote_cant_estrellas, hote_ciudad, hote_pais FROM FAAE.Hotel";
+            string query = "SELECT hote_codigo, hote_nombre, hote_cant_estrellas, hote_ciudad, hote_pais FROM FAAE.Hotel";
             string nombrehotel = tbNombreHotel.Text.ToString();
             string estrellas = cbCantidadEstrellas.Text.ToString();
             
             if ( this.seIngresaronDatos() ) {
-                Dictionary<string, string> args = new Dictionary<string, string>();
+                List<string> conditions = new List<string>();
 
                 if ( nombrehotel.Length != 0 )
-                    args.Add("hote_nombre", " LIKE '%"+ nombrehotel +"%'"); // Para strings
+                    conditions.Add("hote_nombre LIKE '%" + nombrehotel + "%'");
 
                 if ( estrellas.Length != 0 )
-                    args.Add("hote_cant_estrellas", "=" + estrellas); // Para numeros
+                    conditions.Add("hote_cant_estrellas = " + estrellas); 
 
                 query += " WHERE ";
-                foreach ( var item in args )
-                    query += item.Key + item.Value + " AND ";
+                foreach (var condition in conditions)
+                    query += condition + " AND ";
                 query = query.Substring(0, query.Length - " AND ".Length); // Saca el ultimo AND
             }
             
@@ -65,6 +79,25 @@ namespace FrbaHotel.AbmHotel {
 
         private bool seIngresaronDatos() {
             return tbNombreHotel.Text.ToString().Length != 0 || cbCantidadEstrellas.Text.ToString().Length != 0;
+        }
+
+        public void setLvProperties() {
+            this.lvHoteles.Columns.Add("Codigo");
+            this.lvHoteles.Columns.Add("Nombre");
+            this.lvHoteles.Columns.Add("Estrellas");
+            this.lvHoteles.Columns.Add("Ciudad");
+            this.lvHoteles.Columns.Add("Pais");
+            this.lvHoteles.View = View.Details;
+            this.lvHoteles.MultiSelect = false;
+        }
+
+        public ListViewItem nuevoItem(SqlDataReader dataReader) {
+            ListViewItem listItems = new ListViewItem(dataReader["hote_codigo"].ToString());
+            listItems.SubItems.Add(dataReader["hote_nombre"].ToString());
+            listItems.SubItems.Add(dataReader["hote_cant_estrellas"].ToString());
+            listItems.SubItems.Add(dataReader["hote_ciudad"].ToString());
+            listItems.SubItems.Add(dataReader["hote_pais"].ToString());
+            return listItems;
         }
 
     }

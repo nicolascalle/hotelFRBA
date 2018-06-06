@@ -38,7 +38,7 @@ namespace FrbaHotel {
             return dataReader;
         }
 
-        public void executeProcedure(String procName, string[] parameters, string[] args) {
+        public void executeProcedure(String procName, string[] parameters, object[] args) {
             SqlCommand command = new SqlCommand(procName, this.connection);
             command.CommandType = CommandType.StoredProcedure;
 
@@ -56,7 +56,7 @@ namespace FrbaHotel {
                 this.getConnection();
                 return true;
             }
-            catch (Exception ex) { return false; }
+            catch { return false; }
         }
 
     }
