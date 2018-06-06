@@ -16,5 +16,12 @@ namespace FrbaHotel.AbmRegimen
         {
             InitializeComponent();
         }
+
+        private void frmAlta_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AltaRegimen ventanaAlta = new AltaRegimen();
+            ventanaAlta.Show();
+        }
     }
 }

@@ -16,5 +16,12 @@ namespace FrbaHotel.AbmHabitacion
         {
             InitializeComponent();
         }
+
+        private void frmAlta_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AltaHabitación ventanaAlta = new AltaHabitación();
+            ventanaAlta.Show();
+        }
     }
 }

@@ -51,6 +51,12 @@
     <Compile Include="AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmHabitacion\AltaHabitación.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmHabitacion\AltaHabitación.Designer.cs">
+      <DependentUpon>AltaHabitación.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmHabitacion\frmAbmHabitacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,11 +69,23 @@
     <Compile Include="AbmHotel\frmAbmHotel.Designer.cs">
       <DependentUpon>frmAbmHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRegimen\AltaRegimen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRegimen\AltaRegimen.Designer.cs">
+      <DependentUpon>AltaRegimen.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRegimen\frmAbmRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbmRegimen\frmAbmRegimen.Designer.cs">
       <DependentUpon>frmAbmRegimen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRegimen\ListadoRegimen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRegimen\ListadoRegimen.Designer.cs">
+      <DependentUpon>ListadoRegimen.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmRol\frmAbmRol.cs">
       <SubType>Form</SubType>
@@ -81,28 +99,28 @@
     <Compile Include="AbmUsuario\frmAbmUsuario.Designer.cs">
       <DependentUpon>frmAbmUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm\frmAlta.cs">
+    <Compile Include="AbmCliente\frmAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm\frmAlta.Designer.cs">
+    <Compile Include="AbmCliente\frmAlta.Designer.cs">
       <DependentUpon>frmAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm\frmBaja.cs">
+    <Compile Include="AbmCliente\frmBaja.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm\frmBaja.Designer.cs">
+    <Compile Include="AbmCliente\frmBaja.Designer.cs">
       <DependentUpon>frmBaja.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm\frmListado.cs">
+    <Compile Include="AbmCliente\frmListado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm\frmListado.Designer.cs">
+    <Compile Include="AbmCliente\frmListado.Designer.cs">
       <DependentUpon>frmListado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm\frmModificacion.cs">
+    <Compile Include="AbmCliente\frmModificacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm\frmModificacion.Designer.cs">
+    <Compile Include="AbmCliente\frmModificacion.Designer.cs">
       <DependentUpon>frmModificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="CancelarReserva\frmCancelarReserva.cs">
@@ -111,6 +129,7 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Habitacion.cs" />
     <Compile Include="Consumible.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="FacturarEstadia\frmFacturarEstadia.cs">
@@ -190,14 +209,23 @@
     <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmHabitacion\AltaHabitación.resx">
+      <DependentUpon>AltaHabitación.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmHabitacion\frmAbmHabitacion.resx">
       <DependentUpon>frmAbmHabitacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmHotel\frmAbmHotel.resx">
       <DependentUpon>frmAbmHotel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbmRegimen\AltaRegimen.resx">
+      <DependentUpon>AltaRegimen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRegimen\frmAbmRegimen.resx">
       <DependentUpon>frmAbmRegimen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRegimen\ListadoRegimen.resx">
+      <DependentUpon>ListadoRegimen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\frmAbmRol.resx">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
@@ -205,16 +233,16 @@
     <EmbeddedResource Include="AbmUsuario\frmAbmUsuario.resx">
       <DependentUpon>frmAbmUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm\frmAlta.resx">
+    <EmbeddedResource Include="AbmCliente\frmAlta.resx">
       <DependentUpon>frmAlta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm\frmBaja.resx">
+    <EmbeddedResource Include="AbmCliente\frmBaja.resx">
       <DependentUpon>frmBaja.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm\frmListado.resx">
+    <EmbeddedResource Include="AbmCliente\frmListado.resx">
       <DependentUpon>frmListado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm\frmModificacion.resx">
+    <EmbeddedResource Include="AbmCliente\frmModificacion.resx">
       <DependentUpon>frmModificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CancelarReserva\frmCancelarReserva.resx">
