@@ -9,7 +9,7 @@ GO
 /** CREACION DE TABLAS **/
 CREATE TABLE FAAE.Historial_Reserva (
     hire_codigo numeric(10,0) PRIMARY KEY,
-    hire_rese_codigo nvarchar(10),
+    hire_rese_codigo numeric(10),
 	hire_descripcion nvarchar(50),
 	hire_usua_doc_tipo nvarchar(10),
 	hire_usua_doc_nro numeric(10)
@@ -17,15 +17,15 @@ CREATE TABLE FAAE.Historial_Reserva (
 CREATE TABLE FAAE.Cliente (
     clie_doc_tipo nvarchar(10) default 'pasaporte',
 	clie_doc_nro numeric(10),
-	clie_nombre nvarchar(10) not null,
-	clie_apellido nvarchar(10) not null,
+	clie_nombre nvarchar(20) not null,
+	clie_apellido nvarchar(20) not null,
 	clie_mail nvarchar(25) not null,
-	clie_telefono numeric(10) default 00000000,
-	clie_dire_calle nvarchar(10) not null,
-	clie_dire_nro numeric (5),
-	clie_dire_localidad nvarchar(10) default 'caba',
-	clie_dire_pais nvarchar(10) default 'argentina',
-	clie_nacionalidad nvarchar(10) not null,
+	clie_telefono nvarchar(16) default 00000000,
+	clie_dire_calle nvarchar(25) not null,
+	clie_dire_nro numeric(5),
+	clie_dire_localidad nvarchar(16) default 'caba',
+	clie_dire_pais nvarchar(16) default 'argentina',
+	clie_nacionalidad nvarchar(16) not null,
 	clie_habilitado bit default 1,
 	clie_fecha_nacimiento smalldatetime not null,
 	clie_piso numeric(2),
@@ -35,22 +35,22 @@ CREATE TABLE FAAE.Cliente (
 CREATE TABLE FAAE.Rol_Usuario (
     rous_clie_doc_tipo nvarchar(10),
 	rous_clie_doc_nro numeric(10),
-	rous_rol_nombre nvarchar(10)
+	rous_rol_nombre nvarchar(16)
 	PRIMARY KEY (rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre)
 )
 CREATE TABLE FAAE.Estadia (
-    esta_rese_codigo numeric(10,0),
+    esta_rese_codigo numeric(10),
 	esta_habi_nro numeric(10),
-	esta_hote_codigo nvarchar(10),
+	esta_hote_codigo numeric(10),
 	esta_clie_doc_tipo nvarchar(10),
 	esta_clie_doc_nro numeric(10),
 	esta_fecha_salida smalldatetime,
 	PRIMARY KEY (esta_rese_codigo, esta_habi_nro, esta_hote_codigo,esta_clie_doc_tipo,esta_clie_doc_nro)
 )
 CREATE TABLE FAAE.Reserva_Habitacion (
-    reha_rese_codigo nvarchar(10),
+    reha_rese_codigo numeric(10),
 	reha_habi_nro numeric(10),
-	reha_hote_codigo nvarchar(10),
+	reha_hote_codigo numeric(10),
 	reha_precio numeric(10),
 	PRIMARY KEY (reha_rese_codigo,reha_habi_nro, reha_hote_codigo)
 )
@@ -59,27 +59,27 @@ CREATE TABLE FAAE.Reserva (
 	rese_fecha_realizacion smalldatetime,
 	rese_fecha_desde smalldatetime,
 	rese_fecha_hasta smalldatetime,
-	rese_hote_codigo nvarchar(10),
+	rese_hote_codigo numeric(10),
 	rese_regi_codigo nvarchar(10),
 	rese_clie_doc_tipo nvarchar(10) default 'pasaporte',
 	rese_clie_doc_nro numeric(10),
 	rese_estado char(25) default 'Reserva Correcta'
 )
 CREATE TABLE FAAE.Rol (
-    rol_nombre nvarchar(10) PRIMARY KEY,
+    rol_nombre nvarchar(16) PRIMARY KEY,
 	rol_habilitado bit default 1
 )
 CREATE TABLE FAAE.Item_Factura (
     item_fact_tipo nvarchar(10),
 	item_fact_nro numeric(10),
-	item_cons_codigo nvarchar(10),
+	item_cons_codigo numeric(10),
 	item_cantidad numeric(10),
 	item_precio decimal(3,2),
 	PRIMARY KEY (item_fact_tipo,item_fact_nro,item_cons_codigo)
 )
 CREATE TABLE FAAE.Habitacion (
     habi_nro numeric(10),
-	habi_hote_codigo nvarchar(10),
+	habi_hote_codigo numeric(10),
 	habi_piso numeric(2) not null,
 	habi_vista_exterior char(1) not null,
 	habi_tipo_codigo nvarchar(10) not null,
@@ -93,13 +93,13 @@ CREATE TABLE FAAE.Tipo (
 	tipo_porcentual decimal(2,2)
 )
 CREATE TABLE FAAE.Funcionalidad (
-    func_rol_nombre nvarchar(10),
+    func_rol_nombre nvarchar(16),
 	func_funcion nvarchar(10),
 	PRIMARY KEY (func_rol_nombre,func_funcion)
 )
 CREATE TABLE FAAE.Consumible (
-    cons_codigo nvarchar(10) PRIMARY KEY,
-	cons_descipcion nvarchar(50),
+    cons_codigo numeric(10) PRIMARY KEY,
+	cons_descipcion nvarchar(25),
 	cons_precio decimal(3,2)
 )
 CREATE TABLE FAAE.Factura (
@@ -108,26 +108,26 @@ CREATE TABLE FAAE.Factura (
 	fact_fecha smalldatetime,
 	fact_total decimal(4,2),
 	fact_forma_pago nvarchar(10),
-	fact_rese_codigo nvarchar(10),
+	fact_rese_codigo numeric(10),
 	fact_habi_nro numeric(10),
-	fact_hote_codigo nvarchar(10),
+	fact_hote_codigo numeric(10),
 	PRIMARY KEY (fact_tipo,fact_nro),
 )
 CREATE TABLE FAAE.Hotel (
     hote_codigo numeric(10) IDENTITY(1,1) PRIMARY KEY,
-	hote_nombre nvarchar(10) default 'Hotel Pepito',
-	hote_mail nvarchar(25) default 'hotelPrincipal@hotelPincipal.com',
-	hote_telefono numeric(10) default '00000000',
-	hote_dire_calle nvarchar(10) not null,
-	hote_dire_nro numeric(10) not null,
+	hote_nombre nvarchar(16) default 'Hotel Pepito',
+	hote_mail nvarchar(25) default 'hotelPrincipal@hotel.com',
+	hote_telefono nvarchar(16) default '00000000',
+	hote_dire_calle nvarchar(25) not null,
+	hote_dire_nro numeric(5) not null,
 	hote_cant_estrellas numeric(1) not null,
-	hote_ciudad nvarchar(10) not null,
-	hote_pais nvarchar(10) default 'argentina',
+	hote_ciudad nvarchar(16) not null,
+	hote_pais nvarchar(16) default 'argentina',
 	hote_fecha_creacion smalldatetime,
-	hote_recarga_estrellas decimal(2,2) not null
+	hote_recarga_estrellas decimal(3,2) not null
 )
 CREATE TABLE FAAE.Regimen_Hotel (
-    reho_hote_codigo nvarchar(10),
+    reho_hote_codigo numeric(10),
 	reho_regi_codigo nvarchar(10),
 	PRIMARY KEY (reho_hote_codigo,reho_regi_codigo)
 )
@@ -142,7 +142,7 @@ CREATE TABLE FAAE.Motivo (
 )
 CREATE TABLE FAAE.Historial_Inhabilitado (
     hiin_codigo nvarchar(10) PRIMARY KEY,
-	hiin_hote_codigo nvarchar(10),
+	hiin_hote_codigo numeric(10),
 	hiin_moti_codigo nvarchar(10),
 	hiin_fecha_inicio smalldatetime,
 	hiin_fecha_fin smalldatetime
@@ -150,7 +150,7 @@ CREATE TABLE FAAE.Historial_Inhabilitado (
 CREATE TABLE FAAE.Hotel_Usuario (
     hous_usua_doc_tipo nvarchar(10),
 	hous_usua_doc_nro numeric(10),
-	hous_hote_codigo nvarchar(10),
+	hous_hote_codigo numeric(10),
 	PRIMARY KEY (hous_usua_doc_tipo,hous_usua_doc_nro,hous_hote_codigo)
 )
 CREATE TABLE FAAE.Usuario (
@@ -158,46 +158,35 @@ CREATE TABLE FAAE.Usuario (
 	usua_doc_nro numeric(10),
 	usua_username nvarchar(10) not null,
 	usua_password nvarchar(10) not null,
-	usua_nombre nvarchar(10) not null,
-	usua_apellido nvarchar(10) not null,
+	usua_nombre nvarchar(16) not null,
+	usua_apellido nvarchar(16) not null,
 	usua_mail nvarchar(25) not null,
 	usua_telefono numeric(10) not null,
-	usua_dire_calle nvarchar(10) not null,
+	usua_dire_calle nvarchar(25) not null,
 	usua_dire_nro numeric(5) not null,
 	usua_fecha_nacimiento smalldatetime not null,
 	usua_cant_log_in_fallidos numeric(1) default 0,
-	usua_hote_codigo_ultimo_log_in nvarchar(10),
+	usua_hote_codigo_ultimo_log_in numeric(10),
 	usua_habilitado bit default 1,
 	PRIMARY KEY (usua_doc_tipo,usua_doc_nro)
 )
 
 ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Reserva FOREIGN KEY (hire_rese_codigo) REFERENCES FAAE.Reserva(rese_codigo)
-ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Usuario FOREIGN KEY (hire_usua_doc_tipo) REFERENCES FAAE.Usuarios(usua_doc_tipo)
-ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Usuario FOREIGN KEY (hire_usua_doc_nro) REFERENCES FAAE.Usuarios(usua_doc_nro)
+ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Usuario FOREIGN KEY (hire_usua_doc_tipo , hire_usua_doc_nro) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro)
 
-ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_tipo) REFERENCES FAAE.Usuario(usua_doc_tipo)
-ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_nro) REFERENCES FAAE.Usuario(usua_doc_nro)
-ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Ciente FOREIGN KEY (rous_clie_doc_tipo) REFERENCES FAAE.Cliente(clie_doc_tipo)
-ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Ciente FOREIGN KEY (rous_clie_doc_nro) REFERENCES FAAE.Cliente(clie_doc_nro)
+ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_tipo, rous_clie_doc_nro) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro)
 ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Rol FOREIGN KEY (rous_rol_nombre) REFERENCES FAAE.Rol(rol_nombre)
 
-ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_rese_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_rese_codigo)
-ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_habi_nro) REFERENCES FAAE.Reserva_Habitacion(reha_habi_nro)
-ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_habi_nro) REFERENCES FAAE.Reserva_Habitacion(reha_hote_codigo)
-ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Cliente FOREIGN KEY (esta_clie_doc_tipo) REFERENCES FAAE.Cliente(clie_doc_tipo)
-ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Cliente FOREIGN KEY (esta_clie_doc_nro) REFERENCES FAAE.Cliente(clie_doc_nro)
+ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_rese_codigo, esta_habi_nro, esta_hote_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo)
+ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Cliente FOREIGN KEY (esta_clie_doc_tipo, esta_clie_doc_nro) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro)
 
 ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Reserva FOREIGN KEY (reha_rese_codigo) REFERENCES FAAE.Reserva(rese_codigo)
-ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Habitacion FOREIGN KEY (reha_habi_nro) REFERENCES FAAE.Habitacion(habi_nro)
-ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Habitacion FOREIGN KEY (reha_hote_codigo) REFERENCES FAAE.Habitacion(habi_hote_codigo)
+ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Habitacion FOREIGN KEY (reha_habi_nro, reha_hote_codigo) REFERENCES FAAE.Habitacion(habi_nro, habi_hote_codigo)
 
-ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Regimen_Hotel FOREIGN KEY (rese_hote_codigo) REFERENCES FAAE.Regimen_Hotel(reho_hote_codigo)
-ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Regimen_Hotel FOREIGN KEY (rese_regi_codigo) REFERENCES FAAE.Regimen_Hotel(reho_codigo)
-ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Cliente FOREIGN KEY (rese_clie_doc_tipo) REFERENCES FAAE.Cliente(clie_doc_tipo)
-ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Cliente FOREIGN KEY (rese_clie_doc_nro) REFERENCES FAAE.Cliente(clie_doc_nro)
+ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Regimen_Hotel FOREIGN KEY (rese_hote_codigo, rese_regi_codigo) REFERENCES FAAE.Regimen_Hotel(reho_hote_codigo, reho_regi_codigo)
+ALTER TABLE FAAE.Reserva ADD CONSTRAINT Reserva_Cliente FOREIGN KEY (rese_clie_doc_tipo, rese_clie_doc_nro) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro)
 
-ALTER TABLE FAAE.Item_Factura ADD CONSTRAINT Item_Factura_Factura FOREIGN KEY (item_fact_tipo) REFERENCES FAAE.Factura(fact_tipo)
-ALTER TABLE FAAE.Item_Factura ADD CONSTRAINT Item_Factura_Factura FOREIGN KEY (item_fact_nro) REFERENCES FAAE.Factura(fact_nro)
+ALTER TABLE FAAE.Item_Factura ADD CONSTRAINT Item_Factura_Factura FOREIGN KEY (item_fact_tipo, item_fact_nro) REFERENCES FAAE.Factura(fact_tipo, fact_nro)
 ALTER TABLE FAAE.Item_Factura ADD CONSTRAINT Item_Factura_Consumible FOREIGN KEY (item_cons_codigo) REFERENCES FAAE.Consumible(cons_codigo)
 
 ALTER TABLE FAAE.Habitacion ADD CONSTRAINT Habitacion_Hotel FOREIGN KEY (habi_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
@@ -205,9 +194,7 @@ ALTER TABLE FAAE.Habitacion ADD CONSTRAINT Habitacion_Tipo FOREIGN KEY (habi_tip
 
 ALTER TABLE FAAE.Funcionalidad ADD CONSTRAINT Funcionalidad_Rol FOREIGN KEY (func_rol_nombre) REFERENCES FAAE.Rol(rol_nombre)
 
-ALTER TABLE FAAE.Factura ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_rese_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_rese_codigo)
-ALTER TABLE FAAE.Factura ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_habi_nro) REFERENCES FAAE.Reserva_Habitacion(reha_habi_nro)
-ALTER TABLE FAAE.Factura ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_hote_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_hote_codigo)
+ALTER TABLE FAAE.Factura ADD CONSTRAINT Factura_Reserva_Habitacion FOREIGN KEY (fact_rese_codigo, fact_habi_nro, fact_hote_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo)
 
 ALTER TABLE FAAE.Regimen_Hotel ADD CONSTRAINT Regimen_Hotel_Hotel FOREIGN KEY (reho_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
 ALTER TABLE FAAE.Regimen_Hotel ADD CONSTRAINT Regimen_Hotel_Regimen FOREIGN KEY (reho_regi_codigo) REFERENCES FAAE.Regimen(regi_nombre)
@@ -215,13 +202,11 @@ ALTER TABLE FAAE.Regimen_Hotel ADD CONSTRAINT Regimen_Hotel_Regimen FOREIGN KEY 
 ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Hotel FOREIGN KEY (hiin_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
 ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Motivo FOREIGN KEY (hiin_moti_codigo) REFERENCES FAAE.Motivo(moti_codigo)
 
-ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_tipo) REFERENCES FAAE.Usuario(usua_doc_tipo)
-ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_nro) REFERENCES FAAE.Usuario(usua_doc_nro)
-ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_tipo) REFERENCES FAAE.Cliente(clie_doc_tipo)
-ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_nro) REFERENCES FAAE.Cliente(clie_doc_nro)
+ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro)
+ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro)
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Hotel FOREIGN KEY (hous_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
-
 ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_codigo_ultimo_log_in) REFERENCES FAAE.Hotel(hote_codigo)
+
 
 /** Migración **/
 create PROCEDURE FAAE.sp_cargar_tablas
@@ -233,15 +218,15 @@ BEGIN
 	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
 
 	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'admin')
-	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'cliente')
+	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'recepcion')
 
 	insert FAAE.Funcionalidad values ('admin', 'ABM rol') -- no se sabe bien a quien se le asigna
-	insert FAAE.Funcionalidad values	('admin','ABM usuario')
-	insert FAAE.Funcionalidad values	('recepcion','ABM cliente')
-	insert FAAE.Funcionalidad values	('admin','ABM hotel')
-	insert FAAE.Funcionalidad values	('admin','ABM habitacion')
-	insert FAAE.Funcionalidad values	('recepcion','ABM reserva')
-	insert FAAE.Funcionalidad values	('cliente','ABM reserva')
+	insert FAAE.Funcionalidad values ('admin','ABM usuario')
+	insert FAAE.Funcionalidad values ('recepcion','ABM cliente')
+	insert FAAE.Funcionalidad values ('admin','ABM hotel')
+	insert FAAE.Funcionalidad values ('admin','ABM habitacion')
+	insert FAAE.Funcionalidad values ('recepcion','ABM reserva')
+	insert FAAE.Funcionalidad values ('cliente','ABM reserva')
 
 	insert FAAE.Cliente(clie_nombre, clie_apellido, clie_doc_nro, clie_mail, clie_dire_calle, clie_dire_nro, clie_nacionalidad, clie_piso, clie_depto, clie_fecha_nacimiento) 
 		select distinct Cliente_Nombre,Cliente_Apellido,Cliente_Pasaporte_Nro,Cliente_Mail,Cliente_Dom_Calle, Cliente_Nro_Calle,Cliente_Nacionalidad,Cliente_Piso,Cliente_Depto,Cliente_Fecha_Nac 
@@ -313,12 +298,13 @@ BEGIN
 END
 
 
---NECESARIO PARA EL LOGIN
+-- LOGIN
 
-create view FAAE.RolXUsuario 
-as
-select usua_username username, rous_rol_nombre rol_nombre
-from faae.Usuario u join faae.Rol_Usuario ru on (u.usua_doc_tipo = ru.rous_clie_doc_tipo AND u.usua_doc_nro = ru.rous_clie_doc_nro)
+CREATE VIEW FAAE.RolXUsuario 
+AS
+SELECT usua_username username, rous_rol_nombre rol_nombre
+	FROM faae.Usuario u join faae.Rol_Usuario ru 
+		 ON (u.usua_doc_tipo = ru.rous_clie_doc_tipo AND u.usua_doc_nro = ru.rous_clie_doc_nro)
 
 
 GO
@@ -356,3 +342,44 @@ BEGIN
 		SET usua_cant_log_in_fallidos = 0
 		WHERE usua_username = @username
 END
+
+
+-- ABM Hotel
+
+GO
+CREATE PROCEDURE guardar_hotel
+@hote_codigo numeric(10), @hote_nombre nvarchar(16), @hote_mail nvarchar(25), @hote_telefono nvarchar(16), @hote_dire_calle nvarchar(25), @hote_dire_nro numeric(5), 
+@hote_cant_estrellas numeric(1), @hote_ciudad nvarchar(16), @hote_pais nvarchar(16), @hote_fecha_creacion smalldatetime, @hote_recarga_estrellas decimal(3,2)
+AS
+BEGIN
+	IF( EXISTS(SELECT hote_codigo FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo) )
+		BEGIN
+			UPDATE FAAE.Hotel 
+				SET hote_nombre = @hote_nombre, 
+					hote_mail = @hote_mail, 
+					hote_telefono = @hote_telefono, 
+					hote_dire_calle = @hote_dire_calle, 
+					hote_dire_nro = @hote_dire_nro, 
+					hote_cant_estrellas = @hote_cant_estrellas, 
+					hote_ciudad = @hote_ciudad, 
+					hote_pais = @hote_pais, 
+					hote_fecha_creacion = @hote_fecha_creacion, 
+					hote_recarga_estrellas = @hote_recarga_estrellas
+				WHERE hote_codigo = @hote_codigo
+		END
+	ELSE
+		BEGIN
+			INSERT INTO FAAE.Hotel
+			VALUES(@hote_nombre, @hote_mail, @hote_telefono, @hote_dire_calle, @hote_dire_nro, @hote_cant_estrellas, @hote_ciudad, @hote_pais, @hote_fecha_creacion, @hote_recarga_estrellas)
+		END
+END
+
+
+GO
+CREATE PROCEDURE eliminar_hotel
+@hote_codigo numeric(10)
+AS
+BEGIN
+	DELETE FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo
+END
+
