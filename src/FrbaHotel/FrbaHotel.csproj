@@ -168,11 +168,11 @@
     <Compile Include="GenerarModificacionReserva\frmGenerarModificacionReserva.Designer.cs">
       <DependentUpon>frmGenerarModificacionReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\frmListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListadoEstadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\frmListadoEstadistico.Designer.cs">
+      <DependentUpon>frmListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\frmFuncionalidadesAdministrador.cs">
       <SubType>Form</SubType>
@@ -218,6 +218,7 @@
     <Compile Include="RegistrarEstadia\frmRegistrarEstadia.Designer.cs">
       <DependentUpon>frmRegistrarEstadia.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rol.cs" />
     <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
@@ -276,8 +277,8 @@
     <EmbeddedResource Include="GenerarModificacionReserva\frmGenerarModificacionReserva.resx">
       <DependentUpon>frmGenerarModificacionReserva.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListadoEstadistico\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ListadoEstadistico\frmListadoEstadistico.resx">
+      <DependentUpon>frmListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\frmFuncionalidadesAdministrador.resx">
       <DependentUpon>frmFuncionalidadesAdministrador.cs</DependentUpon>

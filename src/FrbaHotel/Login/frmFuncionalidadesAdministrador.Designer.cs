@@ -30,7 +30,6 @@
         {
             this.btnAtras = new System.Windows.Forms.Button();
             this.btnListadoEstadistico = new System.Windows.Forms.Button();
-            this.btnABMRegimenEstadia = new System.Windows.Forms.Button();
             this.btnABMHabitacion = new System.Windows.Forms.Button();
             this.btnABMHotel = new System.Windows.Forms.Button();
             this.btnABMUsuario = new System.Windows.Forms.Button();
@@ -40,7 +39,7 @@
             // 
             // btnAtras
             // 
-            this.btnAtras.Location = new System.Drawing.Point(12, 341);
+            this.btnAtras.Location = new System.Drawing.Point(12, 283);
             this.btnAtras.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAtras.Name = "btnAtras";
             this.btnAtras.Size = new System.Drawing.Size(81, 34);
@@ -51,7 +50,7 @@
             // 
             // btnListadoEstadistico
             // 
-            this.btnListadoEstadistico.Location = new System.Drawing.Point(146, 283);
+            this.btnListadoEstadistico.Location = new System.Drawing.Point(155, 220);
             this.btnListadoEstadistico.Margin = new System.Windows.Forms.Padding(4);
             this.btnListadoEstadistico.Name = "btnListadoEstadistico";
             this.btnListadoEstadistico.Size = new System.Drawing.Size(183, 42);
@@ -59,17 +58,6 @@
             this.btnListadoEstadistico.Text = "Listado estadistico";
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
             this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
-            // 
-            // btnABMRegimenEstadia
-            // 
-            this.btnABMRegimenEstadia.Location = new System.Drawing.Point(146, 219);
-            this.btnABMRegimenEstadia.Margin = new System.Windows.Forms.Padding(4);
-            this.btnABMRegimenEstadia.Name = "btnABMRegimenEstadia";
-            this.btnABMRegimenEstadia.Size = new System.Drawing.Size(183, 42);
-            this.btnABMRegimenEstadia.TabIndex = 20;
-            this.btnABMRegimenEstadia.Text = "ABM Regimen de Estadia";
-            this.btnABMRegimenEstadia.UseVisualStyleBackColor = true;
-            this.btnABMRegimenEstadia.Click += new System.EventHandler(this.btnABMRegimenEstadia_Click);
             // 
             // btnABMHabitacion
             // 
@@ -129,11 +117,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 386);
+            this.ClientSize = new System.Drawing.Size(470, 328);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.btnListadoEstadistico);
-            this.Controls.Add(this.btnABMRegimenEstadia);
             this.Controls.Add(this.btnABMHabitacion);
             this.Controls.Add(this.btnABMHotel);
             this.Controls.Add(this.btnABMUsuario);
@@ -150,7 +137,6 @@
 
         private System.Windows.Forms.Button btnAtras;
         private System.Windows.Forms.Button btnListadoEstadistico;
-        private System.Windows.Forms.Button btnABMRegimenEstadia;
         private System.Windows.Forms.Button btnABMHabitacion;
         private System.Windows.Forms.Button btnABMHotel;
         private System.Windows.Forms.Button btnABMUsuario;

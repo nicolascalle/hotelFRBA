@@ -24,6 +24,13 @@ namespace FrbaHotel {
             this.habilitado = false;
         }
 
+        public Usuario(string username) {
+            this.username = username;
+            this.password = "";
+            this.exists = false;
+            this.habilitado = false;
+        }
+
         private void limpiarLoginFallidos() {
             string[] param = { "@username" };
             string[] args = { this.username };
@@ -80,5 +87,11 @@ namespace FrbaHotel {
             return usuario.Equals(this.username) && contrasena.Equals(this.password);
         }
 
+        public void inhabilitar() {
+            string[] param = { "@username" };
+            object[] args = { this.username };
+            DBConnection.getInstance().executeProcedure("inhabilitar_usuario", param, args);
+            this.habilitado = false;
+        }
     }
 }

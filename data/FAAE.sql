@@ -60,7 +60,7 @@ CREATE TABLE FAAE.Reserva (
 	rese_fecha_desde smalldatetime,
 	rese_fecha_hasta smalldatetime,
 	rese_hote_codigo numeric(10),
-	rese_regi_codigo nvarchar(10),
+	rese_regi_codigo nvarchar(16),
 	rese_clie_doc_tipo nvarchar(10) default 'pasaporte',
 	rese_clie_doc_nro numeric(10),
 	rese_estado char(25) default 'Reserva Correcta'
@@ -82,15 +82,15 @@ CREATE TABLE FAAE.Habitacion (
 	habi_hote_codigo numeric(10),
 	habi_piso numeric(2) not null,
 	habi_vista_exterior char(1) not null,
-	habi_tipo_codigo nvarchar(10) not null,
+	habi_tipo_codigo numeric(10) not null,
 	habi_habilitada bit default 1,
 	PRIMARY KEY (habi_nro,habi_hote_codigo)
 )
 CREATE TABLE FAAE.Tipo (
-    tipo_codigo nvarchar(10) PRIMARY KEY,
-	tipo_descripcion nvarchar(50),
+    tipo_codigo numeric(10) PRIMARY KEY,
+	tipo_descripcion nvarchar(30),
 	tipo_cant_personas numeric(1),
-	tipo_porcentual decimal(2,2)
+	tipo_porcentual decimal(4,2)
 )
 CREATE TABLE FAAE.Funcionalidad (
     func_rol_nombre nvarchar(16),
@@ -106,12 +106,13 @@ CREATE TABLE FAAE.Factura (
     fact_tipo nvarchar(10) default 'A',
 	fact_nro numeric(10),
 	fact_fecha smalldatetime,
-	fact_total decimal(4,2),
-	fact_forma_pago nvarchar(10),
+	fact_total decimal(6,2),
+	fact_forma_pago nvarchar(10) default 'efectivo',
 	fact_rese_codigo numeric(10),
 	fact_habi_nro numeric(10),
 	fact_hote_codigo numeric(10),
 	PRIMARY KEY (fact_tipo,fact_nro),
+	CHECK(fact_forma_pago IN('efectivo', 'credito', 'debito'))
 )
 CREATE TABLE FAAE.Hotel (
     hote_codigo numeric(10) IDENTITY(1,1) PRIMARY KEY,
@@ -128,11 +129,11 @@ CREATE TABLE FAAE.Hotel (
 )
 CREATE TABLE FAAE.Regimen_Hotel (
     reho_hote_codigo numeric(10),
-	reho_regi_codigo nvarchar(10),
+	reho_regi_codigo nvarchar(16),
 	PRIMARY KEY (reho_hote_codigo,reho_regi_codigo)
 )
 CREATE TABLE FAAE.Regimen (
-	regi_nombre nvarchar(10) PRIMARY KEY,
+	regi_nombre nvarchar(16) PRIMARY KEY,
 	regi_precio_base decimal(3,2),
 	regi_activo bit default 1
 )
@@ -382,4 +383,27 @@ AS
 BEGIN
 	DELETE FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo
 END
+
+GO
+CREATE PROCEDURE inhabilitar_usuario
+@username nvarchar(10)
+AS
+BEGIN
+	UPDATE FAAE.Usuario 
+		SET usua_habilitado = 0
+		WHERE usua_username = @username
+END
+
+GO
+CREATE PROCEDURE inhabilitar_rol
+@nombre nvarchar(16)
+AS
+BEGIN
+	UPDATE FAAE.Rol 
+		SET rol_habilitado = 0
+		WHERE rol_nombre = @nombre
+END
+
+
+
 
