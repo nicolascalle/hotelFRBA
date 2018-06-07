@@ -157,3 +157,9 @@ C:\Users\agust\workspace\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Properties.
 C:\Users\agust\workspace\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.RegistrarConsumible.frmRegistrarConsumible.resources
 C:\Users\agust\workspace\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.RegistrarEstadia.frmRegistrarEstadia.resources
 C:\Users\agust\workspace\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.AltaHabitación.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmAltaHotel.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmModificacionHotel.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.AltaRegimen.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.ListadoRegimen.resources
+C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.FacturarEstadia.frmFacturarEstadia.resources

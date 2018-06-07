@@ -15,10 +15,21 @@ namespace FrbaHotel.RegistrarConsumible {
 
         private void btnRegistrarConsumible_Click(object sender, EventArgs e) {
 
+            
+
             if (!nombreVacio()) {
-                String nombre = this.tbNombreConsumible.Text.ToString();
+                int codigo = Convert.ToInt16(this.tbCodigoConsumible.Text.ToString());
+                string descripcion = this.tbDescripcionConsumible.Text.ToString();
                 double precio = Convert.ToDouble(this.nudPrecioConsumible.Value);
-                Consumible nuevoConsumible = new Consumible(nombre, precio);
+
+                ListViewItem item = new ListViewItem();
+                item = lvConsumibles.Items.Add(codigo.ToString());
+                item.SubItems.Add(precio.ToString());
+                item.SubItems.Add(descripcion);
+
+                this.limpiarCampos();
+
+                Consumible nuevoConsumible = new Consumible(codigo, precio,descripcion);
                 nuevoConsumible.registrar();
                 if( !nuevoConsumible.seRegistroCorrectamente() )
                     this.msgDatosIncorrectos();
@@ -27,12 +38,32 @@ namespace FrbaHotel.RegistrarConsumible {
                 this.msgDatosIncorrectos();
         }
 
+        private void limpiarCampos()
+        {
+            tbCodigoConsumible.Clear();
+            tbDescripcionConsumible.Clear();
+            nudPrecioConsumible.ResetText();
+        }
+
         private bool nombreVacio() {
-            return this.tbNombreConsumible.Text.ToString().Length == 0;
+            return this.tbCodigoConsumible.Text.ToString().Length == 0;
         }
 
         private void msgDatosIncorrectos() {
             MessageBox.Show("Los datos ingresados ya existen o no son correctos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnRemoverConsumible_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lista in lvConsumibles.SelectedItems)
+            {
+                lista.Remove();
+            }
         }
 
     }

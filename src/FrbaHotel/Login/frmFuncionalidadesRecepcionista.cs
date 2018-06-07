@@ -34,6 +34,12 @@ namespace FrbaHotel.Login {
             i.Show();     
         }
 
+        private void btnFacturarEstadia_Click(object sender, EventArgs e)
+        {
+            FacturarEstadia.frmFacturarEstadia i = new FacturarEstadia.frmFacturarEstadia();
+            i.Show();
+        }
+
      
     }
 }

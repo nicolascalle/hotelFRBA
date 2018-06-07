@@ -267,6 +267,9 @@
     <EmbeddedResource Include="CancelarReserva\frmCancelarReserva.resx">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FacturarEstadia\frmFacturarEstadia.resx">
+      <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>

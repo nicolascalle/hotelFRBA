@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 namespace FrbaHotel {
     class Consumible {
 
-        String nombre;
+        int codigo;
+        String descripcion;
         double precio;
         bool exists;
 
-        public Consumible(string nombre, double precio) {
-            this.nombre = nombre;
+        public Consumible(int codigo, double precio, string descripcion) {
+            this.codigo = codigo;
+            this.descripcion = descripcion;
             this.precio = precio;
             this.exists = false;
         }
 
-        public void registrar() { 
-            string[] param = { "@nombre", "@precio" };
-            object[] args = { this.nombre, this.precio };
+        public void registrar() {
+            string[] param = { "@codigo", "@precio", "@descipcion" };
+            object[] args = { this.codigo, this.precio, this.descripcion };
             try {
                 //DBConnection.getInstance().executeProcedure("registrar_consumible", param, args);
             }

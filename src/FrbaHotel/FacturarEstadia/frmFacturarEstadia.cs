@@ -16,5 +16,16 @@ namespace FrbaHotel.FacturarEstadia
         {
             InitializeComponent();
         }
+
+        private void btnFacturarEstadia_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRegistrarConsumibles_Click(object sender, EventArgs e)
+        {
+            RegistrarConsumible.frmRegistrarConsumible i = new RegistrarConsumible.frmRegistrarConsumible();
+            i.Show();
+        }
     }
 }

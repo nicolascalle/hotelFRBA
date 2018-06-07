@@ -35,7 +35,7 @@
             this.btnRegistroConsumible = new System.Windows.Forms.Button();
             this.btnRegistroEstadia = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFacturarEstadia = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerarModificacionReserva
@@ -107,19 +107,20 @@
             this.label3.TabIndex = 23;
             this.label3.Text = "Recepcionista";
             // 
-            // button1
+            // btnFacturarEstadia
             // 
-            this.button1.Location = new System.Drawing.Point(220, 69);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(133, 48);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Facturar estadia";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnFacturarEstadia.Location = new System.Drawing.Point(220, 69);
+            this.btnFacturarEstadia.Name = "btnFacturarEstadia";
+            this.btnFacturarEstadia.Size = new System.Drawing.Size(133, 48);
+            this.btnFacturarEstadia.TabIndex = 24;
+            this.btnFacturarEstadia.Text = "Facturar estadia";
+            this.btnFacturarEstadia.UseVisualStyleBackColor = true;
+            this.btnFacturarEstadia.Click += new System.EventHandler(this.btnFacturarEstadia_Click);
             // 
             // frmFuncionalidadesRecepcionista
             // 
             this.ClientSize = new System.Drawing.Size(412, 382);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnFacturarEstadia);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnRegistroEstadia);
             this.Controls.Add(this.btnRegistroConsumible);
@@ -149,6 +150,6 @@
         private System.Windows.Forms.Button btnRegistroConsumible;
         private System.Windows.Forms.Button btnRegistroEstadia;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFacturarEstadia;
     }
 }
