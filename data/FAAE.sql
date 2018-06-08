@@ -443,4 +443,64 @@ BEGIN
 END
 
 
+--ABM Habitaciones
+--alta
+GO
+CREATE PROCEDURE FAAE.guardar_habitacion
+@habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
+@habi_vista_exterior char(1), @habi_tipo_codigo numeric(10,0), @habi_habilitada bit
+AS
+BEGIN
+	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
+		BEGIN
+			UPDATE FAAE.Habitacion 
+				SET habi_nro = @habi_nro, 
+					habi_hote_codigo = @habi_hote_codigo, 
+					habi_piso = @habi_piso,
+					habi_vista_exterior = @habi_vista_exterior,
+					habi_tipo_codigo = @habi_tipo_codigo,
+					habi_habilitada = @habi_habilitada
+				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
+		END
+	ELSE
+		BEGIN
+			INSERT INTO FAAE.Habitacion
+			VALUES(@habi_nro, @habi_hote_codigo, @habi_piso, @habi_vista_exterior, @habi_tipo_codigo, @habi_habilitada)
+		END
+END
 
+--Modificación
+GO
+CREATE PROCEDURE FAAE.modificar_habitacion
+@habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
+@habi_vista_exterior char(1), @habi_habilitada bit
+AS
+BEGIN
+	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
+		BEGIN
+			UPDATE FAAE.Habitacion 
+				SET habi_nro = @habi_nro, 
+					habi_hote_codigo = @habi_hote_codigo, 
+					habi_piso = @habi_piso,
+					habi_vista_exterior = @habi_vista_exterior,
+					habi_tipo_codigo = (SELECT habi_tipo_codigo FROM FAAE.Habitacion WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo),
+					habi_habilitada = @habi_habilitada
+				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
+		END
+	ELSE
+		BEGIN
+			INSERT INTO FAAE.Habitacion
+			VALUES(@habi_nro, @habi_hote_codigo, @habi_piso, @habi_vista_exterior, 1001, @habi_habilitada)
+		END
+END
+
+--Baja / Inhabilitar
+GO
+CREATE PROCEDURE FAAE.inhabilitar_habitacion
+@habi_nro numeric(10), @habi_hote_codigo numeric(10)
+AS
+BEGIN
+	UPDATE FAAE.Habitacion 
+		SET habi_habilitada = 0
+		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
+END
