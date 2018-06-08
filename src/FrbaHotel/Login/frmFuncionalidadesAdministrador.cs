@@ -51,8 +51,8 @@ namespace FrbaHotel.Login {
 
         private void btnAtras_Click(object sender, EventArgs e) {
             Close();
+            frmSeleccionRol ventana = new frmSeleccionRol();
+            ventana.Show();
         }
-
-
     }
 }

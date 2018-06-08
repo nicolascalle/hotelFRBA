@@ -14,7 +14,8 @@ namespace FrbaHotel.Login {
 
         public frmLogin() {
             InitializeComponent();
-            tbPassword.PasswordChar = '*'; 
+            tbPassword.PasswordChar = '*';
+       //     btnIngresar_Click.focus();
         }
 
         private void btnSalir_Click(object sender, EventArgs e) {
@@ -29,7 +30,6 @@ namespace FrbaHotel.Login {
 
         //Cuando el usuario tiene mas de un rol se abre un formulario para selccionar el rol
         private void btnIngresar_Click(object sender, EventArgs e) {
-
             if (!this.usuarioContrasenaVacios()) {
 
                 if (DBConnection.getInstance().conexionCorrecta()) {
