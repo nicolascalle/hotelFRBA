@@ -51,9 +51,7 @@ namespace FrbaHotel.AbmHabitacion
         {
             this.Close();
             bool situacionHabilitacion = rbSi.Checked;
-            //MessageBox.Show(tbNumHab.Text.ToString());
             Habitacion habitacion = new Habitacion(tbNumHab.Text.ToString(), tbPiso.Text.ToString(), cbUbicacion.Text.ToString(), cbTipoHab.Text.ToString(), tbDescripcion.Text.ToString(), tbComodidades.Text.ToString(), situacionHabilitacion);
-            //MessageBox.Show("Ha elegido: " + tbNumHab.Text.ToString() + ", " + tbPiso.Text.ToString() + ", " + cbUbicacion.Text.ToString() + ", " + cbTipoHab.Text.ToString() + ", " + tbDescripcion.Text.ToString() + ", " + tbComodidades.Text.ToString() + ", " + situacionHabilitacion);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -77,6 +75,22 @@ namespace FrbaHotel.AbmHabitacion
         }
 
         private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            tbComodidades.Text = "";
+            tbDescripcion.Text = "";
+            tbNumHab.Text = "";
+            tbPiso.Text = "";
+            cbTipoHab.Text = "";
+            cbUbicacion.Text = "";
+
+        }
+
+        private void cbTipoHab_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

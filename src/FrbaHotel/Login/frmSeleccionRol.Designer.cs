@@ -36,27 +36,28 @@
             // cbListaRoles
             // 
             this.cbListaRoles.FormattingEnabled = true;
-            this.cbListaRoles.Location = new System.Drawing.Point(102, 92);
-            this.cbListaRoles.Margin = new System.Windows.Forms.Padding(4);
+            this.cbListaRoles.Location = new System.Drawing.Point(76, 75);
             this.cbListaRoles.Name = "cbListaRoles";
-            this.cbListaRoles.Size = new System.Drawing.Size(160, 24);
+            this.cbListaRoles.Size = new System.Drawing.Size(121, 21);
             this.cbListaRoles.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 42);
+            this.label1.Location = new System.Drawing.Point(18, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 24);
+            this.label1.Size = new System.Drawing.Size(119, 18);
             this.label1.TabIndex = 1;
             this.label1.Text = "Continuar como:";
             // 
             // continuar
             // 
-            this.continuar.Location = new System.Drawing.Point(138, 145);
+            this.continuar.Location = new System.Drawing.Point(104, 118);
+            this.continuar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.continuar.Name = "continuar";
-            this.continuar.Size = new System.Drawing.Size(87, 30);
+            this.continuar.Size = new System.Drawing.Size(65, 24);
             this.continuar.TabIndex = 2;
             this.continuar.Text = "Continuar";
             this.continuar.UseVisualStyleBackColor = true;
@@ -64,13 +65,13 @@
             // 
             // frmSeleccionRol
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AcceptButton = this.continuar;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 227);
+            this.ClientSize = new System.Drawing.Size(271, 184);
             this.Controls.Add(this.continuar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbListaRoles);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmSeleccionRol";
             this.Text = "Seleccion de rol";
             this.ResumeLayout(false);

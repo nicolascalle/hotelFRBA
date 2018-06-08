@@ -131,3 +131,8 @@ C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmM
 C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.AltaRegimen.resources
 C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.ListadoRegimen.resources
 C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.FacturarEstadia.frmFacturarEstadia.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmAltaHotel.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHotel.frmModificacionHotel.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRol.frmAltaRol.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRol.frmModificacionRol.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.FacturarEstadia.frmFacturarEstadia.resources

@@ -97,16 +97,17 @@
             this.btnLimpiar.Location = new System.Drawing.Point(12, 261);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 11;
+            this.btnLimpiar.TabIndex = 10;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(260, 261);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 10;
+            this.btnGuardar.TabIndex = 9;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.button3_Click);
@@ -127,15 +128,16 @@
             // 
             this.cbTipoHab.FormattingEnabled = true;
             this.cbTipoHab.Items.AddRange(new object[] {
-            "Simple",
-            "Doble",
-            "Doble twin",
-            "Triple",
-            "Cuádruple"});
+            "Base Simple",
+            "Base Doble",
+            "King",
+            "Base Triple",
+            "Base Cuádruple"});
             this.cbTipoHab.Location = new System.Drawing.Point(180, 143);
             this.cbTipoHab.Name = "cbTipoHab";
             this.cbTipoHab.Size = new System.Drawing.Size(121, 21);
             this.cbTipoHab.TabIndex = 4;
+            this.cbTipoHab.SelectedIndexChanged += new System.EventHandler(this.cbTipoHab_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -179,7 +181,7 @@
             this.tbComodidades.Location = new System.Drawing.Point(201, 200);
             this.tbComodidades.Name = "tbComodidades";
             this.tbComodidades.Size = new System.Drawing.Size(100, 20);
-            this.tbComodidades.TabIndex = 7;
+            this.tbComodidades.TabIndex = 6;
             // 
             // tbPiso
             // 
@@ -204,7 +206,7 @@
             this.rbSi.Location = new System.Drawing.Point(201, 227);
             this.rbSi.Name = "rbSi";
             this.rbSi.Size = new System.Drawing.Size(34, 17);
-            this.rbSi.TabIndex = 50;
+            this.rbSi.TabIndex = 7;
             this.rbSi.TabStop = true;
             this.rbSi.Text = "Si";
             this.rbSi.UseVisualStyleBackColor = true;
@@ -216,7 +218,7 @@
             this.rbNo.Location = new System.Drawing.Point(260, 227);
             this.rbNo.Name = "rbNo";
             this.rbNo.Size = new System.Drawing.Size(39, 17);
-            this.rbNo.TabIndex = 51;
+            this.rbNo.TabIndex = 8;
             this.rbNo.TabStop = true;
             this.rbNo.Text = "No";
             this.rbNo.UseVisualStyleBackColor = true;
