@@ -119,13 +119,13 @@ CREATE TABLE FAAE.Hotel (
 	hote_nombre nvarchar(16) default 'Hotel Pepito',
 	hote_mail nvarchar(25) default 'hotelPrincipal@hotel.com',
 	hote_telefono nvarchar(16) default '00000000',
-	hote_dire_calle nvarchar(25) not null,
+	hote_dire_calle nvarchar(50) not null,
 	hote_dire_nro numeric(5) not null,
 	hote_cant_estrellas numeric(1) not null,
 	hote_ciudad nvarchar(16) not null,
 	hote_pais nvarchar(16) default 'argentina',
 	hote_fecha_creacion smalldatetime,
-	hote_recarga_estrellas decimal(3,2) not null
+	hote_recarga_estrellas decimal(4,2) not null
 )
 CREATE TABLE FAAE.Regimen_Hotel (
     reho_hote_codigo numeric(10),
@@ -233,13 +233,12 @@ BEGIN
 		select distinct Cliente_Nombre,Cliente_Apellido,Cliente_Pasaporte_Nro,Cliente_Mail,Cliente_Dom_Calle, Cliente_Nro_Calle,Cliente_Nacionalidad,Cliente_Piso,Cliente_Depto,Cliente_Fecha_Nac 
 		from gd_esquema.Maestra
 	
-	set identity_insert FAAE.Hotel on
 	insert FAAE.Hotel(hote_dire_calle,hote_dire_nro,hote_cant_estrellas,hote_recarga_estrellas,hote_ciudad) 
 		select distinct Hotel_Calle, Hotel_Nro_Calle, Hotel_CantEstrella, Hotel_Recarga_Estrella, Hotel_Ciudad
 		from gd_esquema.Maestra
 	
 	insert FAAE.Tipo(tipo_codigo,tipo_descripcion,tipo_cant_personas,tipo_porcentual) 
-		select distinct Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion,cantPersonas(Habitacion_Tipo_Descripcion),Habitacion_Tipo_Porcentual
+		select distinct Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion, FAAE.cantPersonas(Habitacion_Tipo_Descripcion) cant_personas,Habitacion_Tipo_Porcentual
 		from gd_esquema.Maestra
 
 	insert FAAE.Habitacion(habi_nro,habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_hote_codigo) 
@@ -298,6 +297,22 @@ BEGIN
 	insert FAAE.Reserva(rese_fecha_realizacion) values (getdate())
 END
 
+GO
+CREATE FUNCTION FAAE.cantPersonas (@Habitacion_Tipo_Descripcion nvarchar(16))
+RETURNS TINYINT
+AS
+BEGIN
+	DECLARE @Cant_Personas TINYINT
+	SET @Cant_Personas = CASE
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Simple' THEN 1
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Doble' THEN 2
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Triple' THEN 3
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Cuadruple' THEN 4
+							WHEN @Habitacion_Tipo_Descripcion = 'King' THEN 5
+							ELSE 2
+						END
+	RETURN @Cant_Personas
+END
 
 -- LOGIN
 
