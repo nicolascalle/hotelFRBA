@@ -70,7 +70,7 @@ namespace FrbaHotel {
         public void eliminar() {
             string[] param = { "@hote_codigo" };
             object[] args = { this.codigo };
-            DBConnection.getInstance().executeProcedure("eliminar_hotel", param, args);
+            DBConnection.getInstance().executeProcedure("FAAE.eliminar_hotel", param, args);
         }
 
         // Si no existe el hotel lo crea, si existe lo actualiza
@@ -78,7 +78,7 @@ namespace FrbaHotel {
             string sqlDate = this.fechaCreacion.ToString("yyyy-MM-dd HH:mm:ss.fff");
             string[] param = { "@hote_codigo", "@hote_nombre", "@hote_mail", "@hote_telefono", "@hote_dire_calle", "@hote_dire_nro", "@hote_cant_estrellas", "@hote_ciudad", "@hote_pais", "@hote_fecha_creacion", "@hote_recarga_estrellas" };
             object[] args = { this.codigo, this.nombre, this.mail, this.telefono, this.dire_calle, this.dire_nro, this.estrellas, this.ciudad, this.pais, sqlDate, this.recargaEstrellas };
-            DBConnection.getInstance().executeProcedure("guardar_hotel", param, args);
+            DBConnection.getInstance().executeProcedure("FAAE.guardar_hotel", param, args);
         } // El hote_codigo es identity
 
     }

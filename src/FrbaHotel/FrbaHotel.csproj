@@ -105,6 +105,18 @@
     <Compile Include="AbmRol\frmAbmRol.Designer.cs">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmRol\frmAltaRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\frmAltaRol.Designer.cs">
+      <DependentUpon>frmAltaRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbmRol\frmModificacionRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmRol\frmModificacionRol.Designer.cs">
+      <DependentUpon>frmModificacionRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmUsuario\frmAbmUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,6 +261,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\frmAbmRol.resx">
       <DependentUpon>frmAbmRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\frmAltaRol.resx">
+      <DependentUpon>frmAltaRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmRol\frmModificacionRol.resx">
+      <DependentUpon>frmModificacionRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmUsuario\frmAbmUsuario.resx">
       <DependentUpon>frmAbmUsuario.cs</DependentUpon>

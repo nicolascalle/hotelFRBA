@@ -94,7 +94,7 @@ CREATE TABLE FAAE.Tipo (
 )
 CREATE TABLE FAAE.Funcionalidad (
     func_rol_nombre nvarchar(16),
-	func_funcion nvarchar(10),
+	func_funcion nvarchar(16),
 	PRIMARY KEY (func_rol_nombre,func_funcion)
 )
 CREATE TABLE FAAE.Consumible (
@@ -309,7 +309,7 @@ SELECT usua_username username, rous_rol_nombre rol_nombre
 
 
 GO
-CREATE PROCEDURE login_fallido
+CREATE PROCEDURE FAAE.login_fallido
 @username VARCHAR(10)
 AS
 BEGIN
@@ -335,7 +335,7 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE limpiar_login_fallidos
+CREATE PROCEDURE FAAE.limpiar_login_fallidos
 @username VARCHAR(10)
 AS
 BEGIN
@@ -348,7 +348,7 @@ END
 -- ABM Hotel
 
 GO
-CREATE PROCEDURE guardar_hotel
+CREATE PROCEDURE FAAE.guardar_hotel
 @hote_codigo numeric(10), @hote_nombre nvarchar(16), @hote_mail nvarchar(25), @hote_telefono nvarchar(16), @hote_dire_calle nvarchar(25), @hote_dire_nro numeric(5), 
 @hote_cant_estrellas numeric(1), @hote_ciudad nvarchar(16), @hote_pais nvarchar(16), @hote_fecha_creacion smalldatetime, @hote_recarga_estrellas decimal(3,2)
 AS
@@ -377,7 +377,7 @@ END
 
 
 GO
-CREATE PROCEDURE eliminar_hotel
+CREATE PROCEDURE FAAE.eliminar_hotel
 @hote_codigo numeric(10)
 AS
 BEGIN
@@ -385,7 +385,7 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE inhabilitar_usuario
+CREATE PROCEDURE FAAE.inhabilitar_usuario
 @username nvarchar(10)
 AS
 BEGIN
@@ -395,7 +395,7 @@ BEGIN
 END
 
 GO
-CREATE PROCEDURE inhabilitar_rol
+CREATE PROCEDURE FAAE.inhabilitar_rol
 @nombre nvarchar(16)
 AS
 BEGIN
@@ -404,6 +404,43 @@ BEGIN
 		WHERE rol_nombre = @nombre
 END
 
+GO
+CREATE PROCEDURE FAAE.guardar_rol
+@rol_nombre nvarchar(16), @rol_habilitado bit
+AS
+BEGIN
+	IF( NOT EXISTS(SELECT rol_nombre FROM FAAE.Rol WHERE rol_nombre = @rol_nombre) )
+		BEGIN
+			INSERT INTO FAAE.Rol
+				VALUES(@rol_nombre, @rol_habilitado)
+		END
+	ELSE
+		BEGIN
+			UPDATE FAAE.Rol
+				SET rol_habilitado = @rol_habilitado
+				WHERE rol_nombre = @rol_nombre
+		END
+END
+
+GO
+CREATE PROCEDURE FAAE.asignar_funcionalidad_rol
+@rol_nombre nvarchar(16), @funcionalidad nvarchar(16)
+AS
+BEGIN
+	IF( NOT EXISTS(SELECT func_rol_nombre, func_funcion  FROM FAAE.Funcionalidad WHERE func_rol_nombre = @rol_nombre AND func_funcion = @funcionalidad) )
+		BEGIN
+			INSERT INTO FAAE.Funcionalidad
+				VALUES(@rol_nombre, @funcionalidad)
+		END
+END
+
+CREATE PROCEDURE FAAE.eliminar_funcionalidades_rol
+@rol_nombre nvarchar(16)
+AS
+BEGIN
+	DELETE FROM FAAE.Funcionalidad
+		WHERE func_rol_nombre = @rol_nombre
+END
 
 
 

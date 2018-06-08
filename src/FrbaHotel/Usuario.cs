@@ -34,13 +34,13 @@ namespace FrbaHotel {
         private void limpiarLoginFallidos() {
             string[] param = { "@username" };
             string[] args = { this.username };
-            DBConnection.getInstance().executeProcedure("limpiar_login_fallidos", param, args);
+            DBConnection.getInstance().executeProcedure("FAAE.limpiar_login_fallidos", param, args);
         }
 
         private void registrarLoginFallido() {
             string[] param = { "@username" };
             string[] args = { this.username };
-            DBConnection.getInstance().executeProcedure("login_fallido", param, args);
+            DBConnection.getInstance().executeProcedure("FAAE.login_fallido", param, args);
         }
 
         private bool estaHabilitado() {
@@ -90,7 +90,7 @@ namespace FrbaHotel {
         public void inhabilitar() {
             string[] param = { "@username" };
             object[] args = { this.username };
-            DBConnection.getInstance().executeProcedure("inhabilitar_usuario", param, args);
+            DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_usuario", param, args);
             this.habilitado = false;
         }
     }

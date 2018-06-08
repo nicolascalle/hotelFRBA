@@ -37,11 +37,19 @@ namespace FrbaHotel.AbmRol {
         }
 
         private void frmModificacion_Click(object sender, EventArgs e) {
-
+            if (this.lvRol.SelectedItems.Count == 1) {
+                string nombreRol = this.lvRol.SelectedItems[0].Text.ToString();
+                Rol rolModificar = new Rol(nombreRol);
+                rolModificar.buscar();
+                frmModificacionRol frmM = new frmModificacionRol();
+                frmM.setRol(rolModificar);
+                frmM.Show();
+            }
         }
 
         private void frmAlta_Click(object sender, EventArgs e) {
-
+            frmAltaRol frmA = new frmAltaRol();
+            frmA.Show();
         }
 
 
