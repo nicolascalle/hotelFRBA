@@ -509,7 +509,7 @@ BEGIN
 		END
 END
 
---Baja / Inhabilitar
+--Inhabilitar
 GO
 CREATE PROCEDURE FAAE.inhabilitar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10)
@@ -518,4 +518,17 @@ BEGIN
 	UPDATE FAAE.Habitacion 
 		SET habi_habilitada = 0
 		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
+END
+
+go
+create TRIGGER FAAE.t_habitacion_unica
+   ON FAAE.Habitacion  
+   instead of INSERT
+AS 
+BEGIN
+    if((SELECT COUNT(DISTINCT habi_nro) --falta el codigo del hotel
+	    from inserted) > 1)
+	begin
+		raiserror ('Ya existe esa habitacion', 1, 1)
+	end
 END
