@@ -116,6 +116,7 @@
             this.frmAlta.TabIndex = 35;
             this.frmAlta.Text = "Alta";
             this.frmAlta.UseVisualStyleBackColor = true;
+            this.frmAlta.Click += new System.EventHandler(this.frmAlta_Click_1);
             // 
             // btnBuscar
             // 

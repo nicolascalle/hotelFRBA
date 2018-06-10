@@ -51,11 +51,11 @@
     <Compile Include="AbmCliente\frmAbmCliente.Designer.cs">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmHabitacion\AltaHabitación.cs">
+    <Compile Include="AbmHabitacion\frmAltaHabitacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmHabitacion\AltaHabitación.Designer.cs">
-      <DependentUpon>AltaHabitación.cs</DependentUpon>
+    <Compile Include="AbmHabitacion\frmAltaHabitacion.Designer.cs">
+      <DependentUpon>frmAltaHabitacion.cs</DependentUpon>
     </Compile>
     <Compile Include="AbmHabitacion\frmAbmHabitacion.cs">
       <SubType>Form</SubType>
@@ -235,8 +235,8 @@
     <EmbeddedResource Include="AbmCliente\frmAbmCliente.resx">
       <DependentUpon>frmAbmCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AbmHabitacion\AltaHabitación.resx">
-      <DependentUpon>AltaHabitación.cs</DependentUpon>
+    <EmbeddedResource Include="AbmHabitacion\frmAltaHabitacion.resx">
+      <DependentUpon>frmAltaHabitacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmHabitacion\frmAbmHabitacion.resx">
       <DependentUpon>frmAbmHabitacion.cs</DependentUpon>

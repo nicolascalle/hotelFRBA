@@ -122,7 +122,6 @@ C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Regi
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\bin\Debug\FrbaHotel.exe
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\bin\Debug\FrbaHotel.pdb
-C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.AltaHabitación.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.AltaRegimen.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRegimen.ListadoRegimen.resources
 C:\Users\calle\Desktop\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.AltaHabitación.resources
@@ -136,3 +135,4 @@ C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmH
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRol.frmAltaRol.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmRol.frmModificacionRol.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.FacturarEstadia.frmFacturarEstadia.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.frmAltaHabitacion.resources

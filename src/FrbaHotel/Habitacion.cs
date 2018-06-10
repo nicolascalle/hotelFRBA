@@ -10,37 +10,34 @@ namespace FrbaHotel
 {
     class Habitacion
     {
-        private string numero;
-        private string piso;
-        private string ubicacion;
-        private string tipo;
+        private int numero;
+        private int codHotel;
+        private int piso;
+        private char ubicacion;
+        private int tipo;
         private string descripcion;
-        //private string comodidades;
         private bool estaHabilitada;
 
-        public string getNumero() { return numero; }
+     //   public string getNumero() { return numero; }
        // public bool getExists() { return exists; }
         //public bool getHabilitado() { return habilitado; }
 
-        public Habitacion(string numero, string piso, string ubicacion, string tipo, string descripcion, bool estaHabilitada)//, string comodidades)
+        public Habitacion(int numero, int codHotel, int piso, char ubicacion, int tipo, string descripcion, bool estaHabilitada)
         {
             this.numero = numero;
+            this.codHotel = codHotel;
             this.piso = piso;
             this.ubicacion = ubicacion;
             this.tipo = tipo;
             this.descripcion = descripcion;
-          //  this.comodidades = comodidades;
             this.estaHabilitada = estaHabilitada;
         }
 
         public void guardar()
         {
-            string[] param = { "@habi_nro", "@habi_piso", "@habi_vista_exterior", "@habi_tipo_codigo", "@habi_habilitada" };
-            object[] args = { this.numero, this.piso, this.ubicacion, this.tipo ,this.estaHabilitada };
+            string[] param = { "@habi_nro", "@habi_hote_codigo", "@habi_piso", "@habi_vista_exterior", "@habi_tipo_codigo", "@habi_habilitada", "@habi_descripcion"};
+            object[] args = { this.numero, this.codHotel, this.piso, this.ubicacion, this.tipo, this.estaHabilitada, this.descripcion};
             DBConnection.getInstance().executeProcedure("FAAE.guardar_habitacion", param, args);
-            //va descripcion?
-            //va comodidades?
-           	// @habi_hote_codigo?cuando especifica en que hotel?
         }
 
         public void modificar()
@@ -51,12 +48,12 @@ namespace FrbaHotel
 
             if (dataReader.Read())
             {
-                this.numero = dataReader["habi_nro"].ToString();
+                //this.numero = dataReader["habi_nro"].ToString();
                 //this.codigoHotel = dataReader["habi_hote_codigo"].ToString();
-                this.piso = dataReader["habi_piso"].ToString();
-                this.ubicacion = dataReader["habi_vista_exterior"].ToString();
-                this.tipo = dataReader["habi_tipo_codigo"].ToString();
-                this.estaHabilitada = Convert.ToBoolean(dataReader["habi_habilitada"].ToString());
+                //this.piso = dataReader["habi_piso"].ToString();
+                //this.ubicacion = dataReader["habi_vista_exterior"].ToString();
+                //this.tipo = dataReader["habi_tipo_codigo"].ToString();
+              //  this.estaHabilitada = Convert.ToBoolean(dataReader["habi_habilitada"].ToString());
             }
             dataReader.Close();
             string[] param = { "@habi_nro", "@habi_piso", "@habi_vista_exterior", "@habi_habilitada" };
@@ -72,7 +69,7 @@ namespace FrbaHotel
             string[] param = { "@habi_nro"};
             object[] args = { this.numero };
             DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_habitacion", param, args);
-            this.estaHabilitada = false;
+           // this.estaHabilitada = false;
         }
 
 

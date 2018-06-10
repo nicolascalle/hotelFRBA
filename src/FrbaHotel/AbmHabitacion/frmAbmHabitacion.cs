@@ -22,7 +22,7 @@ namespace FrbaHotel.AbmHabitacion
         private void frmAlta_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AltaHabitación ventanaAlta = new AltaHabitación();
+            frmAltaHabitacion ventanaAlta = new frmAltaHabitacion();
             ventanaAlta.Show();
         }
 
@@ -127,6 +127,12 @@ namespace FrbaHotel.AbmHabitacion
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmAlta_Click_1(object sender, EventArgs e)
+        {
+            frmAltaHabitacion ventanaAlta = new frmAltaHabitacion();
+            ventanaAlta.Show();
         }
     }
 }

@@ -458,6 +458,10 @@ BEGIN
 END
 
 
+
+
+
+
 --ABM Habitaciones
 --alta
 GO
@@ -466,23 +470,13 @@ CREATE PROCEDURE FAAE.guardar_habitacion
 @habi_vista_exterior char(1), @habi_tipo_codigo numeric(10,0), @habi_habilitada bit, @habi_descripcion varchar(100)
 AS
 BEGIN
-	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
-		BEGIN
-			UPDATE FAAE.Habitacion 
-				SET habi_nro = @habi_nro, 
-					habi_hote_codigo = @habi_hote_codigo, 
-					habi_piso = @habi_piso,
-					habi_vista_exterior = @habi_vista_exterior,
-					habi_tipo_codigo = @habi_tipo_codigo,
-					habi_habilitada = @habi_habilitada,
-					habi_descripcion = @habi_descripcion
-				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
-		END
-	ELSE
+	IF( NOT EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro AND habi_hote_codigo=@habi_hote_codigo) )
 		BEGIN
 			INSERT INTO FAAE.Habitacion
-			VALUES(@habi_nro, @habi_hote_codigo, @habi_piso, @habi_vista_exterior, @habi_tipo_codigo, @habi_habilitada)
+			VALUES(@habi_nro, @habi_hote_codigo, @habi_piso, @habi_vista_exterior, @habi_tipo_codigo, @habi_habilitada, @habi_descripcion)
 		END
+	--ELSE UPDATE?
+	
 END
 
 --Modificación
@@ -538,7 +532,7 @@ END
 --agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
 ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)
 
---Instancias para probar listado y busqueda de habitaciones
+--Instancias para probar ABM habitaciones
 --Hoteles
 INSERT FAAE.Hotel
 (hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_recarga_estrellas) 
@@ -552,6 +546,12 @@ INSERT FAAE.Tipo
 Values(1001, 'Base Simple', 3, 15)
 INSERT FAAE.Tipo
 Values(1002, 'Base Doble', 7, 45)
+INSERT FAAE.Tipo
+Values(1003, 'Base Triple', 8, 35)
+INSERT FAAE.Tipo
+Values(1004, 'Base Cuadruple', 4, 25)
+INSERT FAAE.Tipo
+Values(1005, 'King', 9, 70)
 
 --Habitaciones
 INSERT FAAE.Habitacion
@@ -562,9 +562,4 @@ INSERT FAAE.Habitacion
 VALUES(12, 6, 7, 'N', 1001 ,1)
 INSERT FAAE.Habitacion
 (habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
-VALUES(16, 7, 8, 'S', 1002 ,0)
-INSERT FAAE.Habitacion
-(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
 VALUES(17, 7, 2, 'N', 1002 ,0)
-
-
