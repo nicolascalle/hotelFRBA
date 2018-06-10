@@ -54,5 +54,10 @@ namespace FrbaHotel.Login {
             frmSeleccionRol ventana = new frmSeleccionRol();
             ventana.Show();
         }
+
+        private void frmFuncionalidadesAdministrador_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

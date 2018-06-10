@@ -463,7 +463,7 @@ END
 GO
 CREATE PROCEDURE FAAE.guardar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
-@habi_vista_exterior char(1), @habi_tipo_codigo numeric(10,0), @habi_habilitada bit
+@habi_vista_exterior char(1), @habi_tipo_codigo numeric(10,0), @habi_habilitada bit, @habi_descripcion varchar(100)
 AS
 BEGIN
 	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
@@ -474,7 +474,8 @@ BEGIN
 					habi_piso = @habi_piso,
 					habi_vista_exterior = @habi_vista_exterior,
 					habi_tipo_codigo = @habi_tipo_codigo,
-					habi_habilitada = @habi_habilitada
+					habi_habilitada = @habi_habilitada,
+					habi_descripcion = @habi_descripcion
 				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 		END
 	ELSE
@@ -488,7 +489,7 @@ END
 GO
 CREATE PROCEDURE FAAE.modificar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
-@habi_vista_exterior char(1), @habi_habilitada bit
+@habi_vista_exterior char(1), @habi_habilitada bit, @habi_descripcion varchar(100)
 AS
 BEGIN
 	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
@@ -499,7 +500,8 @@ BEGIN
 					habi_piso = @habi_piso,
 					habi_vista_exterior = @habi_vista_exterior,
 					habi_tipo_codigo = (SELECT habi_tipo_codigo FROM FAAE.Habitacion WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo),
-					habi_habilitada = @habi_habilitada
+					habi_habilitada = @habi_habilitada,
+					habi_descripcion = @habi_descripcion
 				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 		END
 	ELSE
@@ -532,3 +534,37 @@ BEGIN
 		raiserror ('Ya existe esa habitacion', 1, 1)
 	end
 END
+
+--agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
+ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)
+
+--Instancias para probar listado y busqueda de habitaciones
+--Hoteles
+INSERT FAAE.Hotel
+(hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_recarga_estrellas) 
+Values('calle falsa', 12345, 3, 'ciudad fantasma', 1)
+INSERT FAAE.Hotel
+(hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_recarga_estrellas) 
+Values('calle falsa2', 123, 5, 'ciudad fantasma2', 4)
+
+--Tipos
+INSERT FAAE.Tipo
+Values(1001, 'Base Simple', 3, 15)
+INSERT FAAE.Tipo
+Values(1002, 'Base Doble', 7, 45)
+
+--Habitaciones
+INSERT FAAE.Habitacion
+(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
+VALUES(11, 6, 3, 'S', 1001 ,1)
+INSERT FAAE.Habitacion
+(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
+VALUES(12, 6, 7, 'N', 1001 ,1)
+INSERT FAAE.Habitacion
+(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
+VALUES(16, 7, 8, 'S', 1002 ,0)
+INSERT FAAE.Habitacion
+(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
+VALUES(17, 7, 2, 'N', 1002 ,0)
+
+

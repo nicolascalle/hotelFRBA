@@ -90,5 +90,10 @@ namespace FrbaHotel.AbmRol {
             return listItems;
         }
 
+        private void lvRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

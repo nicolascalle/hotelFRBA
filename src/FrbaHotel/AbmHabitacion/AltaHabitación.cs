@@ -51,7 +51,7 @@ namespace FrbaHotel.AbmHabitacion
         {
             this.Close();
             bool situacionHabilitacion = rbSi.Checked;
-            Habitacion habitacion = new Habitacion(tbNumHab.Text.ToString(), tbPiso.Text.ToString(), cbUbicacion.Text.ToString(), cbTipoHab.Text.ToString(), tbDescripcion.Text.ToString(), tbComodidades.Text.ToString(), situacionHabilitacion);
+           // Habitacion habitacion = new Habitacion(tbNumHab.Text.ToString(), tbPiso.Text.ToString(), cbUbicacion.Text.ToString(), cbTipoHab.Text.ToString(), tbDescripcion.Text.ToString(), tbComodidades.Text.ToString(), situacionHabilitacion);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

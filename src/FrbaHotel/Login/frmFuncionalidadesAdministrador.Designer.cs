@@ -39,66 +39,61 @@
             // 
             // btnAtras
             // 
-            this.btnAtras.Location = new System.Drawing.Point(12, 283);
-            this.btnAtras.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAtras.Location = new System.Drawing.Point(9, 230);
+            this.btnAtras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(81, 34);
-            this.btnAtras.TabIndex = 22;
+            this.btnAtras.Size = new System.Drawing.Size(61, 28);
+            this.btnAtras.TabIndex = 6;
             this.btnAtras.Text = "<< Atrás";
             this.btnAtras.UseVisualStyleBackColor = true;
             this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
             // 
             // btnListadoEstadistico
             // 
-            this.btnListadoEstadistico.Location = new System.Drawing.Point(155, 220);
-            this.btnListadoEstadistico.Margin = new System.Windows.Forms.Padding(4);
+            this.btnListadoEstadistico.Location = new System.Drawing.Point(116, 179);
             this.btnListadoEstadistico.Name = "btnListadoEstadistico";
-            this.btnListadoEstadistico.Size = new System.Drawing.Size(183, 42);
-            this.btnListadoEstadistico.TabIndex = 21;
+            this.btnListadoEstadistico.Size = new System.Drawing.Size(137, 34);
+            this.btnListadoEstadistico.TabIndex = 5;
             this.btnListadoEstadistico.Text = "Listado estadistico";
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
             this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
             // 
             // btnABMHabitacion
             // 
-            this.btnABMHabitacion.Location = new System.Drawing.Point(254, 149);
-            this.btnABMHabitacion.Margin = new System.Windows.Forms.Padding(4);
+            this.btnABMHabitacion.Location = new System.Drawing.Point(190, 121);
             this.btnABMHabitacion.Name = "btnABMHabitacion";
-            this.btnABMHabitacion.Size = new System.Drawing.Size(183, 42);
-            this.btnABMHabitacion.TabIndex = 19;
+            this.btnABMHabitacion.Size = new System.Drawing.Size(137, 34);
+            this.btnABMHabitacion.TabIndex = 4;
             this.btnABMHabitacion.Text = "ABM de Habitacion";
             this.btnABMHabitacion.UseVisualStyleBackColor = true;
             this.btnABMHabitacion.Click += new System.EventHandler(this.btnABMHabitacion_Click);
             // 
             // btnABMHotel
             // 
-            this.btnABMHotel.Location = new System.Drawing.Point(37, 83);
-            this.btnABMHotel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnABMHotel.Location = new System.Drawing.Point(28, 67);
             this.btnABMHotel.Name = "btnABMHotel";
-            this.btnABMHotel.Size = new System.Drawing.Size(183, 43);
-            this.btnABMHotel.TabIndex = 18;
+            this.btnABMHotel.Size = new System.Drawing.Size(137, 35);
+            this.btnABMHotel.TabIndex = 1;
             this.btnABMHotel.Text = "ABM de Hotel";
             this.btnABMHotel.UseVisualStyleBackColor = true;
             this.btnABMHotel.Click += new System.EventHandler(this.btnABMHotel_Click);
             // 
             // btnABMUsuario
             // 
-            this.btnABMUsuario.Location = new System.Drawing.Point(254, 83);
-            this.btnABMUsuario.Margin = new System.Windows.Forms.Padding(4);
+            this.btnABMUsuario.Location = new System.Drawing.Point(190, 67);
             this.btnABMUsuario.Name = "btnABMUsuario";
-            this.btnABMUsuario.Size = new System.Drawing.Size(183, 43);
-            this.btnABMUsuario.TabIndex = 17;
+            this.btnABMUsuario.Size = new System.Drawing.Size(137, 35);
+            this.btnABMUsuario.TabIndex = 2;
             this.btnABMUsuario.Text = "ABM de Usuario";
             this.btnABMUsuario.UseVisualStyleBackColor = true;
             this.btnABMUsuario.Click += new System.EventHandler(this.btnABMUsuario_Click);
             // 
             // btnABMRol
             // 
-            this.btnABMRol.Location = new System.Drawing.Point(37, 149);
-            this.btnABMRol.Margin = new System.Windows.Forms.Padding(4);
+            this.btnABMRol.Location = new System.Drawing.Point(28, 121);
             this.btnABMRol.Name = "btnABMRol";
-            this.btnABMRol.Size = new System.Drawing.Size(183, 42);
-            this.btnABMRol.TabIndex = 16;
+            this.btnABMRol.Size = new System.Drawing.Size(137, 34);
+            this.btnABMRol.TabIndex = 3;
             this.btnABMRol.Text = "ABM de Rol";
             this.btnABMRol.UseVisualStyleBackColor = true;
             this.btnABMRol.Click += new System.EventHandler(this.btnABMRol_Click);
@@ -107,17 +102,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(150, 27);
+            this.label1.Location = new System.Drawing.Point(112, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 29);
+            this.label1.Size = new System.Drawing.Size(139, 24);
             this.label1.TabIndex = 23;
             this.label1.Text = "Administrador";
             // 
             // frmFuncionalidadesAdministrador
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 328);
+            this.ClientSize = new System.Drawing.Size(352, 266);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.btnListadoEstadistico);
@@ -125,9 +121,9 @@
             this.Controls.Add(this.btnABMHotel);
             this.Controls.Add(this.btnABMUsuario);
             this.Controls.Add(this.btnABMRol);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmFuncionalidadesAdministrador";
             this.Text = "frmFuncionalidadesAdministrador";
+            this.Load += new System.EventHandler(this.frmFuncionalidadesAdministrador_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

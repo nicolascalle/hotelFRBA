@@ -15,25 +15,25 @@ namespace FrbaHotel
         private string ubicacion;
         private string tipo;
         private string descripcion;
-        private string comodidades;
+        //private string comodidades;
         private bool estaHabilitada;
 
         public string getNumero() { return numero; }
        // public bool getExists() { return exists; }
         //public bool getHabilitado() { return habilitado; }
 
-        public Habitacion(string numero, string piso, string ubicacion, string tipo, string descripcion, string comodidades, bool estaHabilitada)
+        public Habitacion(string numero, string piso, string ubicacion, string tipo, string descripcion, bool estaHabilitada)//, string comodidades)
         {
             this.numero = numero;
             this.piso = piso;
             this.ubicacion = ubicacion;
             this.tipo = tipo;
             this.descripcion = descripcion;
-            this.comodidades = comodidades;
+          //  this.comodidades = comodidades;
             this.estaHabilitada = estaHabilitada;
         }
 
-        public void guardar() 
+        public void guardar()
         {
             string[] param = { "@habi_nro", "@habi_piso", "@habi_vista_exterior", "@habi_tipo_codigo", "@habi_habilitada" };
             object[] args = { this.numero, this.piso, this.ubicacion, this.tipo ,this.estaHabilitada };
@@ -74,5 +74,7 @@ namespace FrbaHotel
             DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_habitacion", param, args);
             this.estaHabilitada = false;
         }
+
+
     }
 }
