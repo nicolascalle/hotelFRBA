@@ -10,7 +10,7 @@ GO
 CREATE TABLE FAAE.Historial_Reserva (
     hire_codigo numeric(10,0) PRIMARY KEY,
     hire_rese_codigo numeric(10),
-	hire_descripcion nvarchar(50),
+	hire_descripcion nvarchar(50) default 'Reserva cancelada por No-Show',
 	hire_usua_doc_tipo nvarchar(10),
 	hire_usua_doc_nro numeric(10)
 )
@@ -70,7 +70,7 @@ CREATE TABLE FAAE.Rol (
 	rol_habilitado bit default 1
 )
 CREATE TABLE FAAE.Item_Factura (
-    item_fact_tipo nvarchar(10),
+    item_fact_tipo nvarchar(10) default 'A',
 	item_fact_nro numeric(10),
 	item_cons_codigo numeric(10),
 	item_cantidad numeric(10),
@@ -210,9 +210,6 @@ ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_cod
 
 
 /** Migración **/
-create PROCEDURE FAAE.sp_cargar_tablas
-AS
-BEGIN
 	insert FAAE.Usuario(usua_doc_tipo,usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle,usua_dire_nro,usua_fecha_nacimiento) 
 		values	('pasaporte',0000000000,'admin','w23e','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
 
@@ -233,6 +230,7 @@ BEGIN
 		select distinct Cliente_Nombre,Cliente_Apellido,Cliente_Pasaporte_Nro,Cliente_Mail,Cliente_Dom_Calle, Cliente_Nro_Calle,Cliente_Nacionalidad,Cliente_Piso,Cliente_Depto,Cliente_Fecha_Nac 
 		from gd_esquema.Maestra
 	
+	set identity_insert FAAE.Hotel on
 	insert FAAE.Hotel(hote_dire_calle,hote_dire_nro,hote_cant_estrellas,hote_recarga_estrellas,hote_ciudad) 
 		select distinct Hotel_Calle, Hotel_Nro_Calle, Hotel_CantEstrella, Hotel_Recarga_Estrella, Hotel_Ciudad
 		from gd_esquema.Maestra
@@ -242,7 +240,7 @@ BEGIN
 		from gd_esquema.Maestra
 
 	insert FAAE.Habitacion(habi_nro,habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_hote_codigo) 
-		select distinct Habitacion_Numero, Habitacion_Piso, Habitacion_Frente, Habitacion_Tipo_Codigo, obtenerHotelCodigo(.....)
+		select distinct Habitacion_Numero, Habitacion_Piso, Habitacion_Frente, Habitacion_Tipo_Codigo, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle)
 		from gd_esquema.Maestra
 
 	insert FAAE.Regimen(regi_nombre,regi_precio_base) 
@@ -250,36 +248,72 @@ BEGIN
 		from gd_esquema.Maestra
 
 	insert FAAE.Regimen_Hotel(reho_hote_codigo,reho_regi_codigo) 
-		select distinct obtenerHotelCodigo(...), Regimen_Descripcion
+		select distinct FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Regimen_Descripcion
 		from gd_esquema.Maestra
 
 	set identity_insert FAAE.Reserva on
 	insert FAAE.Reserva(rese_fecha_desde,rese_fecha_hasta,rese_hote_codigo,rese_regi_codigo,rese_clie_doc_nro) 
-		select distinct Reserva_Fecha_Inicio, Reserva_Fecha_Inicio+Reserva_Cant_Noches, obtenerHotelCodigo(.....), Regimen_Descripcion, Cliente_Pasaporte_Nro
+		select distinct Reserva_Fecha_Inicio, Reserva_Fecha_Inicio+Reserva_Cant_Noches, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Regimen_Descripcion, Cliente_Pasaporte_Nro
 		from gd_esquema.Maestra
+		
+	insert FAAE.Historial_Reserva(hire_rese_codigo, hire_usua_doc_nro) 
+		select distinct Reserva_Codigo, Cliente_Pasaporte_Nro
+		from gd_esquema.Maestra
+		group by Reserva_Codigo
+		having count(Reserva_Codigo) = 1
 
-
-
-	insert FAAE.Factura(fact_nro) 
-		select distinct Factura_Nro 
-		from gd_esquema.Maestra 
+	insert FAAE.Factura(fact_nro, fact_fecha, fact_total, fact_rese_codigo, fact_habi_nro, fact_hote_codigo)
+		select distinct Factura_Nro, Factura_Fecha, Factura_Total, Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle)
+		from gd_esquema.Maestra
 		where Factura_Nro is not null
-END
-go
 
-create TRIGGER FAAE.t_mail_unico 
-   ON FAAE.Cliente  
-   instead of INSERT
+	insert FAAE.Consumible(cons_codigo, cons_descipcion, cons_precio) 
+		select distinct Consumible_Codigo, Consumible_Descripcion, Consumible_Precio
+		from gd_esquema.Maestra
+		where Consumible_Codigo is not null
+
+	insert FAAE.Item_Factura(item_cantidad, item_precio, item_cons_codigo, item_fact_nro) -- monto y cantidad parecen invertidos en tabla maestra
+		select distinct Item_Factura_Monto, Item_Factura_Cantidad, Consumible_Codigo
+		from gd_esquema.Maestra 
+		where Consumible_Codigo is not null
+
+	insert FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio) -- monto y cantidad parecen invertidos en tabla maestra
+		select distinct Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Item_Factura_Cantidad
+		from gd_esquema.Maestra
+		where (Consumible_Codigo is null and
+			   Item_Factura_Cantidad is not null)
+
+	insert FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio) -- monto y cantidad parecen invertidos en tabla maestra
+		select distinct Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Item_Factura_Cantidad
+		from gd_esquema.Maestra
+		where (Consumible_Codigo is null and
+			   Item_Factura_Cantidad is not null)
+
+-- Inhabilitar Clientes con Mail ya Usado
+create TRIGGER FAAE.t_mail_unico
+   ON FAAE.Cliente
+   after INSERT
 AS 
 BEGIN
-    if((select count(distinct clie_mail)
-	    from inserted)
-	   > 1)
-	begin
-		raiserror ('MISMO MAIL EN VARIOS USUARIOS', 1, 1)
-	end
+	update Cliente set clie_habilitado = 0 where clie_doc_nro in (select a.clie_doc_nro
+																  from Cliente a, Cliente b
+																  where a.clie_mail = b.clie_mail and
+																		a.clie_doc_nro <> b.clie_doc_nro)
+END
+GO
+
+CREATE FUNCTION FAAE.obtenerHotelCodigo (@Hotel_ciudad nvarchar(16), @Hotel_calle nvarchar(50), @Hotel_nro_calle numeric(5))
+RETURNS numeric(10)
+AS
+BEGIN
+	return (select hote_codigo 
+			from FAAE.Hotel
+			where (hote_ciudad = @Hotel_ciudad and
+				   hote_dire_calle = @Hotel_calle and
+	    		   hote_dire_nro = @Hotel_nro_calle))
 END
 go
+
 
 create TRIGGER FAAE.t_agregar_Hotel 
    ON FAAE.Hotel 
