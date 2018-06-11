@@ -5,7 +5,7 @@
 * ABM Usuario -- lo esta haciendo agustin
 * ABM Cliente -- lo estoy haciendo 
 * ABM Hotel -- hecho(hay que arreglar algo)
-* ABM Habitacion -- lo esta haciendo kevin
+* ABM Habitacion -- Hecho (no olvidar oulir detalles)
 * ABM Regimen -- no hay que hacerlo
 * Generar o modificar reserva -- falta  
 * Cancelar reserva -- hecho
