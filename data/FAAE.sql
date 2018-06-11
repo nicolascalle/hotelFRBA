@@ -486,24 +486,29 @@ CREATE PROCEDURE FAAE.modificar_habitacion
 @habi_vista_exterior char(1), @habi_habilitada bit, @habi_descripcion varchar(100)
 AS
 BEGIN
-	IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) )
-		BEGIN
+	--IF( EXISTS(SELECT habi_nro FROM FAAE.Habitacion WHERE habi_nro = @habi_nro) ) Ya se controlado en el visual studio
+	--	BEGIN
 			UPDATE FAAE.Habitacion 
-				SET habi_nro = @habi_nro, 
-					habi_hote_codigo = @habi_hote_codigo, 
-					habi_piso = @habi_piso,
+				SET habi_piso = @habi_piso,
 					habi_vista_exterior = @habi_vista_exterior,
-					habi_tipo_codigo = (SELECT habi_tipo_codigo FROM FAAE.Habitacion WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo),
 					habi_habilitada = @habi_habilitada,
 					habi_descripcion = @habi_descripcion
 				WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
-		END
-	ELSE
-		BEGIN
-			INSERT INTO FAAE.Habitacion
-			VALUES(@habi_nro, @habi_hote_codigo, @habi_piso, @habi_vista_exterior, 1001, @habi_habilitada)
-		END
+	--	END
+	--ELSE INSERT?
 END
+
+--Baja
+GO
+CREATE PROCEDURE FAAE.baja_habitacion
+@habi_nro numeric(10), @habi_hote_codigo numeric(10)
+AS
+BEGIN
+	DELETE FROM FAAE.Habitacion
+	WHERE habi_nro = @habi_nro
+	AND habi_hote_codigo = @habi_hote_codigo
+END
+
 
 --Inhabilitar
 GO
@@ -511,23 +516,12 @@ CREATE PROCEDURE FAAE.inhabilitar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10)
 AS
 BEGIN
-	UPDATE FAAE.Habitacion 
+		UPDATE FAAE.Habitacion 
 		SET habi_habilitada = 0
 		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 END
 
-go
-create TRIGGER FAAE.t_habitacion_unica
-   ON FAAE.Habitacion  
-   instead of INSERT
-AS 
-BEGIN
-    if((SELECT COUNT(DISTINCT habi_nro) --falta el codigo del hotel
-	    from inserted) > 1)
-	begin
-		raiserror ('Ya existe esa habitacion', 1, 1)
-	end
-END
+
 
 --agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
 ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)

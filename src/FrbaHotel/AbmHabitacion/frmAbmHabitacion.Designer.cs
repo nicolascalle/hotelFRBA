@@ -32,7 +32,7 @@
             this.tbNumeroHabitacion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lvHabitaciones = new System.Windows.Forms.ListView();
-            this.frmModificacion = new System.Windows.Forms.Button();
+            this.btModificacion = new System.Windows.Forms.Button();
             this.frmBaja = new System.Windows.Forms.Button();
             this.frmAlta = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -45,6 +45,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.rbSi = new System.Windows.Forms.RadioButton();
             this.rbNo = new System.Windows.Forms.RadioButton();
+            this.btLimpiar = new System.Windows.Forms.Button();
+            this.btnInhabilitar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -90,14 +92,15 @@
             this.lvHabitaciones.View = System.Windows.Forms.View.Details;
             this.lvHabitaciones.SelectedIndexChanged += new System.EventHandler(this.lvHabitaciones_SelectedIndexChanged);
             // 
-            // frmModificacion
+            // btModificacion
             // 
-            this.frmModificacion.Location = new System.Drawing.Point(494, 172);
-            this.frmModificacion.Name = "frmModificacion";
-            this.frmModificacion.Size = new System.Drawing.Size(94, 23);
-            this.frmModificacion.TabIndex = 37;
-            this.frmModificacion.Text = "Modificacion";
-            this.frmModificacion.UseVisualStyleBackColor = true;
+            this.btModificacion.Location = new System.Drawing.Point(494, 172);
+            this.btModificacion.Name = "btModificacion";
+            this.btModificacion.Size = new System.Drawing.Size(94, 23);
+            this.btModificacion.TabIndex = 37;
+            this.btModificacion.Text = "Modificacion";
+            this.btModificacion.UseVisualStyleBackColor = true;
+            this.btModificacion.Click += new System.EventHandler(this.btModificacion_Click);
             // 
             // frmBaja
             // 
@@ -107,6 +110,7 @@
             this.frmBaja.TabIndex = 36;
             this.frmBaja.Text = "Baja";
             this.frmBaja.UseVisualStyleBackColor = true;
+            this.frmBaja.Click += new System.EventHandler(this.frmBaja_Click);
             // 
             // frmAlta
             // 
@@ -122,7 +126,7 @@
             // 
             this.btnBuscar.Location = new System.Drawing.Point(494, 276);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(94, 68);
+            this.btnBuscar.Size = new System.Drawing.Size(94, 53);
             this.btnBuscar.TabIndex = 34;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -217,11 +221,33 @@
             this.rbNo.Text = "No";
             this.rbNo.UseVisualStyleBackColor = true;
             // 
+            // btLimpiar
+            // 
+            this.btLimpiar.Location = new System.Drawing.Point(494, 335);
+            this.btLimpiar.Name = "btLimpiar";
+            this.btLimpiar.Size = new System.Drawing.Size(94, 30);
+            this.btLimpiar.TabIndex = 52;
+            this.btLimpiar.Text = "Limpiar";
+            this.btLimpiar.UseVisualStyleBackColor = true;
+            this.btLimpiar.Click += new System.EventHandler(this.btLimpiar_Click);
+            // 
+            // btnInhabilitar
+            // 
+            this.btnInhabilitar.Location = new System.Drawing.Point(494, 210);
+            this.btnInhabilitar.Name = "btnInhabilitar";
+            this.btnInhabilitar.Size = new System.Drawing.Size(94, 23);
+            this.btnInhabilitar.TabIndex = 53;
+            this.btnInhabilitar.Text = "Inhabilitar";
+            this.btnInhabilitar.UseVisualStyleBackColor = true;
+            this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
+            // 
             // frmAbmHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 377);
+            this.Controls.Add(this.btnInhabilitar);
+            this.Controls.Add(this.btLimpiar);
             this.Controls.Add(this.rbNo);
             this.Controls.Add(this.rbSi);
             this.Controls.Add(this.label6);
@@ -235,7 +261,7 @@
             this.Controls.Add(this.tbNumeroHabitacion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lvHabitaciones);
-            this.Controls.Add(this.frmModificacion);
+            this.Controls.Add(this.btModificacion);
             this.Controls.Add(this.frmBaja);
             this.Controls.Add(this.frmAlta);
             this.Controls.Add(this.btnBuscar);
@@ -252,7 +278,7 @@
         private System.Windows.Forms.TextBox tbNumeroHabitacion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView lvHabitaciones;
-        private System.Windows.Forms.Button frmModificacion;
+        private System.Windows.Forms.Button btModificacion;
         private System.Windows.Forms.Button frmBaja;
         private System.Windows.Forms.Button frmAlta;
         private System.Windows.Forms.Button btnBuscar;
@@ -265,6 +291,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RadioButton rbSi;
         private System.Windows.Forms.RadioButton rbNo;
+        private System.Windows.Forms.Button btLimpiar;
+        private System.Windows.Forms.Button btnInhabilitar;
 
     }
 }

@@ -134,5 +134,34 @@ namespace FrbaHotel.AbmHabitacion
             frmAltaHabitacion ventanaAlta = new frmAltaHabitacion();
             ventanaAlta.Show();
         }
+
+        private void btLimpiar_Click(object sender, EventArgs e)
+        {
+            tbNumeroHabitacion.Text = "";
+            tbCodigoHotel.Text = "";
+            tbPiso.Text = "";
+            tbVistaExterior.Text = "";
+            rbNo.Checked = false;
+            rbSi.Checked = false;
+        }
+
+        private void btModificacion_Click(object sender, EventArgs e)
+        {
+            frmSeleccionarHabitacion ventanaSeleccionar = new frmSeleccionarHabitacion();
+            ventanaSeleccionar.Show();
+         
+        }
+
+        private void frmBaja_Click(object sender, EventArgs e)
+        {
+            frmBajaHabitacion ventanaBaja = new frmBajaHabitacion();
+            ventanaBaja.Show();
+        }
+
+        private void btnInhabilitar_Click(object sender, EventArgs e)
+        {
+            frmInhabilitarHabitacion ventanaInhabilitar = new frmInhabilitarHabitacion();
+            ventanaInhabilitar.Show();
+        }
     }
 }

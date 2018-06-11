@@ -52,10 +52,17 @@ namespace FrbaHotel.AbmHabitacion
         {
             try
             {
-                int tipo = this.determinarTipo(cbTipoHab.Text.ToString()); //Esto no lo deberia hacer la habitacion pero bueno...
-                Habitacion habitacion = new Habitacion(Convert.ToInt32(tbNumHab.Text), Convert.ToInt32(tbcodHotel.Text), Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), tipo, tbDescripcion.Text.ToString(), rbSi.Checked);
-                habitacion.guardar();
-                this.Close();
+                if (this.camposObligatoriosCompletos())
+                {
+                    int tipo = this.determinarTipo(cbTipoHab.Text.ToString()); //Esto no lo deberia hacer la habitacion pero bueno...
+                    Habitacion habitacion = new Habitacion(Convert.ToInt32(tbNumHab.Text), Convert.ToInt32(tbcodHotel.Text), Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), tipo, tbDescripcion.Text.ToString(), rbSi.Checked);
+                    habitacion.guardar();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Falta completar los campos obligatorios");
+                }
             }
             catch
             {

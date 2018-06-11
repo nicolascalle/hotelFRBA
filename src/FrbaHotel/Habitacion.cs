@@ -43,25 +43,6 @@ namespace FrbaHotel
         public void modificar()
         {
 
-            string query = "SELECT habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada FROM FAAE.Hotel WHERE habi_nro =" + this.numero + "AND habi_hote_codigo =";//faltaria el codigo hotel + this.;
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
-
-            if (dataReader.Read())
-            {
-                //this.numero = dataReader["habi_nro"].ToString();
-                //this.codigoHotel = dataReader["habi_hote_codigo"].ToString();
-                //this.piso = dataReader["habi_piso"].ToString();
-                //this.ubicacion = dataReader["habi_vista_exterior"].ToString();
-                //this.tipo = dataReader["habi_tipo_codigo"].ToString();
-              //  this.estaHabilitada = Convert.ToBoolean(dataReader["habi_habilitada"].ToString());
-            }
-            dataReader.Close();
-            string[] param = { "@habi_nro", "@habi_piso", "@habi_vista_exterior", "@habi_habilitada" };
-            object[] args = { this.numero, this.piso, this.ubicacion ,this.estaHabilitada };
-            DBConnection.getInstance().executeProcedure("FAAE.modificar_habitacion", param, args);
-            //va descripcion?
-            //va comodidades?
-           	// @habi_hote_codigo?cuando especifica en que hotel?
         }
 
         public void inhabilitar()
