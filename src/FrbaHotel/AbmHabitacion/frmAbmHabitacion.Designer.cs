@@ -46,7 +46,6 @@
             this.rbSi = new System.Windows.Forms.RadioButton();
             this.rbNo = new System.Windows.Forms.RadioButton();
             this.btLimpiar = new System.Windows.Forms.Button();
-            this.btnInhabilitar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -231,22 +230,11 @@
             this.btLimpiar.UseVisualStyleBackColor = true;
             this.btLimpiar.Click += new System.EventHandler(this.btLimpiar_Click);
             // 
-            // btnInhabilitar
-            // 
-            this.btnInhabilitar.Location = new System.Drawing.Point(494, 210);
-            this.btnInhabilitar.Name = "btnInhabilitar";
-            this.btnInhabilitar.Size = new System.Drawing.Size(94, 23);
-            this.btnInhabilitar.TabIndex = 53;
-            this.btnInhabilitar.Text = "Inhabilitar";
-            this.btnInhabilitar.UseVisualStyleBackColor = true;
-            this.btnInhabilitar.Click += new System.EventHandler(this.btnInhabilitar_Click);
-            // 
             // frmAbmHabitacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 377);
-            this.Controls.Add(this.btnInhabilitar);
             this.Controls.Add(this.btLimpiar);
             this.Controls.Add(this.rbNo);
             this.Controls.Add(this.rbSi);
@@ -292,7 +280,6 @@
         private System.Windows.Forms.RadioButton rbSi;
         private System.Windows.Forms.RadioButton rbNo;
         private System.Windows.Forms.Button btLimpiar;
-        private System.Windows.Forms.Button btnInhabilitar;
 
     }
 }

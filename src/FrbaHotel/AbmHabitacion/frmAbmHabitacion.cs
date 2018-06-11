@@ -95,6 +95,7 @@ namespace FrbaHotel.AbmHabitacion
             listItems.SubItems.Add(dataReader["habi_habilitada"].ToString());
             listItems.SubItems.Add(dataReader["habi_descripcion"].ToString());
             return listItems;
+            
         }
 
         private void lvHabitaciones_SelectedIndexChanged(object sender, EventArgs e)
@@ -158,7 +159,7 @@ namespace FrbaHotel.AbmHabitacion
             ventanaBaja.Show();
         }
 
-        private void btnInhabilitar_Click(object sender, EventArgs e)
+        private void btnInhabilitar_Click(object sender, EventArgs e)//no lo pude hacer andar, pero modificarHabitacion hacer esta funcionalidad
         {
             frmInhabilitarHabitacion ventanaInhabilitar = new frmInhabilitarHabitacion();
             ventanaInhabilitar.Show();

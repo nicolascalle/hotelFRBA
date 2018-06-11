@@ -30,10 +30,13 @@ namespace FrbaHotel.AbmHabitacion
         public void mostrarHabitacion()
         {
             tbNumHab.Text = numeroHabitacion;
+            tbNumHab.Enabled = false;
             tbcodHotel.Text = codigoHotel;
+            tbcodHotel.Enabled = false;
             tbPiso.Text = dataReader["habi_piso"].ToString();
             cbUbicacion.Text = dataReader["habi_vista_exterior"].ToString();
             cbTipoHab.Text = dataReader["habi_tipo_codigo"].ToString();
+            cbTipoHab.Enabled = false;
             tbDescripcion.Text = dataReader["habi_descripcion"].ToString();
             estaHabilitada = Convert.ToBoolean(dataReader["habi_habilitada"].ToString());
             if (estaHabilitada)
@@ -50,10 +53,11 @@ namespace FrbaHotel.AbmHabitacion
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             string[] param = { "@habi_nro", "@habi_hote_codigo", "@habi_piso", "@habi_vista_exterior", "@habi_habilitada", "@habi_descripcion"};
-            object[] args = { this.numeroHabitacion, this.codigoHotel, Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), estaHabilitada, tbDescripcion.Text.ToString() };
+            object[] args = { this.numeroHabitacion, this.codigoHotel, Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), rbSi.Checked, tbDescripcion.Text.ToString() };
             DBConnection.getInstance().executeProcedure("FAAE.modificar_habitacion", param, args);
             MessageBox.Show("Se guardo satisfactoriamente");
             this.Close();
+            dataReader.Close();
         }
 
         private void btnAtras_Click(object sender, EventArgs e)

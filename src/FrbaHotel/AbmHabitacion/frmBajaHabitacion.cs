@@ -27,7 +27,7 @@ namespace FrbaHotel.AbmHabitacion
             {
                 frmAdvertenciaBaja ventanaBaja = new frmAdvertenciaBaja(tbNumHab.Text.ToString(), tbcodHotel.Text.ToString());
                 ventanaBaja.Show();
-               // this.Close();
+                dataReader.Close();
             }
             else
                 MessageBox.Show("Error: No existe esa habitacion");

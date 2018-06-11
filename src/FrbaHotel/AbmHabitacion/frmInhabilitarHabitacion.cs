@@ -20,7 +20,8 @@ namespace FrbaHotel.AbmHabitacion
 
         private void btSeleccionar_Click(object sender, EventArgs e)
         {
-            string query = "SELECT * FROM FAAE.Habitacion WHERE habi_nro = " + tbNumHab.Text.ToString() + "AND habi_hote_codigo = " + tbcodHotel.Text.ToString();
+
+            string query = "SELECT habi_nro, habi_hote_codigo FROM FAAE.Habitacion WHERE habi_nro = " + tbNumHab.Text.ToString() + "AND habi_hote_codigo = " + tbcodHotel.Text.ToString();
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             if (dataReader.Read())
@@ -29,11 +30,11 @@ namespace FrbaHotel.AbmHabitacion
                 object[] args = {tbNumHab.Text.ToString(), tbcodHotel.Text.ToString()};
                 DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_habitacion", param, args);
                 MessageBox.Show("Se Inhabilito satisfactoriamente");
-                
+                this.Close();
             }
             else
                 MessageBox.Show("Error: No existe esa habitacion");
-
+ 
             dataReader.Close();
             
         }
