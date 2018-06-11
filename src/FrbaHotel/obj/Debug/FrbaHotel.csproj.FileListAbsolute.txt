@@ -109,7 +109,6 @@ C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmC
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmCliente.frmModificacion.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.CancelarReserva.frmCancelarReserva.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Inicio.resources
-C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarModificacionReserva.frmGenerarModificacion.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.ListadoEstadistico.frmListadoEstadistico.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmFuncionalidadesAdministrador.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.Login.frmFuncionalidadesCliente.resources
@@ -141,3 +140,6 @@ C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmH
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.frmAdvertenciaBaja.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.frmBajaHabitacion.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmHabitacion.frmInhabilitarHabitacion.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmGenerarReserva.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmSeleccionarReserva.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmGenerarOModificarReserva.resources

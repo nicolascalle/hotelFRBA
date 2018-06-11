@@ -19,7 +19,7 @@ namespace FrbaHotel.Login
 
         private void btnGenerarModificacionReserva_Click(object sender, EventArgs e)
         {
-            GenerarModificacionReserva.frmGenerarModificacion i = new GenerarModificacionReserva.frmGenerarModificacion();
+            GenerarOModificarReserva.frmGenerarOModificarReserva i = new GenerarOModificarReserva.frmGenerarOModificarReserva();
             i.Show();
             Close();
         }

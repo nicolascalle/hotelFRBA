@@ -183,6 +183,24 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmGenerarReserva.Designer.cs">
+      <DependentUpon>frmGenerarReserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmModificarRserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmModificarRserva.Designer.cs">
+      <DependentUpon>frmModificarRserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarReserva.Designer.cs">
+      <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="Habitacion.cs" />
     <Compile Include="Consumible.cs" />
     <Compile Include="DBConnection.cs" />
@@ -204,11 +222,11 @@
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerarModificacionReserva\frmGenerarModificacionReserva.cs">
+    <Compile Include="GenerarOModificarReserva\frmGenerarOModificarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenerarModificacionReserva\frmGenerarModificacionReserva.Designer.cs">
-      <DependentUpon>frmGenerarModificacionReserva.cs</DependentUpon>
+    <Compile Include="GenerarOModificarReserva\frmGenerarOModificarReserva.Designer.cs">
+      <DependentUpon>frmGenerarOModificarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="ListadoEstadistico\frmListadoEstadistico.cs">
       <SubType>Form</SubType>
@@ -334,11 +352,17 @@
     <EmbeddedResource Include="FacturarEstadia\frmFacturarEstadia.resx">
       <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmGenerarReserva.resx">
+      <DependentUpon>frmGenerarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarReserva.resx">
+      <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenerarModificacionReserva\frmGenerarModificacionReserva.resx">
-      <DependentUpon>frmGenerarModificacionReserva.cs</DependentUpon>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmGenerarOModificarReserva.resx">
+      <DependentUpon>frmGenerarOModificarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoEstadistico\frmListadoEstadistico.resx">
       <DependentUpon>frmListadoEstadistico.cs</DependentUpon>
