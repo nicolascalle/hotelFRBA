@@ -2,14 +2,60 @@
 USE GD1C2018
 GO
 
---/** CREACION DE SCHEMA **/
---CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018
---GO
+/** ASEGURAMOS LOS NOMBRES DE TABLAS Y SCHEMA **/
+IF OBJECT_ID('FAAE.Historial_Reserva','U') IS NOT NULL
+    DROP TABLE FAAE.Historial_Reserva;
+IF OBJECT_ID('FAAE.Cliente','U') IS NOT NULL
+    DROP TABLE FAAE.Cliente;
+IF OBJECT_ID('FAAE.Rol_Usuario','U') IS NOT NULL
+    DROP TABLE FAAE.Rol_Usuario;
+IF OBJECT_ID('FAAE.Estadia','U') IS NOT NULL
+    DROP TABLE FAAE.Estadia;
+IF OBJECT_ID('FAAE.Reserva_Habitacion','U') IS NOT NULL
+    DROP TABLE FAAE.Reserva_Habitacion;
+IF OBJECT_ID('FAAE.Reserva','U') IS NOT NULL
+    DROP TABLE FAAE.Reserva;
+IF OBJECT_ID('FAAE.Rol','U') IS NOT NULL
+    DROP TABLE FAAE.Rol;
+IF OBJECT_ID('FAAE.Item_Factura','U') IS NOT NULL
+    DROP TABLE FAAE.Item_Factura;
+	IF OBJECT_ID('FAAE.Habitacion','U') IS NOT NULL
+    DROP TABLE FAAE.Habitacion;
+IF OBJECT_ID('FAAE.Tipo','U') IS NOT NULL
+    DROP TABLE FAAE.Tipo;
+	IF OBJECT_ID('FAAE.Funcionalidad','U') IS NOT NULL
+    DROP TABLE FAAE.Funcionalidad;
+	IF OBJECT_ID('FAAE.Consumible','U') IS NOT NULL
+    DROP TABLE FAAE.Consumible;
+IF OBJECT_ID('FAAE.Factura','U') IS NOT NULL
+    DROP TABLE FAAE.Factura;
+IF OBJECT_ID('FAAE.Hotel','U') IS NOT NULL
+    DROP TABLE FAAE.Hotel;
+IF OBJECT_ID('FAAE.Regimen_Hotel ','U') IS NOT NULL
+    DROP TABLE FAAE.Regimen_Hotel;
+IF OBJECT_ID('FAAE.Regimen','U') IS NOT NULL
+    DROP TABLE FAAE.Regimen;
+IF OBJECT_ID('FAAE.Motivo','U') IS NOT NULL
+    DROP TABLE FAAE.Motivo;
+IF OBJECT_ID('FAAE.Historial_Inhabilitado','U') IS NOT NULL
+    DROP TABLE FAAE.Historial_Inhabilitado;
+IF OBJECT_ID('FAAE.Hotel_Usuario','U') IS NOT NULL
+    DROP TABLE FAAE.Hotel_Usuario;
+IF OBJECT_ID('FAAE.Usuario','U') IS NOT NULL
+    DROP TABLE FAAE.Usuario;
+
+IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'FAAE')
+    DROP SCHEMA FAAE
+GO
+
+/** CREACION DE SCHEMA **/
+CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018
+GO
 
 /** CREACION DE TABLAS **/
 CREATE TABLE FAAE.Historial_Reserva (
-    hire_codigo numeric(10,0) PRIMARY KEY,
-    hire_rese_codigo numeric(10),
+    hire_codigo numeric(10,0) IDENTITY(1,1) PRIMARY KEY,
+    hire_rese_codigo numeric(10) not null,
 	hire_descripcion nvarchar(50) default 'Reserva cancelada por No-Show',
 	hire_usua_doc_tipo nvarchar(10),
 	hire_usua_doc_nro numeric(10)
@@ -174,6 +220,7 @@ CREATE TABLE FAAE.Usuario (
 
 ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Reserva FOREIGN KEY (hire_rese_codigo) REFERENCES FAAE.Reserva(rese_codigo)
 ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Usuario FOREIGN KEY (hire_usua_doc_tipo , hire_usua_doc_nro) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro)
+ALTER TABLE FAAE.Historial_Reserva ADD CONSTRAINT Historial_Reserva_Cliente FOREIGN KEY (hire_usua_doc_tipo , hire_usua_doc_nro) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro)
 
 ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Usuario FOREIGN KEY (rous_clie_doc_tipo, rous_clie_doc_nro) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro)
 ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Rol FOREIGN KEY (rous_rol_nombre) REFERENCES FAAE.Rol(rol_nombre)
@@ -207,7 +254,161 @@ ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY 
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro)
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Hotel FOREIGN KEY (hous_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
 ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_codigo_ultimo_log_in) REFERENCES FAAE.Hotel(hote_codigo)
+GO
 
+/** ASEGURAMOS LOS NOMBRES DE TRIGGERS FUNCIONES Y VISTAS **/
+
+IF (OBJECT_ID ('FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial') IS NOT NULL)
+  DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
+
+IF (OBJECT_ID ('FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura') IS NOT NULL)
+  DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura
+
+ IF OBJECT_ID('FAAE.t_mail_unico') IS NOT NULL
+    DROP TRIGGER FAAE.t_mail_unico;
+
+IF (OBJECT_ID ('FAAE.obtenerHotelCodigo') IS NOT NULL)
+  DROP FUNCTION FAAE.obtenerHotelCodigo
+
+ IF OBJECT_ID('FAAE.t_agregar_Hotel') IS NOT NULL
+    DROP TRIGGER FAAE.t_agregar_Hotel;
+
+ IF OBJECT_ID('FAAE.t_agregar_Reserva') IS NOT NULL
+    DROP TRIGGER FAAE.t_agregar_Hotel;
+
+ IF OBJECT_ID('FAAE.cantPersonas') IS NOT NULL
+    DROP FUNCTION FAAE.t_agregar_Hotel;
+
+IF OBJECT_ID('FAAE.RolXUsuario') IS NOT NULL
+    DROP VIEW FAAE.RolXUsuario;
+
+IF OBJECT_ID('FAAE.login_fallido') IS NOT NULL
+    DROP PROCEDURE FAAE.login_fallido;
+
+IF OBJECT_ID('FAAE.limpiar_login_fallidos') IS NOT NULL
+    DROP PROCEDURE FAAE.limpiar_login_fallidos;
+
+IF OBJECT_ID('FAAE.guardar_hotel') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_hotel;
+
+IF OBJECT_ID('FAAE.eliminar_hotel') IS NOT NULL
+    DROP PROCEDURE FAAE.eliminar_hotel;
+
+IF OBJECT_ID('FAAE.inhabilitar_usuario') IS NOT NULL
+    DROP PROCEDURE FAAE.inhabilitar_usuario;
+
+IF OBJECT_ID('FAAE.inhabilitar_rol') IS NOT NULL
+    DROP PROCEDURE FAAE.inhabilitar_rol;
+
+IF OBJECT_ID('FAAE.guardar_rol') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_rol;
+
+IF OBJECT_ID('FAAE.asignar_funcionalidad_rol') IS NOT NULL
+    DROP PROCEDURE FAAE.asignar_funcionalidad_rol;
+
+IF OBJECT_ID('FAAE.eliminar_funcionalidades_rol') IS NOT NULL
+    DROP PROCEDURE FAAE.eliminar_funcionalidades_rol;
+
+IF OBJECT_ID('FAAE.guardar_habitacion') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_habitacion;
+
+IF OBJECT_ID('FAAE.modificar_habitacion') IS NOT NULL
+    DROP PROCEDURE FAAE.modificar_habitacion;
+
+IF OBJECT_ID('FAAE.baja_habitacion') IS NOT NULL
+    DROP PROCEDURE FAAE.baja_habitacion;
+
+IF OBJECT_ID('FAAE.inhabilitar_habitacion') IS NOT NULL
+    DROP PROCEDURE FAAE.inhabilitar_habitacion;
+GO
+
+/* CREACION DE OBJETOS QUE APOYAN LA MIGRACION */
+-- mantener consistencia historial estado reserva
+create TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
+   ON FAAE.Historial_Reserva
+   after INSERT
+AS 
+BEGIN
+	update Reserva set rese_estado = (select hire_descripcion 
+									  from inserted)
+				   where rese_codigo in (select hire_codigo 
+									     from inserted)
+END
+GO
+
+-- HABRIA QUE ASEGURARSE QUE FACTURA EL TOTAL DE LA RESERVA PERO EL ENUNCIADO ACTUAL NO CONTEMPLA LA EFECTIVIZACION PARCIAL, LO PROPONE A FUTURO
+create TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura 
+   ON FAAE.Factura
+   after INSERT
+AS
+BEGIN
+	update Reserva set rese_estado = 'Reserva con ingreso (efectivizada)' where rese_codigo in (select fact_rese_codigo 
+																								from inserted)
+END
+GO
+
+-- Inhabilitar Clientes con Mail ya Usado
+create TRIGGER FAAE.t_mail_unico
+   ON FAAE.Cliente
+   after INSERT
+AS 
+BEGIN
+	update Cliente set clie_habilitado = 0 where clie_doc_nro in (select a.clie_doc_nro
+																  from Cliente a, Cliente b
+																  where a.clie_mail = b.clie_mail and
+																		a.clie_doc_nro <> b.clie_doc_nro)
+END
+GO
+
+CREATE FUNCTION FAAE.obtenerHotelCodigo (@Hotel_ciudad nvarchar(16), @Hotel_calle nvarchar(50), @Hotel_nro_calle numeric(5))
+RETURNS numeric(10)
+AS
+BEGIN
+	return (select hote_codigo 
+			from FAAE.Hotel
+			where (hote_ciudad = @Hotel_ciudad and
+				   hote_dire_calle = @Hotel_calle and
+	    		   hote_dire_nro = @Hotel_nro_calle))
+END
+go
+
+
+create TRIGGER FAAE.t_agregar_Hotel 
+   ON FAAE.Hotel 
+   AFTER INSERT
+AS 
+BEGIN
+	UPDATE FAAE.Hotel SET hote_fecha_creacion = getdate() WHERE hote_codigo IN (SELECT hote_codigo
+																				FROM inserted)
+END
+GO
+
+create TRIGGER FAAE.t_agregar_Reserva
+   ON FAAE.Hotel 
+   AFTER INSERT
+AS 
+BEGIN
+	UPDATE FAAE.Reserva SET rese_fecha_realizacion = getdate() WHERE rese_codigo IN (SELECT rese_codigo
+																					 FROM inserted)
+END
+GO
+
+CREATE FUNCTION FAAE.cantPersonas (@Habitacion_Tipo_Descripcion nvarchar(16))
+RETURNS numeric(1)
+AS
+BEGIN
+	DECLARE @Cant_Personas numeric(1)
+	SET @Cant_Personas = CASE
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Simple' THEN 1
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Doble' THEN 2
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Triple' THEN 3
+							WHEN @Habitacion_Tipo_Descripcion = 'Base Cuadruple' THEN 4
+							WHEN @Habitacion_Tipo_Descripcion = 'King' THEN 5
+							ELSE 2
+						END
+	RETURN @Cant_Personas
+END
+GO
 
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_tipo,usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle,usua_dire_nro,usua_fecha_nacimiento) 
@@ -255,9 +456,10 @@ ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_cod
 	insert FAAE.Reserva(rese_fecha_desde,rese_fecha_hasta,rese_hote_codigo,rese_regi_codigo,rese_clie_doc_nro) 
 		select distinct Reserva_Fecha_Inicio, Reserva_Fecha_Inicio+Reserva_Cant_Noches, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Regimen_Descripcion, Cliente_Pasaporte_Nro
 		from gd_esquema.Maestra
-		
-	insert FAAE.Historial_Reserva(hire_rese_codigo, hire_usua_doc_nro) 
-		select distinct Reserva_Codigo, Cliente_Pasaporte_Nro
+	
+	set identity_insert FAAE.Historial_Reserva on	
+	insert FAAE.Historial_Reserva(hire_rese_codigo) 
+		select distinct Reserva_Codigo
 		from gd_esquema.Maestra
 		group by Reserva_Codigo
 		having count(Reserva_Codigo) = 1
@@ -282,82 +484,16 @@ ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_cod
 		from gd_esquema.Maestra
 		where (Consumible_Codigo is null and
 			   Item_Factura_Cantidad is not null)
-
-	insert FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio) -- monto y cantidad parecen invertidos en tabla maestra
-		select distinct Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Item_Factura_Cantidad
-		from gd_esquema.Maestra
-		where (Consumible_Codigo is null and
-			   Item_Factura_Cantidad is not null)
-
--- Inhabilitar Clientes con Mail ya Usado
-create TRIGGER FAAE.t_mail_unico
-   ON FAAE.Cliente
-   after INSERT
-AS 
-BEGIN
-	update Cliente set clie_habilitado = 0 where clie_doc_nro in (select a.clie_doc_nro
-																  from Cliente a, Cliente b
-																  where a.clie_mail = b.clie_mail and
-																		a.clie_doc_nro <> b.clie_doc_nro)
-END
 GO
-
-CREATE FUNCTION FAAE.obtenerHotelCodigo (@Hotel_ciudad nvarchar(16), @Hotel_calle nvarchar(50), @Hotel_nro_calle numeric(5))
-RETURNS numeric(10)
-AS
-BEGIN
-	return (select hote_codigo 
-			from FAAE.Hotel
-			where (hote_ciudad = @Hotel_ciudad and
-				   hote_dire_calle = @Hotel_calle and
-	    		   hote_dire_nro = @Hotel_nro_calle))
-END
-go
-
-
-create TRIGGER FAAE.t_agregar_Hotel 
-   ON FAAE.Hotel 
-   AFTER INSERT
-AS 
-BEGIN
-	insert FAAE.Hotel (hote_fecha_creacion) values (getdate())
-END
-
-create TRIGGER FAAE.t_agregar_Reserva
-   ON FAAE.Hotel 
-   AFTER INSERT
-AS 
-BEGIN
-	insert FAAE.Reserva(rese_fecha_realizacion) values (getdate())
-END
-
-GO
-CREATE FUNCTION FAAE.cantPersonas (@Habitacion_Tipo_Descripcion nvarchar(16))
-RETURNS TINYINT
-AS
-BEGIN
-	DECLARE @Cant_Personas TINYINT
-	SET @Cant_Personas = CASE
-							WHEN @Habitacion_Tipo_Descripcion = 'Base Simple' THEN 1
-							WHEN @Habitacion_Tipo_Descripcion = 'Base Doble' THEN 2
-							WHEN @Habitacion_Tipo_Descripcion = 'Base Triple' THEN 3
-							WHEN @Habitacion_Tipo_Descripcion = 'Base Cuadruple' THEN 4
-							WHEN @Habitacion_Tipo_Descripcion = 'King' THEN 5
-							ELSE 2
-						END
-	RETURN @Cant_Personas
-END
 
 -- LOGIN
-
 CREATE VIEW FAAE.RolXUsuario 
 AS
-SELECT usua_username username, rous_rol_nombre rol_nombre
+	SELECT usua_username username, rous_rol_nombre rol_nombre
 	FROM faae.Usuario u join faae.Rol_Usuario ru 
 		 ON (u.usua_doc_tipo = ru.rous_clie_doc_tipo AND u.usua_doc_nro = ru.rous_clie_doc_nro)
-
-
 GO
+
 CREATE PROCEDURE FAAE.login_fallido
 @username VARCHAR(10)
 AS
@@ -382,8 +518,8 @@ BEGIN
 		END
 
 END
-
 GO
+
 CREATE PROCEDURE FAAE.limpiar_login_fallidos
 @username VARCHAR(10)
 AS
@@ -392,11 +528,9 @@ BEGIN
 		SET usua_cant_log_in_fallidos = 0
 		WHERE usua_username = @username
 END
-
+GO
 
 -- ABM Hotel
-
-GO
 CREATE PROCEDURE FAAE.guardar_hotel
 @hote_codigo numeric(10), @hote_nombre nvarchar(16), @hote_mail nvarchar(25), @hote_telefono nvarchar(16), @hote_dire_calle nvarchar(25), @hote_dire_nro numeric(5), 
 @hote_cant_estrellas numeric(1), @hote_ciudad nvarchar(16), @hote_pais nvarchar(16), @hote_fecha_creacion smalldatetime, @hote_recarga_estrellas decimal(3,2)
@@ -423,17 +557,16 @@ BEGIN
 			VALUES(@hote_nombre, @hote_mail, @hote_telefono, @hote_dire_calle, @hote_dire_nro, @hote_cant_estrellas, @hote_ciudad, @hote_pais, @hote_fecha_creacion, @hote_recarga_estrellas)
 		END
 END
-
-
 GO
+
 CREATE PROCEDURE FAAE.eliminar_hotel
 @hote_codigo numeric(10)
 AS
 BEGIN
 	DELETE FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo
 END
-
 GO
+
 CREATE PROCEDURE FAAE.inhabilitar_usuario
 @username nvarchar(10)
 AS
@@ -442,8 +575,8 @@ BEGIN
 		SET usua_habilitado = 0
 		WHERE usua_username = @username
 END
-
 GO
+
 CREATE PROCEDURE FAAE.inhabilitar_rol
 @nombre nvarchar(16)
 AS
@@ -452,8 +585,8 @@ BEGIN
 		SET rol_habilitado = 0
 		WHERE rol_nombre = @nombre
 END
-
 GO
+
 CREATE PROCEDURE FAAE.guardar_rol
 @rol_nombre nvarchar(16), @rol_habilitado bit
 AS
@@ -470,8 +603,8 @@ BEGIN
 				WHERE rol_nombre = @rol_nombre
 		END
 END
-
 GO
+
 CREATE PROCEDURE FAAE.asignar_funcionalidad_rol
 @rol_nombre nvarchar(16), @funcionalidad nvarchar(16)
 AS
@@ -482,6 +615,7 @@ BEGIN
 				VALUES(@rol_nombre, @funcionalidad)
 		END
 END
+GO
 
 CREATE PROCEDURE FAAE.eliminar_funcionalidades_rol
 @rol_nombre nvarchar(16)
@@ -490,15 +624,10 @@ BEGIN
 	DELETE FROM FAAE.Funcionalidad
 		WHERE func_rol_nombre = @rol_nombre
 END
-
-
-
-
-
+GO
 
 --ABM Habitaciones
 --alta
-GO
 CREATE PROCEDURE FAAE.guardar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
 @habi_vista_exterior char(1), @habi_tipo_codigo numeric(10,0), @habi_habilitada bit, @habi_descripcion varchar(100)
@@ -512,9 +641,13 @@ BEGIN
 	--ELSE UPDATE?
 	
 END
+GO
+
+--agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
+ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)
+go
 
 --Modificación
-GO
 CREATE PROCEDURE FAAE.modificar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10), @habi_piso numeric(2,0), 
 @habi_vista_exterior char(1), @habi_habilitada bit, @habi_descripcion varchar(100)
@@ -531,9 +664,9 @@ BEGIN
 	--	END
 	--ELSE INSERT?
 END
+GO
 
 --Baja
-GO
 CREATE PROCEDURE FAAE.baja_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10)
 AS
@@ -542,10 +675,9 @@ BEGIN
 	WHERE habi_nro = @habi_nro
 	AND habi_hote_codigo = @habi_hote_codigo
 END
-
+GO
 
 --Inhabilitar
-GO
 CREATE PROCEDURE FAAE.inhabilitar_habitacion
 @habi_nro numeric(10), @habi_hote_codigo numeric(10)
 AS
@@ -554,11 +686,7 @@ BEGIN
 		SET habi_habilitada = 0
 		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 END
-
-
-
---agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
-ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)
+GO
 
 --Instancias para probar ABM habitaciones
 --Hoteles
