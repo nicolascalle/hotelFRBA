@@ -183,6 +183,7 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reserva.cs" />
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
       <SubType>Form</SubType>
     </Compile>

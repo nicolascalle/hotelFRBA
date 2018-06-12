@@ -36,7 +36,7 @@
             // 
             // btSeleccionar
             // 
-            this.btSeleccionar.Location = new System.Drawing.Point(151, 101);
+            this.btSeleccionar.Location = new System.Drawing.Point(154, 60);
             this.btSeleccionar.Name = "btSeleccionar";
             this.btSeleccionar.Size = new System.Drawing.Size(75, 23);
             this.btSeleccionar.TabIndex = 82;
@@ -73,7 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(359, 131);
+            this.ClientSize = new System.Drawing.Size(359, 95);
             this.Controls.Add(this.btSeleccionar);
             this.Controls.Add(this.tbNumReserva);
             this.Controls.Add(this.label2);
