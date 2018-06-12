@@ -463,7 +463,7 @@ GO
 		where Consumible_Codigo is not null
 
 	insert FAAE.Item_Factura(item_cantidad, item_precio, item_cons_codigo, item_fact_nro) -- monto y cantidad parecen invertidos en tabla maestra
-		select distinct Item_Factura_Monto, Item_Factura_Cantidad, Consumible_Codigo
+		select distinct Item_Factura_Monto, Item_Factura_Cantidad, Consumible_Codigo, Factura_Nro
 		from gd_esquema.Maestra 
 		where Consumible_Codigo is not null
 
