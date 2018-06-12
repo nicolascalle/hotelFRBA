@@ -9,44 +9,44 @@ IF OBJECT_ID('FAAE.Rol_Usuario','U') IS NOT NULL
     DROP TABLE FAAE.Rol_Usuario;
 IF OBJECT_ID('FAAE.Estadia','U') IS NOT NULL
     DROP TABLE FAAE.Estadia;
-IF OBJECT_ID('FAAE.Rol','U') IS NOT NULL
-    DROP TABLE FAAE.Rol;
 IF OBJECT_ID('FAAE.Item_Factura','U') IS NOT NULL
     DROP TABLE FAAE.Item_Factura;
-	IF OBJECT_ID('FAAE.Habitacion','U') IS NOT NULL
-    DROP TABLE FAAE.Habitacion;
-IF OBJECT_ID('FAAE.Tipo','U') IS NOT NULL
-    DROP TABLE FAAE.Tipo;
 IF OBJECT_ID('FAAE.Funcionalidad','U') IS NOT NULL
     DROP TABLE FAAE.Funcionalidad;
 IF OBJECT_ID('FAAE.Consumible','U') IS NOT NULL
     DROP TABLE FAAE.Consumible;
 IF OBJECT_ID('FAAE.Factura','U') IS NOT NULL
     DROP TABLE FAAE.Factura;
-IF OBJECT_ID('FAAE.Regimen_Hotel ','U') IS NOT NULL
-    DROP TABLE FAAE.Regimen_Hotel;
-IF OBJECT_ID('FAAE.Regimen','U') IS NOT NULL
-    DROP TABLE FAAE.Regimen;
-IF OBJECT_ID('FAAE.Motivo','U') IS NOT NULL
-    DROP TABLE FAAE.Motivo;
 IF OBJECT_ID('FAAE.Historial_Inhabilitado','U') IS NOT NULL
     DROP TABLE FAAE.Historial_Inhabilitado;
 IF OBJECT_ID('FAAE.Hotel_Usuario','U') IS NOT NULL
     DROP TABLE FAAE.Hotel_Usuario;
 IF OBJECT_ID('FAAE.Usuario','U') IS NOT NULL
     DROP TABLE FAAE.Usuario;
-IF OBJECT_ID('FAAE.Cliente','U') IS NOT NULL
-    DROP TABLE FAAE.Cliente;
 IF OBJECT_ID('FAAE.Reserva_Habitacion','U') IS NOT NULL
     DROP TABLE FAAE.Reserva_Habitacion;
 IF OBJECT_ID('FAAE.Reserva','U') IS NOT NULL
     DROP TABLE FAAE.Reserva;
+IF OBJECT_ID('FAAE.Rol','U') IS NOT NULL
+    DROP TABLE FAAE.Rol;
+IF OBJECT_ID('FAAE.Habitacion','U') IS NOT NULL
+    DROP TABLE FAAE.Habitacion;
+IF OBJECT_ID('FAAE.Tipo','U') IS NOT NULL
+    DROP TABLE FAAE.Tipo;
+IF OBJECT_ID('FAAE.Regimen_Hotel ','U') IS NOT NULL
+    DROP TABLE FAAE.Regimen_Hotel;
+IF OBJECT_ID('FAAE.Regimen','U') IS NOT NULL
+    DROP TABLE FAAE.Regimen;
+IF OBJECT_ID('FAAE.Motivo','U') IS NOT NULL
+    DROP TABLE FAAE.Motivo;
 IF OBJECT_ID('FAAE.Hotel','U') IS NOT NULL
     DROP TABLE FAAE.Hotel;
+IF OBJECT_ID('FAAE.Cliente','U') IS NOT NULL
+    DROP TABLE FAAE.Cliente;
 
 /** ASEGURAMOS LOS NOMBRES DE TRIGGERS FUNCIONES Y VISTAS **/
 
-IF (OBJECT_ID ('FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial') IS NOT NULL)
+IF (OBJECT_ID ('FAAE.t_actualizar_Historial_Reserva') IS NOT NULL)
   DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
 
 IF (OBJECT_ID ('FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura') IS NOT NULL)
@@ -65,7 +65,7 @@ IF (OBJECT_ID ('FAAE.obtenerHotelCodigo') IS NOT NULL)
     DROP TRIGGER FAAE.t_agregar_Hotel;
 
  IF OBJECT_ID('FAAE.cantPersonas') IS NOT NULL
-    DROP FUNCTION FAAE.t_agregar_Hotel;
+    DROP FUNCTION FAAE.cantPersonas;
 
 IF OBJECT_ID('FAAE.RolXUsuario') IS NOT NULL
     DROP VIEW FAAE.RolXUsuario;
@@ -325,7 +325,7 @@ GO
 
 /* CREACION DE OBJETOS QUE APOYAN LA MIGRACION */
 -- mantener consistencia historial estado reserva, faltaria que se guarde la persona logeada
-create TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
+create TRIGGER FAAE.t_actualizar_Historial_Reserva
    ON FAAE.Reserva
    after update
 AS
@@ -350,7 +350,7 @@ GO
 -- Inhabilitar Clientes con Mail ya Usado
 create TRIGGER FAAE.t_mail_unico
    ON FAAE.Cliente
-   after INSERT
+   after INSERT, update
 AS 
 BEGIN
 	update Cliente set clie_habilitado = 0 where clie_doc_nro in (select a.clie_doc_nro
@@ -377,17 +377,6 @@ BEGIN
 	    		   hote_dire_nro = @Hotel_nro_calle))
 END
 go
-
-
-create TRIGGER FAAE.t_agregar_Hotel 
-   ON FAAE.Hotel 
-   AFTER INSERT
-AS 
-BEGIN
-	UPDATE FAAE.Hotel SET hote_fecha_creacion = getdate() WHERE hote_codigo IN (SELECT hote_codigo
-																				FROM inserted)
-END
-GO
 
 create TRIGGER FAAE.t_agregar_Reserva
    ON FAAE.Hotel 
@@ -422,24 +411,18 @@ GO
 
 	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
 
-	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'admin')
-	insert FAAE.Rol_Usuario values	('pasaporte',0000000000, 'recepcion')
+	insert FAAE.Rol_Usuario (rous_clie_doc_nro, rous_rol_nombre) values	(0000000000, 'admin'), (0000000000, 'recepcion')
 
-	insert FAAE.Funcionalidad values ('admin', 'ABM rol') -- no se sabe bien a quien se le asigna
-	insert FAAE.Funcionalidad values ('admin','ABM usuario')
-	insert FAAE.Funcionalidad values ('recepcion','ABM cliente')
-	insert FAAE.Funcionalidad values ('admin','ABM hotel')
-	insert FAAE.Funcionalidad values ('admin','ABM habitacion')
-	insert FAAE.Funcionalidad values ('recepcion','ABM reserva')
-	insert FAAE.Funcionalidad values ('cliente','ABM reserva')
+	insert FAAE.Funcionalidad (func_rol_nombre,func_funcion) 
+		values ('admin', 'ABM rol'),('admin','ABM usuario'),('recepcion','ABM cliente'),('admin','ABM hotel'),('admin','ABM habitacion'),('recepcion','ABM reserva'),('cliente','ABM reserva')
 
 	insert FAAE.Cliente(clie_nombre, clie_apellido, clie_doc_nro, clie_mail, clie_dire_calle, clie_dire_nro, clie_nacionalidad, clie_piso, clie_depto, clie_fecha_nacimiento) 
 		select distinct Cliente_Nombre,Cliente_Apellido,Cliente_Pasaporte_Nro,Cliente_Mail,Cliente_Dom_Calle, Cliente_Nro_Calle,Cliente_Nacionalidad,Cliente_Piso,Cliente_Depto,Cliente_Fecha_Nac 
 		from gd_esquema.Maestra
 	
 	set identity_insert FAAE.Hotel on
-	insert FAAE.Hotel(hote_dire_calle,hote_dire_nro,hote_cant_estrellas,hote_recarga_estrellas,hote_ciudad) 
-		select distinct Hotel_Calle, Hotel_Nro_Calle, Hotel_CantEstrella, Hotel_Recarga_Estrella, Hotel_Ciudad
+	insert FAAE.Hotel(hote_dire_calle,hote_dire_nro,hote_cant_estrellas,hote_recarga_estrellas,hote_ciudad, hote_fecha_creacion) 
+		select distinct Hotel_Calle, Hotel_Nro_Calle, Hotel_CantEstrella, Hotel_Recarga_Estrella, Hotel_Ciudad,getdate()
 		from gd_esquema.Maestra
 	
 	insert FAAE.Tipo(tipo_codigo,tipo_descripcion,tipo_cant_personas,tipo_porcentual) 
@@ -647,10 +630,6 @@ BEGIN
 	
 END
 GO
-
---agregando la descripcion/comodidades que menciona la seccion "ABM Habitaciones"
-ALTER TABLE FAAE.Habitacion ADD habi_descripcion VARCHAR(100)
-go
 
 --Modificación
 CREATE PROCEDURE FAAE.modificar_habitacion
