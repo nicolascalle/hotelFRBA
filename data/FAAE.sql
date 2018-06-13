@@ -187,7 +187,7 @@ CREATE TABLE FAAE.Item_Factura (
 	item_fact_nro numeric(10),
 	item_cons_codigo numeric(10),
 	item_cantidad numeric(10),
-	item_precio decimal(3,2),
+	item_precio decimal(5,2),
 	PRIMARY KEY (item_fact_tipo,item_fact_nro,item_cons_codigo)
 )
 CREATE TABLE FAAE.Habitacion (
@@ -447,16 +447,15 @@ GO
 		select distinct Cliente_Nombre,Cliente_Apellido,Cliente_Pasaporte_Nro,Cliente_Mail,Cliente_Dom_Calle, Cliente_Nro_Calle,Cliente_Nacionalidad,Cliente_Piso,Cliente_Depto, CAST(Cliente_Fecha_Nac AS smalldatetime)
 		from gd_esquema.Maestra
 
-	insert FAAE.Reserva(rese_fecha_desde,rese_fecha_hasta,rese_hote_codigo,rese_regi_codigo,rese_clie_doc_nro, rese_fecha_realizacion, rese_clie_mail) 
-		select distinct CAST(Reserva_Fecha_Inicio AS smalldatetime), cast(dateadd(day,Reserva_Cant_Noches,CAST(Reserva_Fecha_Inicio AS smalldatetime))AS smalldatetime), FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Regimen_Descripcion, Cliente_Pasaporte_Nro, getdate(), Cliente_Mail
+	SET IDENTITY_INSERT FAAE.Reserva ON
+	insert FAAE.Reserva(rese_codigo,rese_fecha_desde,rese_fecha_hasta,rese_hote_codigo,rese_regi_codigo,rese_clie_doc_nro, rese_fecha_realizacion, rese_clie_mail) 
+		select distinct Reserva_Codigo,CAST(Reserva_Fecha_Inicio AS smalldatetime), cast(dateadd(day,Reserva_Cant_Noches,CAST(Reserva_Fecha_Inicio AS smalldatetime))AS smalldatetime), FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Regimen_Descripcion, Cliente_Pasaporte_Nro, getdate(), Cliente_Mail
 		from gd_esquema.Maestra
 
 	update FAAE.Reserva set rese_estado = 'Reserva cancelada por No-Show' where rese_codigo in (select distinct Reserva_Codigo
 																								from gd_esquema.Maestra
 																								group by Reserva_Codigo
 																								having count(Reserva_Codigo) = 1)
-	
-	print('!')
 
 	insert FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio) -- monto y cantidad parecen invertidos en tabla maestra
 		select distinct Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Item_Factura_Cantidad
@@ -464,21 +463,16 @@ GO
 		where (Consumible_Codigo is null and
 			   Item_Factura_Cantidad is not null)
 
-	print('!')
-
 	insert FAAE.Factura(fact_nro, fact_fecha, fact_total, fact_rese_codigo, fact_habi_nro, fact_hote_codigo)
 		select distinct Factura_Nro, CAST(Factura_Fecha AS smalldatetime), Factura_Total, Reserva_Codigo, Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle)
 		from gd_esquema.Maestra
 		where Factura_Nro is not null
 
-	print('!')
-	
 	insert FAAE.Item_Factura(item_cantidad, item_precio, item_cons_codigo, item_fact_nro) -- monto y cantidad parecen invertidos en tabla maestra
-		select distinct Item_Factura_Monto, Item_Factura_Cantidad, Consumible_Codigo, Factura_Nro
+		select sum(Item_Factura_Monto), Item_Factura_Cantidad, Consumible_Codigo, Factura_Nro
 		from gd_esquema.Maestra 
 		where Consumible_Codigo is not null
-
-	print('!')
+		group by Item_Factura_Cantidad,Consumible_Codigo,Factura_Nro
 
 GO
 
@@ -679,7 +673,7 @@ BEGIN
 		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 END
 GO
-
+/*
 --Instancias para probar ABM habitaciones
 --Hoteles
 INSERT FAAE.Hotel
@@ -711,3 +705,4 @@ VALUES(12, 6, 7, 'N', 1001 ,1)
 INSERT FAAE.Habitacion
 (habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
 VALUES(17, 7, 2, 'N', 1002 ,0)
+*/
