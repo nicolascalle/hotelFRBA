@@ -18,10 +18,6 @@ namespace FrbaHotel
         private string descripcion;
         private bool estaHabilitada;
 
-     //   public string getNumero() { return numero; }
-       // public bool getExists() { return exists; }
-        //public bool getHabilitado() { return habilitado; }
-
         public Habitacion(int numero, int codHotel, int piso, char ubicacion, int tipo, string descripcion, bool estaHabilitada)
         {
             this.numero = numero;

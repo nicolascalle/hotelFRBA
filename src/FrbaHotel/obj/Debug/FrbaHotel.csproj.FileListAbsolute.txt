@@ -143,3 +143,4 @@ C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.AbmH
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmGenerarReserva.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmSeleccionarReserva.resources
 C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmGenerarOModificarReserva.resources
+C:\Users\kevin\Documents\GitHub\hotelFRBA\src\FrbaHotel\obj\Debug\FrbaHotel.GenerarOModificarReserva.frmEleccionDeRegimen.resources

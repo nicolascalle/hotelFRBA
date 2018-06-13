@@ -183,6 +183,12 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.Designer.cs">
+      <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reserva.cs" />
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
       <SubType>Form</SubType>
@@ -352,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FacturarEstadia\frmFacturarEstadia.resx">
       <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmEleccionDeRegimen.resx">
+      <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmGenerarReserva.resx">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
