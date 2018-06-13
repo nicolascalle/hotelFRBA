@@ -23,168 +23,80 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.NuevoHotel = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbNombreHotel = new System.Windows.Forms.TextBox();
-            this.tbMailHotel = new System.Windows.Forms.TextBox();
-            this.cbCantidadEstrellasHotel = new System.Windows.Forms.ComboBox();
-            this.tbTelefonoHotel = new System.Windows.Forms.TextBox();
-            this.tbCalleHotel = new System.Windows.Forms.TextBox();
-            this.tbNroCalleHotel = new System.Windows.Forms.TextBox();
-            this.tbCiudadHotel = new System.Windows.Forms.TextBox();
-            this.tbPaisHotel = new System.Windows.Forms.TextBox();
             this.nudRecargaEstrellasHotel = new System.Windows.Forms.NumericUpDown();
             this.dtFechaCreacionHotel = new System.Windows.Forms.DateTimePicker();
+            this.tbPaisHotel = new System.Windows.Forms.TextBox();
+            this.tbCiudadHotel = new System.Windows.Forms.TextBox();
+            this.tbNroCalleHotel = new System.Windows.Forms.TextBox();
+            this.tbCalleHotel = new System.Windows.Forms.TextBox();
+            this.tbTelefonoHotel = new System.Windows.Forms.TextBox();
+            this.cbCantidadEstrellasHotel = new System.Windows.Forms.ComboBox();
+            this.tbMailHotel = new System.Windows.Forms.TextBox();
+            this.tbNombreHotel = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.ModificarHotel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudRecargaEstrellasHotel)).BeginInit();
             this.SuspendLayout();
             // 
-            // NuevoHotel
+            // nudRecargaEstrellasHotel
             // 
-            this.NuevoHotel.AutoSize = true;
-            this.NuevoHotel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NuevoHotel.Location = new System.Drawing.Point(10, 10);
-            this.NuevoHotel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.NuevoHotel.Name = "NuevoHotel";
-            this.NuevoHotel.Size = new System.Drawing.Size(96, 20);
-            this.NuevoHotel.TabIndex = 0;
-            this.NuevoHotel.Text = "Nuevo Hotel";
+            this.nudRecargaEstrellasHotel.DecimalPlaces = 2;
+            this.nudRecargaEstrellasHotel.Location = new System.Drawing.Point(162, 330);
+            this.nudRecargaEstrellasHotel.Name = "nudRecargaEstrellasHotel";
+            this.nudRecargaEstrellasHotel.Size = new System.Drawing.Size(142, 22);
+            this.nudRecargaEstrellasHotel.TabIndex = 43;
             // 
-            // btnAceptar
+            // dtFechaCreacionHotel
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(273, 254);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(62, 26);
-            this.btnAceptar.TabIndex = 1;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.dtFechaCreacionHotel.Location = new System.Drawing.Point(162, 297);
+            this.dtFechaCreacionHotel.Name = "dtFechaCreacionHotel";
+            this.dtFechaCreacionHotel.Size = new System.Drawing.Size(281, 22);
+            this.dtFechaCreacionHotel.TabIndex = 42;
             // 
-            // label1
+            // tbPaisHotel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 43);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Nombre:";
+            this.tbPaisHotel.Location = new System.Drawing.Point(162, 262);
+            this.tbPaisHotel.Name = "tbPaisHotel";
+            this.tbPaisHotel.Size = new System.Drawing.Size(142, 22);
+            this.tbPaisHotel.TabIndex = 41;
             // 
-            // label2
+            // tbCiudadHotel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 192);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Fecha de creación:";
+            this.tbCiudadHotel.Location = new System.Drawing.Point(162, 226);
+            this.tbCiudadHotel.Name = "tbCiudadHotel";
+            this.tbCiudadHotel.Size = new System.Drawing.Size(142, 22);
+            this.tbCiudadHotel.TabIndex = 40;
             // 
-            // label3
+            // tbNroCalleHotel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 64);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Mail:";
+            this.tbNroCalleHotel.Location = new System.Drawing.Point(365, 157);
+            this.tbNroCalleHotel.Name = "tbNroCalleHotel";
+            this.tbNroCalleHotel.Size = new System.Drawing.Size(78, 22);
+            this.tbNroCalleHotel.TabIndex = 39;
             // 
-            // label4
+            // tbCalleHotel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 85);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Teléfono:";
+            this.tbCalleHotel.Location = new System.Drawing.Point(162, 157);
+            this.tbCalleHotel.Name = "tbCalleHotel";
+            this.tbCalleHotel.Size = new System.Drawing.Size(142, 22);
+            this.tbCalleHotel.TabIndex = 38;
             // 
-            // label5
+            // tbTelefonoHotel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 106);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Calle:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 128);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Estrellas:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 149);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(43, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Ciudad:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 170);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "País:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 213);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(93, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Recarga Estrellas:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(226, 106);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(27, 13);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "Nro:";
-            // 
-            // tbNombreHotel
-            // 
-            this.tbNombreHotel.Location = new System.Drawing.Point(116, 41);
-            this.tbNombreHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbNombreHotel.Name = "tbNombreHotel";
-            this.tbNombreHotel.Size = new System.Drawing.Size(92, 20);
-            this.tbNombreHotel.TabIndex = 12;
-            // 
-            // tbMailHotel
-            // 
-            this.tbMailHotel.Location = new System.Drawing.Point(116, 62);
-            this.tbMailHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbMailHotel.Name = "tbMailHotel";
-            this.tbMailHotel.Size = new System.Drawing.Size(92, 20);
-            this.tbMailHotel.TabIndex = 13;
+            this.tbTelefonoHotel.Location = new System.Drawing.Point(161, 122);
+            this.tbTelefonoHotel.Name = "tbTelefonoHotel";
+            this.tbTelefonoHotel.Size = new System.Drawing.Size(143, 22);
+            this.tbTelefonoHotel.TabIndex = 37;
             // 
             // cbCantidadEstrellasHotel
             // 
@@ -195,74 +107,140 @@
             "3",
             "4",
             "5"});
-            this.cbCantidadEstrellasHotel.Location = new System.Drawing.Point(116, 125);
-            this.cbCantidadEstrellasHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbCantidadEstrellasHotel.Location = new System.Drawing.Point(162, 191);
             this.cbCantidadEstrellasHotel.Name = "cbCantidadEstrellasHotel";
-            this.cbCantidadEstrellasHotel.Size = new System.Drawing.Size(38, 21);
-            this.cbCantidadEstrellasHotel.TabIndex = 14;
+            this.cbCantidadEstrellasHotel.Size = new System.Drawing.Size(50, 24);
+            this.cbCantidadEstrellasHotel.TabIndex = 36;
             // 
-            // tbTelefonoHotel
+            // tbMailHotel
             // 
-            this.tbTelefonoHotel.Location = new System.Drawing.Point(116, 83);
-            this.tbTelefonoHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbTelefonoHotel.Name = "tbTelefonoHotel";
-            this.tbTelefonoHotel.Size = new System.Drawing.Size(92, 20);
-            this.tbTelefonoHotel.TabIndex = 15;
+            this.tbMailHotel.Location = new System.Drawing.Point(162, 88);
+            this.tbMailHotel.Name = "tbMailHotel";
+            this.tbMailHotel.Size = new System.Drawing.Size(142, 22);
+            this.tbMailHotel.TabIndex = 35;
             // 
-            // tbCalleHotel
+            // tbNombreHotel
             // 
-            this.tbCalleHotel.Location = new System.Drawing.Point(116, 104);
-            this.tbCalleHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbCalleHotel.Name = "tbCalleHotel";
-            this.tbCalleHotel.Size = new System.Drawing.Size(92, 20);
-            this.tbCalleHotel.TabIndex = 16;
+            this.tbNombreHotel.Location = new System.Drawing.Point(161, 58);
+            this.tbNombreHotel.Name = "tbNombreHotel";
+            this.tbNombreHotel.Size = new System.Drawing.Size(143, 22);
+            this.tbNombreHotel.TabIndex = 34;
             // 
-            // tbNroCalleHotel
+            // label10
             // 
-            this.tbNroCalleHotel.Location = new System.Drawing.Point(256, 104);
-            this.tbNroCalleHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbNroCalleHotel.Name = "tbNroCalleHotel";
-            this.tbNroCalleHotel.Size = new System.Drawing.Size(76, 20);
-            this.tbNroCalleHotel.TabIndex = 17;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(324, 160);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 17);
+            this.label10.TabIndex = 33;
+            this.label10.Text = "Nro:";
             // 
-            // tbCiudadHotel
+            // label9
             // 
-            this.tbCiudadHotel.Location = new System.Drawing.Point(116, 146);
-            this.tbCiudadHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbCiudadHotel.Name = "tbCiudadHotel";
-            this.tbCiudadHotel.Size = new System.Drawing.Size(91, 20);
-            this.tbCiudadHotel.TabIndex = 18;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(28, 332);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(124, 17);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "Recarga Estrellas:";
             // 
-            // tbPaisHotel
+            // label8
             // 
-            this.tbPaisHotel.Location = new System.Drawing.Point(116, 167);
-            this.tbPaisHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.tbPaisHotel.Name = "tbPaisHotel";
-            this.tbPaisHotel.Size = new System.Drawing.Size(91, 20);
-            this.tbPaisHotel.TabIndex = 19;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(28, 265);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 17);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "País:";
             // 
-            // nudRecargaEstrellasHotel
+            // label7
             // 
-            this.nudRecargaEstrellasHotel.DecimalPlaces = 2;
-            this.nudRecargaEstrellasHotel.Location = new System.Drawing.Point(116, 211);
-            this.nudRecargaEstrellasHotel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.nudRecargaEstrellasHotel.Name = "nudRecargaEstrellasHotel";
-            this.nudRecargaEstrellasHotel.Size = new System.Drawing.Size(90, 20);
-            this.nudRecargaEstrellasHotel.TabIndex = 21;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 229);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 17);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Ciudad:";
             // 
-            // dtFechaCreacionHotel
+            // label6
             // 
-            this.dtFechaCreacionHotel.Location = new System.Drawing.Point(116, 190);
-            this.dtFechaCreacionHotel.Margin = new System.Windows.Forms.Padding(2);
-            this.dtFechaCreacionHotel.Name = "dtFechaCreacionHotel";
-            this.dtFechaCreacionHotel.Size = new System.Drawing.Size(192, 20);
-            this.dtFechaCreacionHotel.TabIndex = 20;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(28, 194);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 17);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Estrellas:";
             // 
-            // frmAltaHotel
+            // label5
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(28, 160);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 17);
+            this.label5.TabIndex = 28;
+            this.label5.Text = "Calle:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(28, 125);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 17);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "Teléfono:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 17);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Mail:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 297);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 17);
+            this.label2.TabIndex = 25;
+            this.label2.Text = "Fecha de creación:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 17);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Nombre:";
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(379, 359);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(82, 32);
+            this.btnModificar.TabIndex = 23;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // ModificarHotel
+            // 
+            this.ModificarHotel.AutoSize = true;
+            this.ModificarHotel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModificarHotel.Location = new System.Drawing.Point(17, 13);
+            this.ModificarHotel.Name = "ModificarHotel";
+            this.ModificarHotel.Size = new System.Drawing.Size(141, 25);
+            this.ModificarHotel.TabIndex = 22;
+            this.ModificarHotel.Text = "Modificar Hotel";
+            // 
+            // frmModificacionHotel
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 290);
+            this.ClientSize = new System.Drawing.Size(473, 403);
             this.Controls.Add(this.nudRecargaEstrellasHotel);
             this.Controls.Add(this.dtFechaCreacionHotel);
             this.Controls.Add(this.tbPaisHotel);
@@ -283,11 +261,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.NuevoHotel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "frmAltaHotel";
-            this.Text = "frmAltaHotel";
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.ModificarHotel);
+            this.Name = "frmModificacionHotel";
+            this.Text = "frmModificacionHotel";
             ((System.ComponentModel.ISupportInitialize)(this.nudRecargaEstrellasHotel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -296,27 +273,27 @@
 
         #endregion
 
-        private System.Windows.Forms.Label NuevoHotel;
-        private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbNombreHotel;
-        private System.Windows.Forms.TextBox tbMailHotel;
-        private System.Windows.Forms.ComboBox cbCantidadEstrellasHotel;
-        private System.Windows.Forms.TextBox tbTelefonoHotel;
-        private System.Windows.Forms.TextBox tbCalleHotel;
-        private System.Windows.Forms.TextBox tbNroCalleHotel;
-        private System.Windows.Forms.TextBox tbCiudadHotel;
-        private System.Windows.Forms.TextBox tbPaisHotel;
         private System.Windows.Forms.NumericUpDown nudRecargaEstrellasHotel;
         private System.Windows.Forms.DateTimePicker dtFechaCreacionHotel;
+        private System.Windows.Forms.TextBox tbPaisHotel;
+        private System.Windows.Forms.TextBox tbCiudadHotel;
+        private System.Windows.Forms.TextBox tbNroCalleHotel;
+        private System.Windows.Forms.TextBox tbCalleHotel;
+        private System.Windows.Forms.TextBox tbTelefonoHotel;
+        private System.Windows.Forms.ComboBox cbCantidadEstrellasHotel;
+        private System.Windows.Forms.TextBox tbMailHotel;
+        private System.Windows.Forms.TextBox tbNombreHotel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Label ModificarHotel;
     }
 }

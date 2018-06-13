@@ -23,7 +23,7 @@ namespace FrbaHotel.AbmRol {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             while (dataReader.Read()) {
-                ListViewItem listItem = this.nuevoItem(dataReader);
+                ListViewItem listItem = this.nuevoItem(dataReader, new List<string>() { "rol_nombre", "rol_habilitado" });
                 this.lvRol.Items.Add(listItem);
             }
             dataReader.Close();
@@ -41,17 +41,18 @@ namespace FrbaHotel.AbmRol {
                 string nombreRol = this.lvRol.SelectedItems[0].Text.ToString();
                 Rol rolModificar = new Rol(nombreRol);
                 rolModificar.buscar();
-                frmModificacionRol frmM = new frmModificacionRol();
+                frmAltaRol frmM = new frmAltaRol();
                 frmM.setRol(rolModificar);
+                frmM.setTitle("Modificar Rol");
                 frmM.Show();
             }
         }
 
         private void frmAlta_Click(object sender, EventArgs e) {
             frmAltaRol frmA = new frmAltaRol();
+            frmA.setTitle("Nuevo Rol");
             frmA.Show();
         }
-
 
         private string generateQuery() {
 
@@ -69,7 +70,6 @@ namespace FrbaHotel.AbmRol {
                     query += condition + " AND ";
                 query = query.Substring(0, query.Length - " AND ".Length);
             }
-
             return query;
         }
 
@@ -78,21 +78,16 @@ namespace FrbaHotel.AbmRol {
         }
 
         public void setLvProperties() {
-            this.lvRol.Columns.Add("Nombre");
-            this.lvRol.Columns.Add("Habilitado");
+            new List<string>() { "Nombre", "Habilitado" }
+                .ForEach(columna => this.lvRol.Columns.Add(columna));
             this.lvRol.View = View.Details;
             this.lvRol.MultiSelect = false;
         }
 
-        public ListViewItem nuevoItem(SqlDataReader dataReader) {
-            ListViewItem listItems = new ListViewItem(dataReader["rol_nombre"].ToString());
-            listItems.SubItems.Add(dataReader["rol_habilitado"].ToString());
+        public ListViewItem nuevoItem(SqlDataReader dataReader, List<string> campos) {
+            ListViewItem listItems = new ListViewItem(dataReader[campos[0]].ToString());
+            campos.Skip(1).ToList().ForEach(subitem => listItems.SubItems.Add(dataReader[subitem].ToString()));
             return listItems;
-        }
-
-        private void lvRol_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
     }

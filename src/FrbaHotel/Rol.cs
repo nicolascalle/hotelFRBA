@@ -24,6 +24,7 @@ namespace FrbaHotel {
 
         public void setHabilitado(bool habilitado) { this.habilitado = habilitado; }
         public void agregarFuncionalidad(string funcionalidad) { this.funcionalidades.Add(funcionalidad); }
+        public void limpiarFuncionalidades() { this.funcionalidades = new List<string>(); }
 
         public void inhabilitar() {
             string[] param = { "@nombre" };
