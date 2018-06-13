@@ -18,7 +18,7 @@ namespace FrbaHotel {
         private string dire_calle;
         private string dire_nro;
         private DateTime fechaCreacion;
-        private double recargaEstrellas;
+        private decimal recargaEstrellas;
 
         public Hotel() { this.codigo = 0; }
         public Hotel(int codigo) { this.codigo = codigo; }
@@ -32,7 +32,7 @@ namespace FrbaHotel {
         public string getDire_calle() { return this.dire_calle; }
         public string getDire_nro() { return this.dire_nro; }
         public DateTime getFechaCreacion() { return this.fechaCreacion; }
-        public double getRecargaEstrellas() { return this.recargaEstrellas; }
+        public decimal getRecargaEstrellas() { return this.recargaEstrellas; }
 
         public void setNombre(string nombre) { this.nombre = nombre; }
         public void setEstrellas(short estrellas) { this.estrellas = estrellas; }
@@ -43,7 +43,7 @@ namespace FrbaHotel {
         public void setDire_calle(string dire_calle) { this.dire_calle = dire_calle; }
         public void setDire_nro(string dire_nro) { this.dire_nro = dire_nro; }
         public void setFechaCreacion(DateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
-        public void setRecargaEstrellas(double recargaEstrellas) { this.recargaEstrellas = recargaEstrellas; }
+        public void setRecargaEstrellas(decimal recargaEstrellas) { this.recargaEstrellas = recargaEstrellas; }
 
         public void buscar() {
 
@@ -51,17 +51,16 @@ namespace FrbaHotel {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             if (dataReader.Read()) {
-
-                this.nombre = dataReader["hote_nombre"].ToString();
-                this.estrellas = Convert.ToInt16(dataReader["hote_cant_estrellas"].ToString());
-                this.ciudad = dataReader["hote_ciudad"].ToString();
-                this.pais = dataReader["hote_pais"].ToString();
-                this.mail = dataReader["hote_mail"].ToString();
-                this.telefono = dataReader["hote_telefono"].ToString();
-                this.dire_calle = dataReader["hote_dire_calle"].ToString();
-                this.dire_nro = dataReader["hote_dire_nro"].ToString();
-                this.fechaCreacion = Convert.ToDateTime(dataReader["hote_fecha_creacion"].ToString());
-                this.recargaEstrellas = Convert.ToDouble(dataReader["hote_recarga_estrellas"].ToString());
+                    this.nombre = dataReader["hote_nombre"].ToString();
+                    this.estrellas = Convert.ToInt16(dataReader["hote_cant_estrellas"].ToString());
+                    this.ciudad = dataReader["hote_ciudad"].ToString();
+                    this.pais = dataReader["hote_pais"].ToString();
+                    this.mail = dataReader["hote_mail"].ToString();
+                    this.telefono = dataReader["hote_telefono"].ToString();
+                    this.dire_calle = dataReader["hote_dire_calle"].ToString();
+                    this.dire_nro = dataReader["hote_dire_nro"].ToString();
+                    this.fechaCreacion = Convert.ToDateTime(dataReader["hote_fecha_creacion"].ToString());
+                    this.recargaEstrellas = Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString());                
             }
 
             dataReader.Close();

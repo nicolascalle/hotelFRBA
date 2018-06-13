@@ -23,11 +23,10 @@ namespace FrbaHotel.AbmUsuario {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             while (dataReader.Read()) {
-                ListViewItem listItem = this.nuevoItem(dataReader);
+                ListViewItem listItem = this.nuevoItem(dataReader, new List<string>() { "usua_username", "usua_apellido", "usua_nombre", "usua_mail", "usua_habilitado" });
                 this.lvUsuarios.Items.Add(listItem);
             }
             dataReader.Close();
-
         }
 
         private void frmInhabilitar_Click(object sender, EventArgs e) {
@@ -38,11 +37,21 @@ namespace FrbaHotel.AbmUsuario {
         }
 
         private void frmAlta_Click(object sender, EventArgs e) {
-
+            frmAltaUsuario frmA = new frmAltaUsuario();
+            frmA.setTitle("Nuevo Usuario");
+            frmA.Show();
         }
 
         private void frmModificacion_Click(object sender, EventArgs e) {
-
+            if (this.lvUsuarios.SelectedItems.Count == 1) {
+                string username = this.lvUsuarios.SelectedItems[0].Text.ToString();
+                Usuario usuarioModificar = new Usuario(username);
+                usuarioModificar.buscar();
+                frmAltaUsuario frmM = new frmAltaUsuario();
+                frmM.setUsuario(usuarioModificar);
+                frmM.setTitle("Modificar Usuario");
+                frmM.Show();
+            }
         }
 
         private string generateQuery() {
@@ -61,7 +70,6 @@ namespace FrbaHotel.AbmUsuario {
                     query += condition + " AND ";
                 query = query.Substring(0, query.Length - " AND ".Length); // Saca el ultimo AND
             }
-
             return query;
         }
 
@@ -70,21 +78,15 @@ namespace FrbaHotel.AbmUsuario {
         }
 
         public void setLvProperties() {
-            this.lvUsuarios.Columns.Add("Username");
-            this.lvUsuarios.Columns.Add("Apellido");
-            this.lvUsuarios.Columns.Add("Nombre");
-            this.lvUsuarios.Columns.Add("Mail");
-            this.lvUsuarios.Columns.Add("Habilitado");
+            new List<string>() { "Username", "Apellido", "Nombre", "Mail", "Habilitado" }
+                .ForEach(columna => this.lvUsuarios.Columns.Add(columna));            
             this.lvUsuarios.View = View.Details;
             this.lvUsuarios.MultiSelect = false;
         }
 
-        public ListViewItem nuevoItem(SqlDataReader dataReader) {
-            ListViewItem listItems = new ListViewItem(dataReader["usua_username"].ToString());
-            listItems.SubItems.Add(dataReader["usua_apellido"].ToString());
-            listItems.SubItems.Add(dataReader["usua_nombre"].ToString());
-            listItems.SubItems.Add(dataReader["usua_mail"].ToString());
-            listItems.SubItems.Add(dataReader["usua_habilitado"].ToString());
+        public ListViewItem nuevoItem(SqlDataReader dataReader, List<string> campos) {
+            ListViewItem listItems = new ListViewItem(dataReader[campos[0]].ToString());
+            campos.Skip(1).ToList().ForEach(subitem => listItems.SubItems.Add(dataReader[subitem].ToString()));
             return listItems;
         }
 

@@ -523,7 +523,7 @@ GO
 -- ABM Hotel
 CREATE PROCEDURE FAAE.guardar_hotel
 @hote_codigo numeric(10), @hote_nombre nvarchar(16), @hote_mail nvarchar(25), @hote_telefono nvarchar(16), @hote_dire_calle nvarchar(25), @hote_dire_nro numeric(5), 
-@hote_cant_estrellas numeric(1), @hote_ciudad nvarchar(16), @hote_pais nvarchar(16), @hote_fecha_creacion smalldatetime, @hote_recarga_estrellas decimal(3,2)
+@hote_cant_estrellas numeric(1), @hote_ciudad nvarchar(16), @hote_pais nvarchar(16), @hote_fecha_creacion smalldatetime, @hote_recarga_estrellas decimal(4,2)
 AS
 BEGIN
 	IF( EXISTS(SELECT hote_codigo FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo) )
@@ -706,3 +706,185 @@ INSERT FAAE.Habitacion
 (habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
 VALUES(17, 7, 2, 'N', 1002 ,0)
 */
+
+
+
+-- ABM USUARIO
+
+GO
+CREATE PROCEDURE FAAE.guardar_usuario
+@usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_username nvarchar(10), @usua_password nvarchar(10), @usua_nombre nvarchar(16), @usua_apellido nvarchar(16),
+@usua_mail nvarchar(25), @usua_telefono nvarchar(10), @usua_dire_calle nvarchar(25), @usua_dire_nro numeric(5), @usua_fecha_nacimiento smalldatetime, @usua_cant_log_in_fallidos numeric(1),
+@usua_hote_codigo_ultimo_log_in numeric(10), @usua_habilitado bit
+AS
+BEGIN
+	IF( EXISTS(SELECT usua_username FROM FAAE.Usuario WHERE usua_username = @usua_username) )
+		BEGIN
+			UPDATE FAAE.Usuario 
+				SET usua_doc_tipo = @usua_doc_tipo,
+					usua_doc_nro = @usua_doc_nro,
+					usua_username = @usua_username,
+					usua_password = @usua_password,
+					usua_nombre = @usua_nombre, 
+					usua_mail = @usua_mail, 
+					usua_telefono = @usua_telefono, 
+					usua_dire_calle = @usua_dire_calle, 
+					usua_dire_nro = @usua_dire_nro, 
+					usua_fecha_nacimiento = @usua_fecha_nacimiento, 
+					usua_cant_log_in_fallidos = @usua_cant_log_in_fallidos, 
+					usua_hote_codigo_ultimo_log_in = @usua_hote_codigo_ultimo_log_in, 
+					usua_habilitado = @usua_habilitado 
+				WHERE usua_username = @usua_username
+		END
+	ELSE
+		BEGIN
+			INSERT INTO FAAE.Usuario
+			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, @usua_password, @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
+		END
+END
+
+GO
+CREATE PROCEDURE FAAE.asignar_rol_usuario
+@usua_username NVARCHAR(10), @rol_nombre NVARCHAR(16)
+AS
+BEGIN
+	IF( NOT EXISTS(SELECT rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre 
+						FROM FAAE.Rol_Usuario ru JOIN FAAE.Usuario u ON (ru.rous_clie_doc_tipo = u.usua_doc_tipo AND ru.rous_clie_doc_nro = u.usua_doc_nro)
+						WHERE usua_username = @usua_username AND rous_rol_nombre = @rol_nombre) )
+		BEGIN
+			INSERT INTO FAAE.Rol_Usuario (rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre)
+				SELECT usua_doc_tipo, usua_doc_nro, @rol_nombre
+					FROM FAAE.Usuario
+					WHERE usua_username = @usua_username
+		END
+END
+
+GO
+CREATE PROCEDURE FAAE.eliminar_roles_usuario
+@usua_username NVARCHAR(10)
+AS
+BEGIN
+	DECLARE @doc_tipo NVARCHAR(10), @doc_nro NUMERIC(10)
+	
+	SELECT @doc_tipo = usua_doc_tipo, @doc_nro = usua_doc_nro
+		FROM FAAE.Usuario
+		WHERE usua_username = @usua_username
+
+	DELETE FROM FAAE.Rol_Usuario
+		WHERE rous_clie_doc_tipo = @doc_tipo AND rous_clie_doc_nro = @doc_nro
+END
+
+
+
+
+-- LISTADO ESTADISTICO
+
+-- FAAE.HotelesConMasReservasCanceladas
+
+GO
+CREATE FUNCTION FAAE.HotelesConMasReservasCanceladas (@fechaDesde DATE, @fechaHasta DATE)
+RETURNS TABLE
+AS
+	RETURN (SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, COUNT(*) reservasCanceladas, COUNT(*) criterioOrdenar
+		FROM FAAE.Reserva r JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
+		WHERE rese_estado LIKE 'cancelada' AND rese_fecha_realizacion BETWEEN @fechaDesde AND @fechaHasta
+		GROUP BY hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais)
+
+-- FAAE.HotelesConMasConsumiblesFacturados
+
+GO
+CREATE FUNCTION FAAE.HotelesConMasConsumiblesFacturados (@fechaDesde DATE, @fechaHasta DATE)
+RETURNS TABLE
+AS
+RETURN 
+SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, cons_descipcion, SUM(ifact.item_cantidad) cantConsumiblesFacturados, SUM(ifact.item_cantidad) criterioOrdenar -- cant_consumibles_facturados
+	FROM FAAE.Item_Factura ifact JOIN FAAE.Factura    f ON (ifact.item_fact_tipo = f.fact_tipo AND ifact.item_fact_nro = f.fact_nro) 
+								 JOIN FAAE.Hotel      h ON (f.fact_hote_codigo = h.hote_codigo)
+								 JOIN FAAE.Consumible c ON (ifact.item_cons_codigo = c.cons_codigo)
+	WHERE f.fact_fecha BETWEEN @fechaDesde AND @fechaHasta
+	GROUP BY hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, cons_descipcion
+
+-- FAAE.HotelesConMasDiasFueraDeServicio
+
+GO
+CREATE FUNCTION FAAE.DiasFueraDeServicio (@hote_codigo INT, @fechaDesde DATE, @fechaHasta DATE)
+RETURNS TINYINT
+AS
+BEGIN
+	DECLARE @diasFueraDeServicio TINYINT
+	DECLARE @hiin_fecha_inicio DATE, @hiin_fecha_fin DATE
+
+	SELECT @hiin_fecha_inicio = hiin_fecha_inicio, @hiin_fecha_fin = hiin_fecha_fin 
+		FROM FAAE.Historial_Inhabilitado 
+		WHERE hiin_hote_codigo = @hote_codigo
+
+	SET @diasFueraDeServicio = 
+		CASE
+			WHEN @hiin_fecha_inicio BETWEEN @fechaDesde AND @fechaHasta AND @hiin_fecha_fin BETWEEN @fechaDesde AND @fechaHasta 
+				THEN DATEDIFF(DAY, @hiin_fecha_inicio, @hiin_fecha_fin)
+			WHEN @hiin_fecha_inicio <= @fechaDesde AND @hiin_fecha_fin BETWEEN @fechaDesde AND @fechaHasta
+				THEN DATEDIFF(DAY, @fechaDesde, @hiin_fecha_fin)
+			WHEN @hiin_fecha_inicio BETWEEN @fechaDesde AND @fechaHasta AND @hiin_fecha_fin >= @fechaHasta
+				THEN DATEDIFF(DAY, @hiin_fecha_inicio, @fechaHasta)
+			WHEN @hiin_fecha_inicio <= @fechaDesde AND @hiin_fecha_fin >= @fechaHasta
+				THEN DATEDIFF(DAY, @fechaDesde, @fechaHasta)
+			ELSE 0
+		END
+
+	RETURN @diasFueraDeServicio
+END
+
+GO
+CREATE FUNCTION FAAE.HotelesConMasDiasFueraDeServicio (@fechaDesde DATE, @fechaHasta DATE)
+RETURNS TABLE
+AS
+RETURN SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, FAAE.DiasFueraDeServicio(hote_codigo, @fechaDesde, @fechaHasta) diasFueraDeServicio, FAAE.DiasFueraDeServicio(hote_codigo, @fechaDesde, @fechaHasta) criterioOrdenar 
+		   FROM FAAE.Hotel
+
+-- FAAE.HabitacionesConMasDiasYVecesOcupada
+
+CREATE FUNCTION FAAE.HabitacionesConMasDiasYVecesOcupada (@fechaDesde DATE, @fechaHasta DATE)
+RETURNS TABLE
+AS
+RETURN 
+SELECT hote_nombre, habi_nro, tipo_descripcion, COUNT(*) vecesOcupada, SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) cantDiasOcupada, COUNT(*) + SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) criterioOrdenar
+	FROM FAAE.Habitacion h JOIN FAAE.Reserva_Habitacion rh ON (h.habi_nro = rh.reha_habi_nro)
+						   JOIN FAAE.Reserva r ON (rh.reha_rese_codigo = r.rese_codigo)
+						   JOIN FAAE.Tipo t ON (h.habi_tipo_codigo = t.tipo_codigo)
+						   JOIN FAAE.Hotel hote ON (h.habi_hote_codigo = hote.hote_codigo)
+	WHERE rese_fecha_desde BETWEEN @fechaDesde AND @fechaHasta 
+	      AND rese_fecha_hasta BETWEEN @fechaDesde AND @fechaHasta 
+	GROUP BY hote_nombre, habi_nro, tipo_descripcion
+
+SELECT TOP 5 hote_nombre, habi_nro, tipo_descripcion, vecesOcupada, cantDiasOcupada 
+	FROM FAAE.HabitacionesConMasDiasYVecesOcupada('2015-01-01', '2017-12-31')
+	ORDER BY criterioOrdenar DESC
+
+drop function FAAE.HabitacionesConMasDiasYVecesOcupada
+
+
+-- FAAE.ClientesConMasPuntos
+
+GO
+CREATE FUNCTION FAAE.ClientesConMasPuntos (@fechaDesde DATE, @fechaHasta DATE) -- FORMATO FECHA: YYYY-MM-DD
+RETURNS TABLE
+AS
+RETURN -- Nombre, Apellido, PuntosTotalEstadia + PuntosTotalConsumibles
+	(SELECT clie_nombre, clie_apellido, 
+			COALESCE( SUM(regi_precio_base * tipo_cant_personas + tipo_porcentual * DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta) + hote_recarga_estrellas) , 0 ) / 20 +
+			SUM(item_cantidad*item_precio) / 10 clie_puntos,
+			COALESCE( SUM(regi_precio_base * tipo_cant_personas + tipo_porcentual * DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta) + hote_recarga_estrellas) , 0 ) / 20 +
+			SUM(item_cantidad*item_precio) / 10 criterioOrdenar
+		FROM FAAE.Item_Factura ifact JOIN FAAE.Factura f ON (ifact.item_fact_tipo = f.fact_tipo AND ifact.item_fact_nro = f.fact_nro)
+									 JOIN FAAE.Reserva res ON (f.fact_rese_codigo = res.rese_codigo)
+									 JOIN FAAE.Regimen reg ON (res.rese_regi_codigo = reg.regi_nombre)
+					 				 JOIN FAAE.Reserva_Habitacion rh ON (res.rese_codigo = rh.reha_rese_codigo)
+									 JOIN FAAE.Habitacion habi ON (rh.reha_hote_codigo = habi.habi_hote_codigo AND rh.reha_habi_nro = habi.habi_nro)
+									 JOIN FAAE.Tipo t ON (habi.habi_tipo_codigo = t.tipo_codigo)
+									 JOIN FAAE.Hotel hote ON (res.rese_hote_codigo = hote.hote_codigo)
+									 JOIN FAAE.Cliente c ON (rese_clie_doc_tipo = c.clie_doc_tipo AND rese_clie_doc_nro = clie_doc_nro AND rese_clie_mail = clie_mail)
+		WHERE fact_fecha BETWEEN @fechaDesde AND @fechaHasta
+		GROUP BY clie_doc_tipo, clie_doc_nro, clie_mail, clie_nombre, clie_apellido)
+
+
+

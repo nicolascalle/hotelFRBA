@@ -24,7 +24,7 @@ namespace FrbaHotel.AbmHotel {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             while (dataReader.Read()) {
-                ListViewItem listItem = this.nuevoItem(dataReader);
+                ListViewItem listItem = this.nuevoItem(dataReader, new List<string>() { "hote_codigo", "hote_nombre", "hote_cant_estrellas", "hote_ciudad", "hote_pais" });
                 this.lvHoteles.Items.Add(listItem);
             }
             dataReader.Close();
@@ -32,6 +32,7 @@ namespace FrbaHotel.AbmHotel {
 
         private void frmAlta_Click(object sender, EventArgs e) {
             AbmHotel.frmAltaHotel frmA = new AbmHotel.frmAltaHotel();
+            frmA.setTitle("Nuevo Hotel");
             frmA.Show();
         }
 
@@ -47,8 +48,9 @@ namespace FrbaHotel.AbmHotel {
                 int codigoHotel = Convert.ToInt32(this.lvHoteles.SelectedItems[0].Text.ToString());
                 Hotel hotelModificar = new Hotel(codigoHotel);
                 hotelModificar.buscar();
-                AbmHotel.frmModificacionHotel frmM = new AbmHotel.frmModificacionHotel();
+                AbmHotel.frmAltaHotel frmM = new AbmHotel.frmAltaHotel();
                 frmM.setHotel(hotelModificar);
+                frmM.setTitle("Modificar Hotel");
                 frmM.Show();
             }
         }
@@ -78,25 +80,19 @@ namespace FrbaHotel.AbmHotel {
         }
 
         private bool seIngresaronDatos() {
-            return tbNombreHotel.Text.ToString().Length != 0 || cbCantidadEstrellas.Text.ToString().Length != 0;
+            return new List<Control> { tbNombreHotel, cbCantidadEstrellas }.All(form => form.Text.Length != 0);
         }
 
         public void setLvProperties() {
-            this.lvHoteles.Columns.Add("Codigo");
-            this.lvHoteles.Columns.Add("Nombre");
-            this.lvHoteles.Columns.Add("Estrellas");
-            this.lvHoteles.Columns.Add("Ciudad");
-            this.lvHoteles.Columns.Add("Pais");
+            new List<string>() { "Codigo", "Nombre", "Estrellas", "Ciudad", "Pais" }
+                .ForEach(columna => this.lvHoteles.Columns.Add(columna));            
             this.lvHoteles.View = View.Details;
             this.lvHoteles.MultiSelect = false;
         }
 
-        public ListViewItem nuevoItem(SqlDataReader dataReader) {
-            ListViewItem listItems = new ListViewItem(dataReader["hote_codigo"].ToString());
-            listItems.SubItems.Add(dataReader["hote_nombre"].ToString());
-            listItems.SubItems.Add(dataReader["hote_cant_estrellas"].ToString());
-            listItems.SubItems.Add(dataReader["hote_ciudad"].ToString());
-            listItems.SubItems.Add(dataReader["hote_pais"].ToString());
+        public ListViewItem nuevoItem(SqlDataReader dataReader, List<string> campos) {
+            ListViewItem listItems = new ListViewItem(dataReader[campos[0]].ToString());
+            campos.Skip(1).ToList().ForEach(subitem => listItems.SubItems.Add(dataReader[subitem].ToString()));
             return listItems;
         }
 
