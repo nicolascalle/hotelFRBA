@@ -53,7 +53,7 @@ namespace FrbaHotel.ListadoEstadistico {
 
                 case "Habitaciones con mayor cantidad de días y veces que fueron ocupadas":
                     this.setLvPropertiesHabitacion();
-                    columnasTabla = new List<string> { "habi_nro", "habi_tipo_codigo", "habi_hote_codigo" };
+                    columnasTabla = new List<string> { "hote_nombre", "habi_nro", "tipo_descripcion", "vecesOcupada", "cantDiasOcupada" };
                     this.cargarListadoTop5("FAAE.HabitacionesConMasDiasYVecesOcupada", columnasTabla, anio, trimestre);
                     break;
 
