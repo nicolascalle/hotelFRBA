@@ -14,6 +14,7 @@ namespace FrbaHotel.GenerarOModificarReserva
     public partial class frmEleccionDeRegimen : Form
     {
         string codHotel;
+        string regimenQueElegio;
         public frmEleccionDeRegimen(string codHotel)
         {
             InitializeComponent();
@@ -41,6 +42,22 @@ namespace FrbaHotel.GenerarOModificarReserva
                 System.Windows.Forms.MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void dgvRegimenesDisponibles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            tbEleccion.Text = dgvRegimenesDisponibles.Rows[e.RowIndex].Cells["reho_regi_codigo"].Value.ToString();
+            regimenQueElegio = dgvRegimenesDisponibles.Rows[e.RowIndex].Cells["reho_regi_codigo"].Value.ToString();
+        }
+
+        private void btnSelecionar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        public string regimenElegido()
+        {
+            return regimenQueElegio;
         }
     }
 }

@@ -36,6 +36,8 @@
             this.regimen_HotelTableAdapter = new FrbaHotel.GD1C2018DataSetTableAdapters.Regimen_HotelTableAdapter();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvRegimenesDisponibles = new System.Windows.Forms.DataGridView();
+            this.btnSelecionar = new System.Windows.Forms.Button();
+            this.tbEleccion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.habitacionBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.regimenHotelBindingSource)).BeginInit();
@@ -77,16 +79,37 @@
             // dgvRegimenesDisponibles
             // 
             this.dgvRegimenesDisponibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRegimenesDisponibles.Location = new System.Drawing.Point(60, 87);
+            this.dgvRegimenesDisponibles.Location = new System.Drawing.Point(24, 75);
             this.dgvRegimenesDisponibles.Name = "dgvRegimenesDisponibles";
+            this.dgvRegimenesDisponibles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRegimenesDisponibles.Size = new System.Drawing.Size(240, 150);
             this.dgvRegimenesDisponibles.TabIndex = 56;
+            this.dgvRegimenesDisponibles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRegimenesDisponibles_CellContentClick);
+            // 
+            // btnSelecionar
+            // 
+            this.btnSelecionar.Location = new System.Drawing.Point(285, 106);
+            this.btnSelecionar.Name = "btnSelecionar";
+            this.btnSelecionar.Size = new System.Drawing.Size(88, 34);
+            this.btnSelecionar.TabIndex = 57;
+            this.btnSelecionar.Text = "Seleccionar";
+            this.btnSelecionar.UseVisualStyleBackColor = true;
+            this.btnSelecionar.Click += new System.EventHandler(this.btnSelecionar_Click);
+            // 
+            // tbEleccion
+            // 
+            this.tbEleccion.Location = new System.Drawing.Point(285, 164);
+            this.tbEleccion.Name = "tbEleccion";
+            this.tbEleccion.Size = new System.Drawing.Size(100, 20);
+            this.tbEleccion.TabIndex = 58;
             // 
             // frmEleccionDeRegimen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 314);
+            this.ClientSize = new System.Drawing.Size(397, 262);
+            this.Controls.Add(this.tbEleccion);
+            this.Controls.Add(this.btnSelecionar);
             this.Controls.Add(this.dgvRegimenesDisponibles);
             this.Controls.Add(this.label2);
             this.Name = "frmEleccionDeRegimen";
@@ -110,5 +133,7 @@
         private GD1C2018DataSetTableAdapters.Regimen_HotelTableAdapter regimen_HotelTableAdapter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvRegimenesDisponibles;
+        private System.Windows.Forms.Button btnSelecionar;
+        private System.Windows.Forms.TextBox tbEleccion;
     }
 }
