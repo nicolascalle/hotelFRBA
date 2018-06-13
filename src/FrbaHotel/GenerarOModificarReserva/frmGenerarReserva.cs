@@ -46,8 +46,8 @@ namespace FrbaHotel.GenerarOModificarReserva
                 {
                     //Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); //Convert.ToInt32(cbTipoHab.Text.ToString()), 
                     //nuevaReserva.guardar();
-                    frmInformarCostoDeLaHabitacion ventanaCosto = new frmInformarCostoDeLaHabitacion(this.calcularCostoDeHabitacion());
-                    ventanaCosto.Show();
+                    //frmInformarCostoDeLaHabitacion ventanaCosto = new frmInformarCostoDeLaHabitacion(this.calcularCostoDeHabitacion());
+                    //ventanaCosto.Show();
                     dataReader.Close();
                 }
                 else
