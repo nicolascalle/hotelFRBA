@@ -774,7 +774,35 @@ BEGIN
 		WHERE rous_clie_doc_tipo = @doc_tipo AND rous_clie_doc_nro = @doc_nro
 END
 
+--Modificar cliente
 
+CREATE PROCEDURE FAAE.modificar_cliente
+@tipoDoc nvarchar(10), @nroDoc numeric(10,0), @nombre nvarchar(25), @apellido nvarchar(25),@mail nvarchar(50),
+@telefono nvarchar(16), @calle nvarchar(50),@numero numeric(10,0),@localidad nvarchar(255),@pais nvarchar(16),
+@nacionalidad nvarchar(16), @habilitado bit, @fechaNac datetime,@piso numeric(8,0),@depto nvarchar(5)
+
+AS
+BEGIN
+		UPDATE FAAE.Cliente 
+			SET clie_doc_tipo = @tipoDoc,
+					clie_doc_nro = @nroDoc,
+					clie_nombre = @nombre,
+					clie_apellido = @apellido,
+					clie_mail = @mail,
+					clie_telefono = @telefono,
+					clie_dire_calle = @calle,
+					clie_dire_nro = @numero,
+					clie_dire_localidad = @localidad,
+					clie_dire_pais = @pais,
+					clie_nacionalidad = @nacionalidad,
+					clie_habilitado = @habilitado,
+					clie_fecha_nacimiento = @fechaNac,
+					clie_piso = @piso,
+					clie_depto = @depto
+			WHERE clie_doc_tipo = @tipoDoc AND clie_doc_nro = @nroDoc
+
+END
+GO
 
 
 -- LISTADO ESTADISTICO
