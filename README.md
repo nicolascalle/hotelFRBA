@@ -1,7 +1,5 @@
 ﻿Curso: K3013
-
 Numero de grupo: -
-
 Integrantes:    Sebastian Guozden
     160.221-4 
 		Agustin Martinez
@@ -9,7 +7,6 @@ Integrantes:    Sebastian Guozden
 		Kevin Odar
            152.350-8
 		Nicolas Calle        160.108.8
-
 Mail del responsable: callenicolasg@gmail.com		
 
 
