@@ -179,6 +179,12 @@
     <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.Designer.cs">
       <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.Designer.cs">
+      <DependentUpon>frmInformarCostoDeLaHabitacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Item.cs" />
     <Compile Include="Reserva.cs" />
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
@@ -348,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmGenerarReserva.resx">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.resx">
+      <DependentUpon>frmInformarCostoDeLaHabitacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarReserva.resx">
       <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>

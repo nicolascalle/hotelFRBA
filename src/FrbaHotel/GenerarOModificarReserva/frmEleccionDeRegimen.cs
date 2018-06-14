@@ -14,50 +14,37 @@ namespace FrbaHotel.GenerarOModificarReserva
     public partial class frmEleccionDeRegimen : Form
     {
         string codHotel;
-        string regimenQueElegio;
+        string regimenQueEligio;
         public frmEleccionDeRegimen(string codHotel)
         {
             InitializeComponent();
             this.codHotel = codHotel;
-        }
+            this.lvRegimenes.Items.Clear();
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT reho_regi_codigo FROM FAAE.Regimen_Hotel WHERE reho_hote_codigo = " + codHotel);
 
-        private void frmEleccionDeRegimen_Load(object sender, EventArgs e)
-        {
-            string query = "SELECT reho_regi_codigo FROM FAAE.Regimen_Hotel WHERE reho_hote_codigo = " + this.codHotel;
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);   
-            DataTable dt = new DataTable();
-            dt.Load(dataReader);
-            dgvRegimenesDisponibles.DataSource = dt;
+            while (dataReader.Read())
+            {
+                ListViewItem listItem = this.nuevoItem(dataReader);
+                this.lvRegimenes.Items.Add(listItem);
+            }
             dataReader.Close();
         }
 
-        private void fillByToolStripButton_Click(object sender, EventArgs e)
+        public ListViewItem nuevoItem(SqlDataReader dataReader)
         {
-            try
-            {
-                this.regimen_HotelTableAdapter.FillBy(this.gD1C2018DataSet.Regimen_Hotel);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
+            ListViewItem listItems = new ListViewItem(dataReader["reho_regi_codigo"].ToString());
+            return listItems;
         }
 
-        private void dgvRegimenesDisponibles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
-            tbEleccion.Text = dgvRegimenesDisponibles.Rows[e.RowIndex].Cells["reho_regi_codigo"].Value.ToString();
-            regimenQueElegio = dgvRegimenesDisponibles.Rows[e.RowIndex].Cells["reho_regi_codigo"].Value.ToString();
+            regimenQueEligio = this.lvRegimenes.SelectedItems[0].Text.ToString();
+            Close();
         }
 
-        private void btnSelecionar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
         public string regimenElegido()
         {
-            return regimenQueElegio;
+            return regimenQueEligio;
         }
     }
 }

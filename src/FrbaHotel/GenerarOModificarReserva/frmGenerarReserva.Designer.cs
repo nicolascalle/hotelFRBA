@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbTipoHab = new System.Windows.Forms.ComboBox();
             this.cbTipoRegimen = new System.Windows.Forms.ComboBox();
-            this.gD1C2018DataSet = new FrbaHotel.GD1C2018DataSet();
-            this.gD1C2018DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.regimenBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gD1C2018DataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gD1C2018DataSet = new FrbaHotel.GD1C2018DataSet();
             this.regimenTableAdapter = new FrbaHotel.GD1C2018DataSetTableAdapters.RegimenTableAdapter();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,9 +46,9 @@
             this.tbCantHabitaciones = new System.Windows.Forms.TextBox();
             this.tbNombreHotel = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.regimenBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -78,27 +78,29 @@
             // 
             this.cbTipoRegimen.FormattingEnabled = true;
             this.cbTipoRegimen.Items.AddRange(new object[] {
-            "All inclusive",
-            "Media pensión"});
+            "All Inclusive",
+            "All Inclusive moderado",
+            "Media Pensión",
+            "Pension Completa"});
             this.cbTipoRegimen.Location = new System.Drawing.Point(186, 173);
             this.cbTipoRegimen.Name = "cbTipoRegimen";
             this.cbTipoRegimen.Size = new System.Drawing.Size(121, 21);
             this.cbTipoRegimen.TabIndex = 46;
             // 
-            // gD1C2018DataSet
+            // regimenBindingSource
             // 
-            this.gD1C2018DataSet.DataSetName = "GD1C2018DataSet";
-            this.gD1C2018DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.regimenBindingSource.DataMember = "Regimen";
+            this.regimenBindingSource.DataSource = this.gD1C2018DataSetBindingSource;
             // 
             // gD1C2018DataSetBindingSource
             // 
             this.gD1C2018DataSetBindingSource.DataSource = this.gD1C2018DataSet;
             this.gD1C2018DataSetBindingSource.Position = 0;
             // 
-            // regimenBindingSource
+            // gD1C2018DataSet
             // 
-            this.regimenBindingSource.DataMember = "Regimen";
-            this.regimenBindingSource.DataSource = this.gD1C2018DataSetBindingSource;
+            this.gD1C2018DataSet.DataSetName = "GD1C2018DataSet";
+            this.gD1C2018DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // regimenTableAdapter
             // 
@@ -210,9 +212,9 @@
             this.Name = "frmGenerarReserva";
             this.Text = "frmGenerarReserva";
             this.Load += new System.EventHandler(this.frmGenerarReserva_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.regimenBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

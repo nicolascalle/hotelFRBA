@@ -28,112 +28,58 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.gD1C2018DataSet = new FrbaHotel.GD1C2018DataSet();
-            this.habitacionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.habitacionTableAdapter = new FrbaHotel.GD1C2018DataSetTableAdapters.HabitacionTableAdapter();
-            this.regimenHotelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.regimen_HotelTableAdapter = new FrbaHotel.GD1C2018DataSetTableAdapters.Regimen_HotelTableAdapter();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dgvRegimenesDisponibles = new System.Windows.Forms.DataGridView();
-            this.btnSelecionar = new System.Windows.Forms.Button();
-            this.tbEleccion = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.habitacionBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regimenHotelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRegimenesDisponibles)).BeginInit();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lvRegimenes = new System.Windows.Forms.ListView();
+            this.Regimenes = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // gD1C2018DataSet
+            // button1
             // 
-            this.gD1C2018DataSet.DataSetName = "GD1C2018DataSet";
-            this.gD1C2018DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.button1.Location = new System.Drawing.Point(149, 203);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // habitacionBindingSource
+            // lvRegimenes
             // 
-            this.habitacionBindingSource.DataMember = "Habitacion";
-            this.habitacionBindingSource.DataSource = this.gD1C2018DataSet;
+            this.lvRegimenes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Regimenes});
+            this.lvRegimenes.FullRowSelect = true;
+            this.lvRegimenes.GridLines = true;
+            this.lvRegimenes.Location = new System.Drawing.Point(38, 34);
+            this.lvRegimenes.Margin = new System.Windows.Forms.Padding(2);
+            this.lvRegimenes.MultiSelect = false;
+            this.lvRegimenes.Name = "lvRegimenes";
+            this.lvRegimenes.Size = new System.Drawing.Size(311, 145);
+            this.lvRegimenes.TabIndex = 40;
+            this.lvRegimenes.UseCompatibleStateImageBehavior = false;
+            this.lvRegimenes.View = System.Windows.Forms.View.Details;
             // 
-            // habitacionTableAdapter
+            // Regimenes
             // 
-            this.habitacionTableAdapter.ClearBeforeFill = true;
-            // 
-            // regimenHotelBindingSource
-            // 
-            this.regimenHotelBindingSource.DataMember = "Regimen_Hotel";
-            this.regimenHotelBindingSource.DataSource = this.gD1C2018DataSet;
-            // 
-            // regimen_HotelTableAdapter
-            // 
-            this.regimen_HotelTableAdapter.ClearBeforeFill = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(242, 13);
-            this.label2.TabIndex = 55;
-            this.label2.Text = "Estos son los regimenes disponibles en este hotel:";
-            // 
-            // dgvRegimenesDisponibles
-            // 
-            this.dgvRegimenesDisponibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRegimenesDisponibles.Location = new System.Drawing.Point(24, 75);
-            this.dgvRegimenesDisponibles.Name = "dgvRegimenesDisponibles";
-            this.dgvRegimenesDisponibles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRegimenesDisponibles.Size = new System.Drawing.Size(240, 150);
-            this.dgvRegimenesDisponibles.TabIndex = 56;
-            this.dgvRegimenesDisponibles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRegimenesDisponibles_CellContentClick);
-            // 
-            // btnSelecionar
-            // 
-            this.btnSelecionar.Location = new System.Drawing.Point(285, 106);
-            this.btnSelecionar.Name = "btnSelecionar";
-            this.btnSelecionar.Size = new System.Drawing.Size(88, 34);
-            this.btnSelecionar.TabIndex = 57;
-            this.btnSelecionar.Text = "Seleccionar";
-            this.btnSelecionar.UseVisualStyleBackColor = true;
-            this.btnSelecionar.Click += new System.EventHandler(this.btnSelecionar_Click);
-            // 
-            // tbEleccion
-            // 
-            this.tbEleccion.Location = new System.Drawing.Point(285, 164);
-            this.tbEleccion.Name = "tbEleccion";
-            this.tbEleccion.Size = new System.Drawing.Size(100, 20);
-            this.tbEleccion.TabIndex = 58;
+            this.Regimenes.Text = "Regimenes";
+            this.Regimenes.Width = 98;
             // 
             // frmEleccionDeRegimen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 262);
-            this.Controls.Add(this.tbEleccion);
-            this.Controls.Add(this.btnSelecionar);
-            this.Controls.Add(this.dgvRegimenesDisponibles);
-            this.Controls.Add(this.label2);
+            this.ClientSize = new System.Drawing.Size(387, 255);
+            this.Controls.Add(this.lvRegimenes);
+            this.Controls.Add(this.button1);
             this.Name = "frmEleccionDeRegimen";
-            this.Text = "frmEleccionDeRegimen";
-            this.Load += new System.EventHandler(this.frmEleccionDeRegimen_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.gD1C2018DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.habitacionBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.regimenHotelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRegimenesDisponibles)).EndInit();
+            this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private GD1C2018DataSet gD1C2018DataSet;
-        private System.Windows.Forms.BindingSource habitacionBindingSource;
-        private GD1C2018DataSetTableAdapters.HabitacionTableAdapter habitacionTableAdapter;
-        private System.Windows.Forms.BindingSource regimenHotelBindingSource;
-        private GD1C2018DataSetTableAdapters.Regimen_HotelTableAdapter regimen_HotelTableAdapter;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dgvRegimenesDisponibles;
-        private System.Windows.Forms.Button btnSelecionar;
-        private System.Windows.Forms.TextBox tbEleccion;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListView lvRegimenes;
+        private System.Windows.Forms.ColumnHeader Regimenes;
     }
 }

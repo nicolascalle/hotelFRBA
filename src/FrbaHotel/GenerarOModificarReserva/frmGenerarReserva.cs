@@ -14,7 +14,7 @@ namespace FrbaHotel.GenerarOModificarReserva
     public partial class frmGenerarReserva : Form
     {
         SqlDataReader dataReader;
-        string regimenQueElegio;
+        string regimen;
         public frmGenerarReserva()
         {
             InitializeComponent();
@@ -30,49 +30,39 @@ namespace FrbaHotel.GenerarOModificarReserva
         {
             if (this.noHayCamposSinSeleccionar())
             {
-                if (cbTipoRegimen.Text.Length == 0)
-                {
-
-                    frmEleccionDeRegimen ventanaEleccion = new frmEleccionDeRegimen(this.cambiarNombreHotelPorNumeroHotel());
-                    dataReader.Close();
-                    ventanaEleccion.Show();
-                    regimenQueElegio = ventanaEleccion.regimenElegido();
-                }
-                else
-                {
-                    regimenQueElegio = cbTipoRegimen.Text.ToString();
-                }
-                if (this.determinarDisponibilidadDelPedido())
-                {
-                    //Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); //Convert.ToInt32(cbTipoHab.Text.ToString()), 
-                    //nuevaReserva.guardar();
-                    //frmInformarCostoDeLaHabitacion ventanaCosto = new frmInformarCostoDeLaHabitacion(this.calcularCostoDeHabitacion());
-                    //ventanaCosto.Show();
-                    dataReader.Close();
-                }
-                else
-                {
-                    MessageBox.Show("No hay un carajo");
-                }
+                this.determinarRegimen();
+                    if (this.determinarDisponibilidadDelPedido())
+                    {
+                        dataReader.Close();
+                        //Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); //Convert.ToInt32(cbTipoHab.Text.ToString()), 
+                        //nuevaReserva.guardar();
+                        frmInformarCostoDeLaHabitacion ventanaCosto = new frmInformarCostoDeLaHabitacion(this.calcularCostoDeHabitacion());
+                        ventanaCosto.Show();
+                        dataReader.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No hay disponibilidad");
+                    }
 
             }
-            Close();
         }
-        //
 
         private bool noHayCamposSinSeleccionar()
         {
-            return cbTipoHab.Text.Length != 0 &&  tbCantHabitaciones.Text.Length != 0;
+            return cbTipoHab.Text.Length != 0 && tbCantHabitaciones.Text.Length != 0 && tbNombreHotel.Text.Length != 0;
         }
 
         private bool determinarDisponibilidadDelPedido()
         {
-           // query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND LIKE '" + regimenQueElegio + "'";
-           string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "' AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimenQueElegio + "' AND hote_codigo = " + this.cambiarNombreHotelPorNumeroHotel().ToString();
-           dataReader = DBConnection.getInstance().executeQuery(query);
+           
+           string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimen + "' AND hote_codigo = " + this.cambiarNombreHotelPorNumeroHotel();
+           dataReader.Close();
+            dataReader = DBConnection.getInstance().executeQuery(query);
            if (dataReader.Read())
            {
                return Convert.ToInt32(dataReader["cantDisponibles"].ToString()) >= Convert.ToInt32(tbCantHabitaciones.Text);
+                
            }
            else
                return false;
@@ -93,20 +83,40 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private int calcularCostoDeHabitacion()
         {
-            string query = "SELECT regi_precio_base FROM FAAE.Regimen WHERE regi_nombre LIKE '" + regimenQueElegio + "'";
-            dataReader = DBConnection.getInstance().executeQuery(query);
-            int precioRegimen = Convert.ToInt32(dataReader["regi_precio_base"].ToString());
             dataReader.Close();
+            string query = "SELECT regi_precio_base FROM FAAE.Regimen WHERE regi_nombre LIKE '" + regimen + "'";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            int precioRegimen = (int) Convert.ToDecimal(dataReader["regi_precio_base"].ToString());
+            dataReader.Close();
+
             query = "SELECT tipo_cant_personas FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
             int precioTipo = Convert.ToInt32(dataReader["tipo_cant_personas"].ToString());
             dataReader.Close();
-            query = "SELECT hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_nombre LIKE '" + tbNombreHotel + "'";
+
+            query = "SELECT hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_nombre LIKE '" + tbNombreHotel.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
-            int precioHotel = Convert.ToInt32(dataReader["hote_recarga_estrellas"].ToString());
+            dataReader.Read();
+            int precioHotel = (int) (Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString()));
             dataReader.Close();
             return precioRegimen * precioTipo * precioHotel;
         }
+
+        private void determinarRegimen()
+        {
+            if (cbTipoRegimen.Text.Length == 0)
+            {
+                string numHotel = this.cambiarNombreHotelPorNumeroHotel();
+                dataReader.Close();
+                frmEleccionDeRegimen ventanaEleccion = new frmEleccionDeRegimen(numHotel);
+                ventanaEleccion.Show();
+                cbTipoRegimen.Text = ventanaEleccion.regimenElegido();
+            }
+            regimen = cbTipoRegimen.Text.ToString();
+        }
+
     }
 
 }
