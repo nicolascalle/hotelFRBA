@@ -14,4 +14,4 @@
 * Facturar estadia -- falta
 * Listado estadistico -- creo que lo esta haciendo agustin
 
-Migración?
+Migración Terminada
