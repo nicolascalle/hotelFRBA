@@ -805,6 +805,71 @@ END
 GO
 
 
+
+-- FACTURAR ESTADIA
+
+CREATE FUNCTION FAAE.NuevaFactura (@rese_codigo NUMERIC(10))
+RETURNS TABLE
+AS
+RETURN
+SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDATE() fact_fecha, 'efectivo' fact_forma_pago, hote_nombre, clie_apellido+', '+clie_nombre nombreApellido
+	FROM FAAE.Reserva r JOIN FAAE.Reserva_Habitacion rh ON (r.rese_codigo = rh.reha_rese_codigo)
+						JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
+						JOIN FAAE.Cliente c ON (r.rese_clie_doc_tipo = c.clie_doc_tipo AND r.rese_clie_doc_nro = c.clie_doc_nro AND r.rese_clie_mail = c.clie_mail)
+	WHERE rese_codigo = @rese_codigo
+
+
+CREATE FUNCTION FAAE.ConsumiblesReserva (@rese_codigo NUMERIC(10))
+RETURNS TABLE
+AS
+RETURN
+SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, hote_nombre
+	FROM FAAE.Reserva r JOIN FAAE.Reserva_Habitacion rh ON (r.rese_codigo = rh.reha_rese_codigo)
+						JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
+	WHERE rese_codigo = @rese_codigo
+
+
+GO
+CREATE FUNCTION FAAE.calcularTotalEstadia (@rese_codigo NUMERIC(10))
+RETURNS DECIMAL(10,2)
+AS
+BEGIN
+	RETURN (SELECT COALESCE( SUM(regi_precio_base * tipo_cant_personas + tipo_porcentual * DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta) + hote_recarga_estrellas) , 0 ) totalEstadia
+				FROM FAAE.Factura fact JOIN FAAE.Reserva res ON (fact.fact_rese_codigo = res.rese_codigo)
+									   JOIN FAAE.Regimen reg ON (res.rese_regi_codigo = reg.regi_nombre)
+									   JOIN FAAE.Reserva_Habitacion rh ON (res.rese_codigo = rh.reha_rese_codigo)
+									   JOIN FAAE.Habitacion habi ON (rh.reha_hote_codigo = habi.habi_hote_codigo AND rh.reha_habi_nro = habi.habi_nro)
+									   JOIN FAAE.Tipo t ON (habi.habi_tipo_codigo = t.tipo_codigo)
+									   JOIN FAAE.Hotel hote ON (res.rese_hote_codigo = hote.hote_codigo)
+				WHERE rese_codigo = @rese_codigo)
+END
+
+GO
+CREATE PROCEDURE FAAE.guardar_factura
+@fact_tipo NVARCHAR(10), @fact_nro NUMERIC(10), @fact_fecha DATE, @fact_total DECIMAL(10,2), @fact_rese_codigo NUMERIC(10)
+AS
+BEGIN
+	IF( EXISTS(SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = @fact_rese_codigo) )
+		BEGIN
+			INSERT INTO FAAE.Factura (fact_tipo, fact_nro, fact_fecha, fact_total, fact_rese_codigo)
+			VALUES(@fact_tipo, @fact_nro, @fact_fecha, @fact_total, @fact_rese_codigo)
+		END
+END
+
+GO
+CREATE PROCEDURE FAAE.guardar_items_factura
+@fact_tipo NVARCHAR(10), @fact_nro NUMERIC(10), @item_cons_codigo NUMERIC(10), @cantidad NUMERIC(10), @precio DECIMAL(5,2)
+AS
+BEGIN
+	IF( EXISTS(SELECT fact_nro, fact_nro FROM FAAE.Factura WHERE fact_tipo = @fact_tipo AND fact_nro = @fact_nro) )
+		BEGIN
+			INSERT INTO FAAE.Item_Factura (item_fact_tipo, item_fact_nro, item_cons_codigo, item_cantidad, item_precio)
+			VALUES(@fact_tipo, @fact_nro, @item_cons_codigo, @cantidad, @precio)
+		END
+END
+
+
+
 -- LISTADO ESTADISTICO
 
 -- FAAE.HotelesConMasReservasCanceladas
@@ -913,6 +978,7 @@ RETURN -- Nombre, Apellido, PuntosTotalEstadia + PuntosTotalConsumibles
 									 JOIN FAAE.Cliente c ON (rese_clie_doc_tipo = c.clie_doc_tipo AND rese_clie_doc_nro = clie_doc_nro AND rese_clie_mail = clie_mail)
 		WHERE fact_fecha BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY clie_doc_tipo, clie_doc_nro, clie_mail, clie_nombre, clie_apellido)
+
 
 
 

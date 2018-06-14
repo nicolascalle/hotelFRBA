@@ -166,12 +166,20 @@
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Cliente.cs" />
+    <Compile Include="Factura.cs" />
+    <Compile Include="FacturarEstadia\frmConfirmarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FacturarEstadia\frmConfirmarFactura.Designer.cs">
+      <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.Designer.cs">
       <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Item.cs" />
     <Compile Include="Reserva.cs" />
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
       <SubType>Form</SubType>
@@ -192,7 +200,6 @@
       <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Habitacion.cs" />
-    <Compile Include="Consumible.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="FacturarEstadia\frmFacturarEstadia.cs">
       <SubType>Form</SubType>
@@ -329,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CancelarReserva\frmCancelarReserva.resx">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FacturarEstadia\frmConfirmarFactura.resx">
+      <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FacturarEstadia\frmFacturarEstadia.resx">
       <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
