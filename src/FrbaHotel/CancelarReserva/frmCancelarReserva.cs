@@ -32,7 +32,7 @@ namespace FrbaHotel.CancelarReserva
             {
                 if (this.enFecha() && !this.reservaUtilizada() && this.datosBienIngresados())
                 {
-                    DBConnection.getInstance().executeQuery("UPDATE FAAE.Reserva set rese_estado = '" + rolUsuario + "'");
+                    DBConnection.getInstance().executeQuery("UPDATE FAAE.Reserva set rese_estado = '" + rolUsuario + "' WHERE rese_codigo ="+ Convert.ToInt32(tbNroReserva.Text));
                     MessageBox.Show("Reserva cancelada correctamente");                        
                 }
                 else
@@ -65,11 +65,19 @@ namespace FrbaHotel.CancelarReserva
 
         private bool enFecha()
         {
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT rese_fecha_desde FROM FAAE.Reserva WHERE rese_codigo = " + tbNroReserva.Text.ToString() );
-            dataReader.Read();
-            DateTime fecha = Convert.ToDateTime(dataReader["rese_fecha_desde"].ToString());
-            dataReader.Close();
-            return Convert.ToDateTime(dtpFechaCancelacion.Text) < fecha;
+            try
+            {
+                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT rese_fecha_desde FROM FAAE.Reserva WHERE rese_codigo = " + tbNroReserva.Text.ToString());
+                dataReader.Read();
+                DateTime fecha = Convert.ToDateTime(dataReader["rese_fecha_desde"].ToString());
+                dataReader.Close();
+                return Convert.ToDateTime(dtpFechaCancelacion.Text) < fecha;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No existe esa reserva");return false;
+            }
+            
         }
     }
 }

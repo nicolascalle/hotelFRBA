@@ -15,7 +15,7 @@ namespace FrbaHotel {
         private SqlConnection connection;
         private Usuario usuario;
 
-        private DBConnection() { }
+        public DBConnection() { }
 
         public static DBConnection getInstance() { return instance; }
 
