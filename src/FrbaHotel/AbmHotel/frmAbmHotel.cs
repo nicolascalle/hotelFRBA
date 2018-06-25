@@ -80,7 +80,7 @@ namespace FrbaHotel.AbmHotel {
         }
 
         private bool seIngresaronDatos() {
-            return new List<Control> { tbNombreHotel, cbCantidadEstrellas }.All(form => form.Text.Length != 0);
+            return new List<Control> { tbNombreHotel, cbCantidadEstrellas }.Any(form => form.Text.Length != 0);
         }
 
         public void setLvProperties() {

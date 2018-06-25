@@ -47,22 +47,22 @@ IF OBJECT_ID('FAAE.Cliente','U') IS NOT NULL
 /** ASEGURAMOS LOS NOMBRES DE TRIGGERS FUNCIONES Y VISTAS **/
 
 IF (OBJECT_ID ('FAAE.t_actualizar_Historial_Reserva') IS NOT NULL)
-  DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
+	DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Historial
 
 IF (OBJECT_ID ('FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura') IS NOT NULL)
-  DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura
+	DROP TRIGGER FAAE.t_actualizar_Estado_Reserva_Dependiendo_de_Factura
 
  IF OBJECT_ID('FAAE.t_mail_y_pasaporte_unico') IS NOT NULL
     DROP TRIGGER FAAE.t_mail_unico;
 
 IF (OBJECT_ID ('FAAE.obtenerHotelCodigo') IS NOT NULL)
-  DROP FUNCTION FAAE.obtenerHotelCodigo
+	DROP FUNCTION FAAE.obtenerHotelCodigo
 
- IF OBJECT_ID('FAAE.t_agregar_Hotel') IS NOT NULL
-    DROP TRIGGER FAAE.t_agregar_Hotel;
+IF OBJECT_ID('FAAE.t_agregar_Hotel') IS NOT NULL
+	DROP TRIGGER FAAE.t_agregar_Hotel;
 
- IF OBJECT_ID('FAAE.cantPersonas') IS NOT NULL
-    DROP FUNCTION FAAE.cantPersonas;
+IF OBJECT_ID('FAAE.cantPersonas') IS NOT NULL
+	DROP FUNCTION FAAE.cantPersonas;
 
 IF OBJECT_ID('FAAE.RolXUsuario') IS NOT NULL
     DROP VIEW FAAE.RolXUsuario;
@@ -105,7 +105,54 @@ IF OBJECT_ID('FAAE.baja_habitacion') IS NOT NULL
 
 IF OBJECT_ID('FAAE.inhabilitar_habitacion') IS NOT NULL
     DROP PROCEDURE FAAE.inhabilitar_habitacion;
+
+IF OBJECT_ID('FAAE.guardar_usuario') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_usuario;
+
+IF OBJECT_ID('FAAE.asignar_rol_usuario') IS NOT NULL
+    DROP PROCEDURE FAAE.asignar_rol_usuario;
+
+IF OBJECT_ID('FAAE.eliminar_roles_usuario') IS NOT NULL
+    DROP PROCEDURE FAAE.eliminar_roles_usuario;
+
+IF OBJECT_ID('FAAE.modificar_cliente') IS NOT NULL
+    DROP PROCEDURE FAAE.modificar_cliente;
+
+IF OBJECT_ID('FAAE.NuevaFactura') IS NOT NULL
+    DROP FUNCTION FAAE.NuevaFactura;
+
+IF OBJECT_ID('FAAE.ConsumiblesReserva') IS NOT NULL
+    DROP FUNCTION FAAE.ConsumiblesReserva;
+
+IF OBJECT_ID('FAAE.calcularTotalEstadia') IS NOT NULL
+    DROP FUNCTION FAAE.calcularTotalEstadia;
+
+IF OBJECT_ID('FAAE.guardar_factura') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_factura;
+
+IF OBJECT_ID('FAAE.guardar_items_factura') IS NOT NULL
+    DROP PROCEDURE FAAE.guardar_items_factura;
+
+IF OBJECT_ID('FAAE.HotelesConMasReservasCanceladas') IS NOT NULL
+    DROP FUNCTION FAAE.HotelesConMasReservasCanceladas;
+
+IF OBJECT_ID('FAAE.HotelesConMasConsumiblesFacturados') IS NOT NULL
+    DROP FUNCTION FAAE.HotelesConMasConsumiblesFacturados;
+
+IF OBJECT_ID('FAAE.DiasFueraDeServicio') IS NOT NULL
+    DROP FUNCTION FAAE.DiasFueraDeServicio;
+
+IF OBJECT_ID('FAAE.HotelesConMasDiasFueraDeServicio') IS NOT NULL
+    DROP FUNCTION FAAE.HotelesConMasDiasFueraDeServicio;
+
+IF OBJECT_ID('FAAE.HabitacionesConMasDiasYVecesOcupada') IS NOT NULL
+    DROP FUNCTION FAAE.HabitacionesConMasDiasYVecesOcupada;
+
+IF OBJECT_ID('FAAE.ClientesConMasPuntos') IS NOT NULL
+    DROP FUNCTION FAAE.ClientesConMasPuntos;
+
 GO
+
 
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'FAAE')
     DROP SCHEMA FAAE
@@ -114,6 +161,7 @@ GO
 /** CREACION DE SCHEMA **/
 CREATE SCHEMA FAAE AUTHORIZATION gdHotel2018
 GO
+
 
 /** CREACION DE TABLAS **/
 CREATE TABLE FAAE.Historial_Reserva (
@@ -708,8 +756,8 @@ VALUES(17, 7, 2, 'N', 1002 ,0)
 */
 
 
-
 -- ABM USUARIO
+
 
 GO
 CREATE PROCEDURE FAAE.guardar_usuario
@@ -718,6 +766,10 @@ CREATE PROCEDURE FAAE.guardar_usuario
 @usua_hote_codigo_ultimo_log_in numeric(10), @usua_habilitado bit
 AS
 BEGIN
+	
+	IF @usua_hote_codigo_ultimo_log_in = 0 
+		SET @usua_hote_codigo_ultimo_log_in = NULL
+
 	IF( EXISTS(SELECT usua_username FROM FAAE.Usuario WHERE usua_username = @usua_username) )
 		BEGIN
 			UPDATE FAAE.Usuario 
@@ -748,12 +800,12 @@ CREATE PROCEDURE FAAE.asignar_rol_usuario
 @usua_username NVARCHAR(10), @rol_nombre NVARCHAR(16)
 AS
 BEGIN
-	IF( NOT EXISTS(SELECT rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre 
-						FROM FAAE.Rol_Usuario ru JOIN FAAE.Usuario u ON (ru.rous_clie_doc_tipo = u.usua_doc_tipo AND ru.rous_clie_doc_nro = u.usua_doc_nro)
+	IF( NOT EXISTS(SELECT rous_clie_doc_tipo, rous_clie_doc_nro, rous_clie_mail, rous_rol_nombre 
+						FROM FAAE.Rol_Usuario ru JOIN FAAE.Usuario u ON (ru.rous_clie_doc_tipo = u.usua_doc_tipo AND ru.rous_clie_doc_nro = u.usua_doc_nro AND ru.rous_clie_mail = u.usua_mail)
 						WHERE usua_username = @usua_username AND rous_rol_nombre = @rol_nombre) )
 		BEGIN
-			INSERT INTO FAAE.Rol_Usuario (rous_clie_doc_tipo, rous_clie_doc_nro, rous_rol_nombre)
-				SELECT usua_doc_tipo, usua_doc_nro, @rol_nombre
+			INSERT INTO FAAE.Rol_Usuario (rous_clie_doc_tipo, rous_clie_doc_nro, rous_clie_mail, rous_rol_nombre)
+				SELECT usua_doc_tipo, usua_doc_nro, usua_mail, @rol_nombre
 					FROM FAAE.Usuario
 					WHERE usua_username = @usua_username
 		END
@@ -774,8 +826,10 @@ BEGIN
 		WHERE rous_clie_doc_tipo = @doc_tipo AND rous_clie_doc_nro = @doc_nro
 END
 
+
 --Modificar cliente
 
+GO
 CREATE PROCEDURE FAAE.modificar_cliente
 @tipoDoc nvarchar(10), @nroDoc numeric(10,0), @nombre nvarchar(25), @apellido nvarchar(25),@mail nvarchar(50),
 @telefono nvarchar(16), @calle nvarchar(50),@numero numeric(10,0),@localidad nvarchar(255),@pais nvarchar(16),
@@ -808,6 +862,7 @@ GO
 
 -- FACTURAR ESTADIA
 
+GO
 CREATE FUNCTION FAAE.NuevaFactura (@rese_codigo NUMERIC(10))
 RETURNS TABLE
 AS
@@ -819,6 +874,7 @@ SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDA
 	WHERE rese_codigo = @rese_codigo
 
 
+GO
 CREATE FUNCTION FAAE.ConsumiblesReserva (@rese_codigo NUMERIC(10))
 RETURNS TABLE
 AS
@@ -872,6 +928,7 @@ END
 
 -- LISTADO ESTADISTICO
 
+
 -- FAAE.HotelesConMasReservasCanceladas
 
 GO
@@ -882,6 +939,7 @@ AS
 		FROM FAAE.Reserva r JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
 		WHERE rese_estado LIKE 'cancelada' AND rese_fecha_realizacion BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais)
+
 
 -- FAAE.HotelesConMasConsumiblesFacturados
 
@@ -896,6 +954,7 @@ SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ci
 								 JOIN FAAE.Consumible c ON (ifact.item_cons_codigo = c.cons_codigo)
 	WHERE f.fact_fecha BETWEEN @fechaDesde AND @fechaHasta
 	GROUP BY hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, cons_descipcion
+
 
 -- FAAE.HotelesConMasDiasFueraDeServicio
 
@@ -934,26 +993,22 @@ AS
 RETURN SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, FAAE.DiasFueraDeServicio(hote_codigo, @fechaDesde, @fechaHasta) diasFueraDeServicio, FAAE.DiasFueraDeServicio(hote_codigo, @fechaDesde, @fechaHasta) criterioOrdenar 
 		   FROM FAAE.Hotel
 
+
 -- FAAE.HabitacionesConMasDiasYVecesOcupada
 
+GO
 CREATE FUNCTION FAAE.HabitacionesConMasDiasYVecesOcupada (@fechaDesde DATE, @fechaHasta DATE)
 RETURNS TABLE
 AS
 RETURN 
-SELECT hote_nombre, habi_nro, tipo_descripcion, COUNT(*) vecesOcupada, SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) cantDiasOcupada, COUNT(*) + SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) criterioOrdenar
+(SELECT hote_nombre, habi_nro, tipo_descripcion, COUNT(*) vecesOcupada, SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) cantDiasOcupada, COUNT(*) + SUM(DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)) criterioOrdenar
 	FROM FAAE.Habitacion h JOIN FAAE.Reserva_Habitacion rh ON (h.habi_nro = rh.reha_habi_nro)
 						   JOIN FAAE.Reserva r ON (rh.reha_rese_codigo = r.rese_codigo)
 						   JOIN FAAE.Tipo t ON (h.habi_tipo_codigo = t.tipo_codigo)
 						   JOIN FAAE.Hotel hote ON (h.habi_hote_codigo = hote.hote_codigo)
 	WHERE rese_fecha_desde BETWEEN @fechaDesde AND @fechaHasta 
 	      AND rese_fecha_hasta BETWEEN @fechaDesde AND @fechaHasta 
-	GROUP BY hote_nombre, habi_nro, tipo_descripcion
-
-SELECT TOP 5 hote_nombre, habi_nro, tipo_descripcion, vecesOcupada, cantDiasOcupada 
-	FROM FAAE.HabitacionesConMasDiasYVecesOcupada('2015-01-01', '2017-12-31')
-	ORDER BY criterioOrdenar DESC
-
-drop function FAAE.HabitacionesConMasDiasYVecesOcupada
+	GROUP BY hote_nombre, habi_nro, tipo_descripcion)
 
 
 -- FAAE.ClientesConMasPuntos

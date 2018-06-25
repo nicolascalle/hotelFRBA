@@ -33,9 +33,9 @@ namespace FrbaHotel.AbmHotel {
             nudRecargaEstrellasHotel.Text = hotel.getRecargaEstrellas().ToString();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e) {
+        private void btnAceptar_Click(object sender, EventArgs e) {
             if (this.camposObligatoriosCompletos()) {
-                Hotel hote = this.getHotel();
+                Hotel hotel = this.getHotel();
                 hotel.setNombre(tbNombreHotel.Text.ToString());
                 hotel.setMail(tbMailHotel.Text.ToString());
                 hotel.setTelefono(tbTelefonoHotel.Text.ToString());
@@ -48,8 +48,10 @@ namespace FrbaHotel.AbmHotel {
                     hotel.setFechaCreacion(dtFechaCreacionHotel.Value);
                 hotel.setRecargaEstrellas(Convert.ToDecimal(nudRecargaEstrellasHotel.Value));
                 hotel.guardar();
+                Close();
             }
-            Close();
+            else 
+                this.msgCamposIncompletos();
         }
 
         private bool camposObligatoriosCompletos() {
@@ -64,6 +66,10 @@ namespace FrbaHotel.AbmHotel {
             if (hotel == null)
                 return new Hotel();
             return this.hotel;
+        }
+
+        private void msgCamposIncompletos() {
+            MessageBox.Show("Campos obligatorios incompletos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

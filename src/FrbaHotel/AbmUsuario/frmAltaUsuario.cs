@@ -52,7 +52,7 @@ namespace FrbaHotel.AbmUsuario {
                     usuario.setMail(tbMail.Text.ToString());
                     usuario.setTelefono(tbTelefono.Text.ToString());
                     usuario.setDireCalle(tbDireCalle.Text.ToString());
-                    usuario.setDireNro(Convert.ToInt32(tbDireNro.Text));
+                    usuario.setDireNro(Convert.ToInt64(tbDireNro.Text));
                     usuario.setFechaNacimiento(dtpFechaNacimiento.Value);
                     usuario.setHabilitado(cbHabilitado.Checked);
                     usuario.limpiarRoles();
@@ -62,21 +62,24 @@ namespace FrbaHotel.AbmUsuario {
                     Close();
                 }
             }
+            else
+                this.msgCamposIncompletos();
         }
 
         private void cargarUsuarioActual() {
-            cbDocTipo.Text = usuario.getDocTipo();
-            tbDocNro.Text = usuario.getDocNro().ToString();
-            tbUsername.Text = usuario.getUsername();
-            tbPassword.Text = usuario.getPassword();
-            tbNombre.Text = usuario.getNombre();
-            tbApellido.Text = usuario.getApellido();
-            tbMail.Text = usuario.getMail();
-            tbTelefono.Text = usuario.getTelefono();
-            tbDireCalle.Text = usuario.getDireCalle();
-            tbDireNro.Text = usuario.getDireNro().ToString();
+            cbDocTipo.Text          = usuario.getDocTipo();
+            tbDocNro.Text           = usuario.getDocNro().ToString();
+            tbUsername.Text         = usuario.getUsername();
+            tbUsername.ReadOnly     = true;
+            tbPassword.Text         = usuario.getPassword();
+            tbNombre.Text           = usuario.getNombre();
+            tbApellido.Text         = usuario.getApellido();
+            tbMail.Text             = usuario.getMail();
+            tbTelefono.Text         = usuario.getTelefono();
+            tbDireCalle.Text        = usuario.getDireCalle();
+            tbDireNro.Text          = usuario.getDireNro().ToString();
             dtpFechaNacimiento.Text = usuario.getFechaNacimiento().ToShortDateString();
-            cbHabilitado.Checked = usuario.getHabilitado();
+            cbHabilitado.Checked    = usuario.getHabilitado();
             usuario.getRoles().ForEach(rol => lvRoles.Items.Add(new ListViewItem(rol)));
         }
 
@@ -123,6 +126,10 @@ namespace FrbaHotel.AbmUsuario {
 
         private void msgUsernameRepetido() {
             MessageBox.Show("Ya existe un usuario con el Username ingresado", "Username error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void msgCamposIncompletos() {
+            MessageBox.Show("Campos obligatorios incompletos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

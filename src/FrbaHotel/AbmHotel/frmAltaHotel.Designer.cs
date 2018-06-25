@@ -43,7 +43,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.ModificarHotel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudRecargaEstrellasHotel)).BeginInit();
             this.SuspendLayout();
@@ -216,15 +216,15 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "Nombre:";
             // 
-            // btnModificar
+            // btnAceptar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(379, 359);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(82, 32);
-            this.btnModificar.TabIndex = 23;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            this.btnAceptar.Location = new System.Drawing.Point(379, 359);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(82, 32);
+            this.btnAceptar.TabIndex = 23;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // ModificarHotel
             // 
@@ -236,7 +236,7 @@
             this.ModificarHotel.TabIndex = 22;
             this.ModificarHotel.Text = "Modificar Hotel";
             // 
-            // frmModificacionHotel
+            // frmAltaHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -261,9 +261,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.ModificarHotel);
-            this.Name = "frmModificacionHotel";
+            this.Name = "frmAltaHotel";
             this.Text = "frmModificacionHotel";
             ((System.ComponentModel.ISupportInitialize)(this.nudRecargaEstrellasHotel)).EndInit();
             this.ResumeLayout(false);
@@ -293,7 +293,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label ModificarHotel;
     }
 }

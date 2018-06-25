@@ -17,7 +17,7 @@ namespace FrbaHotel {
         private string mail;
         private string telefono;
         private string direCalle;
-        private int direNro;
+        private long direNro;
         private DateTime fechaNacimiento;
         private int loginFallidos;
         private long hotelUltimoLogin;
@@ -34,7 +34,7 @@ namespace FrbaHotel {
         public string getMail() { return mail; }
         public string getTelefono() { return telefono; }
         public string getDireCalle() { return direCalle; }
-        public int getDireNro() { return direNro; }
+        public long getDireNro() { return direNro; }
         public DateTime getFechaNacimiento() { return fechaNacimiento; }
         public int getLoginFallidos() { return loginFallidos; }
         public long getHotelUltimoLogin() { return hotelUltimoLogin; }
@@ -51,7 +51,7 @@ namespace FrbaHotel {
         public void setMail(string mail) { this.mail = mail; }
         public void setTelefono(string telefono) { this.telefono = telefono; }
         public void setDireCalle(string direCalle) { this.direCalle = direCalle; }
-        public void setDireNro(int direNro) { this.direNro = direNro; }
+        public void setDireNro(long direNro) { this.direNro = direNro; }
         public void setFechaNacimiento(DateTime fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
         public void setHotelUltimoLogin(long hotelUltimoLogin) { this.hotelUltimoLogin = hotelUltimoLogin; }
         public void setHabilitado(bool habilitado) { this.habilitado = habilitado; }
@@ -61,6 +61,7 @@ namespace FrbaHotel {
         public Usuario(string username) {
             this.username = username;
             this.password = "";
+            this.hotelUltimoLogin = 0;
             this.loginFallidos = 0;
             this.habilitado = false;
             this.roles = new List<string>();
@@ -70,6 +71,7 @@ namespace FrbaHotel {
         public Usuario(string username, string password) {
             this.username = username;
             this.password = password;
+            this.hotelUltimoLogin = 0;
             this.habilitado = false;
             this.roles = new List<string>();
             this.exists = false;
@@ -148,7 +150,7 @@ namespace FrbaHotel {
         }
 
         public void buscar() {
-            string query = "SELECT usua_doc_tipo, usua_doc_nro, usua_username, usua_password, usua_nombre, usua_apellido, usua_mail, usua_telefono, usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento, usua_cant_log_in_fallidos, usua_hote_codigo_ultimo_log_in, usua_habilitado";
+            string query = "SELECT usua_doc_tipo, usua_doc_nro, usua_username, usua_password, usua_nombre, usua_apellido, usua_mail, usua_telefono, usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento, usua_cant_log_in_fallidos, COALESCE(usua_hote_codigo_ultimo_log_in, 0) usua_hote_codigo_ultimo_log_in, usua_habilitado";
             query += " FROM FAAE.Usuario WHERE usua_username = '" + this.username + "'";
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
@@ -162,10 +164,10 @@ namespace FrbaHotel {
                 this.mail = dataReader["usua_mail"].ToString();
                 this.telefono = dataReader["usua_telefono"].ToString();
                 this.direCalle = dataReader["usua_dire_calle"].ToString();
-                this.direNro = Convert.ToInt32(dataReader["usua_dire_nro"].ToString());
-                this.fechaNacimiento = Convert.ToDateTime(dataReader["usua_fecha_nacimiento"].ToString());
-                this.loginFallidos = Convert.ToInt16(dataReader["usua_cant_log_in_fallidos"].ToString());
-                this.hotelUltimoLogin = Convert.ToInt64(dataReader["usua_hote_codigo_ultimo_log_in"].ToString());
+                this.direNro = Convert.ToInt64(dataReader["usua_dire_nro"]);
+                this.fechaNacimiento = Convert.ToDateTime(dataReader["usua_fecha_nacimiento"]);
+                this.loginFallidos = Convert.ToInt32(dataReader["usua_cant_log_in_fallidos"]);
+                this.hotelUltimoLogin = Convert.ToInt64(dataReader["usua_hote_codigo_ultimo_log_in"]);
                 this.habilitado = dataReader["usua_habilitado"].Equals(true);
                 this.exists = true;
             }
