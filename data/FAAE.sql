@@ -521,6 +521,11 @@ GO
 		from gd_esquema.Maestra 
 		where Consumible_Codigo is not null
 		group by Item_Factura_Cantidad,Consumible_Codigo,Factura_Nro
+	
+	insert FAAE.Estadia(esta_clie_doc_nro, esta_clie_mail, esta_fecha_salida, esta_habi_nro, esta_hote_codigo, esta_rese_codigo)
+		select distinct Cliente_Pasaporte_Nro, Cliente_Mail, cast(dateadd(day,Estadia_Cant_Noches,CAST(Estadia_Fecha_Inicio AS smalldatetime))AS smalldatetime), Habitacion_Numero, FAAE.obtenerHotelCodigo(Hotel_Ciudad,Hotel_Calle,Hotel_Nro_Calle), Reserva_Codigo
+		from gd_esquema.Maestra
+		where Estadia_Fecha_Inicio is not null
 
 GO
 
