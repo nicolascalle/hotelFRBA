@@ -151,6 +151,9 @@ IF OBJECT_ID('FAAE.HabitacionesConMasDiasYVecesOcupada') IS NOT NULL
 IF OBJECT_ID('FAAE.ClientesConMasPuntos') IS NOT NULL
     DROP FUNCTION FAAE.ClientesConMasPuntos;
 
+IF OBJECT_ID('FAAE.Codigo_Hoteles_Usuario') IS NOT NULL
+    DROP FUNCTION FAAE.Codigo_Hoteles_Usuario;
+
 GO
 
 
@@ -368,7 +371,6 @@ ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Ho
 ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Motivo FOREIGN KEY (hiin_moti_codigo) REFERENCES FAAE.Motivo(moti_codigo)
 
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro, hous_usua_mail) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro, usua_mail)
-ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Cliente FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro, hous_usua_mail) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro, clie_mail)
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Hotel FOREIGN KEY (hous_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
 ALTER TABLE FAAE.Usuario ADD CONSTRAINT Usuario_Hotel FOREIGN KEY (usua_hote_codigo_ultimo_log_in) REFERENCES FAAE.Hotel(hote_codigo)
 GO
@@ -470,6 +472,12 @@ GO
 		select distinct Hotel_Calle, Hotel_Nro_Calle, Hotel_CantEstrella, Hotel_Recarga_Estrella, Hotel_Ciudad,getdate()
 		from gd_esquema.Maestra
 	
+	-- Se asignan todos los hoteles al usuario admin
+	insert into FAAE.Hotel_Usuario (hous_hote_codigo, hous_usua_doc_tipo, hous_usua_doc_nro, hous_usua_mail)
+		select hote_codigo, usua_doc_tipo, usua_doc_nro, usua_mail
+			from FAAE.Usuario, FAAE.Hotel
+			where usua_username = 'admin'
+
 	insert FAAE.Tipo(tipo_codigo,tipo_descripcion,tipo_cant_personas,tipo_porcentual) 
 		select distinct Habitacion_Tipo_Codigo,Habitacion_Tipo_Descripcion, FAAE.cantPersonas(Habitacion_Tipo_Descripcion) cant_personas,Habitacion_Tipo_Porcentual
 		from gd_esquema.Maestra
@@ -535,6 +543,15 @@ AS
 	SELECT usua_username username, rous_rol_nombre rol_nombre
 	FROM faae.Usuario u join faae.Rol_Usuario ru 
 		 ON (u.usua_doc_tipo = ru.rous_clie_doc_tipo AND u.usua_doc_nro = ru.rous_clie_doc_nro)
+GO
+
+CREATE FUNCTION FAAE.Codigo_Hoteles_Usuario (@username NVARCHAR(10))
+RETURNS TABLE
+AS
+RETURN (SELECT hote_codigo, hote_nombre
+			FROM FAAE.Hotel_Usuario JOIN FAAE.Usuario ON (hous_usua_doc_tipo = usua_doc_tipo AND hous_usua_doc_nro = usua_doc_nro AND hous_usua_mail = usua_mail)
+									JOIN FAAE.Hotel   ON (hous_hote_codigo = hote_codigo)
+			WHERE usua_username = @username)
 GO
 
 CREATE PROCEDURE FAAE.login_fallido
@@ -1038,7 +1055,5 @@ RETURN -- Nombre, Apellido, PuntosTotalEstadia + PuntosTotalConsumibles
 									 JOIN FAAE.Cliente c ON (rese_clie_doc_tipo = c.clie_doc_tipo AND rese_clie_doc_nro = clie_doc_nro AND rese_clie_mail = clie_mail)
 		WHERE fact_fecha BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY clie_doc_tipo, clie_doc_nro, clie_mail, clie_nombre, clie_apellido)
-
-
 
 

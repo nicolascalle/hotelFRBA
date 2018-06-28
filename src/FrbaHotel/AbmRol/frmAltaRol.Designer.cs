@@ -82,6 +82,7 @@
             // 
             // cbFuncionalidades
             // 
+            this.cbFuncionalidades.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFuncionalidades.FormattingEnabled = true;
             this.cbFuncionalidades.Location = new System.Drawing.Point(29, 146);
             this.cbFuncionalidades.Name = "cbFuncionalidades";
@@ -130,7 +131,7 @@
             this.cbHabilitado.Text = "Habilitado";
             this.cbHabilitado.UseVisualStyleBackColor = true;
             // 
-            // frmModificacionRol
+            // frmAltaRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -145,7 +146,7 @@
             this.Controls.Add(this.btnAgregarFuncionalidad);
             this.Controls.Add(this.lvFuncionalidades);
             this.Controls.Add(this.label1);
-            this.Name = "frmModificacionRol";
+            this.Name = "frmAltaRol";
             this.Text = "frmModificacionRol";
             this.ResumeLayout(false);
             this.PerformLayout();

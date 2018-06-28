@@ -148,6 +148,7 @@
             // 
             // cbConsumible
             // 
+            this.cbConsumible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConsumible.FormattingEnabled = true;
             this.cbConsumible.Location = new System.Drawing.Point(125, 162);
             this.cbConsumible.Name = "cbConsumible";
@@ -156,6 +157,7 @@
             // 
             // cbFormaDePago
             // 
+            this.cbFormaDePago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFormaDePago.FormattingEnabled = true;
             this.cbFormaDePago.Items.AddRange(new object[] {
             "Efectivo",
@@ -165,7 +167,6 @@
             this.cbFormaDePago.Name = "cbFormaDePago";
             this.cbFormaDePago.Size = new System.Drawing.Size(95, 24);
             this.cbFormaDePago.TabIndex = 16;
-            this.cbFormaDePago.Text = "Efectivo";
             this.cbFormaDePago.SelectedIndexChanged += new System.EventHandler(this.cbFormaDePago_SelectedIndexChanged);
             // 
             // label4

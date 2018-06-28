@@ -100,6 +100,7 @@
             // 
             // cbCantidadEstrellasHotel
             // 
+            this.cbCantidadEstrellasHotel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCantidadEstrellasHotel.FormattingEnabled = true;
             this.cbCantidadEstrellasHotel.Items.AddRange(new object[] {
             "1",

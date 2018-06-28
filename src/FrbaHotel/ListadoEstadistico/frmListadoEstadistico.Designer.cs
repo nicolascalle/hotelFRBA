@@ -40,6 +40,7 @@
             // 
             // cbTrimestre
             // 
+            this.cbTrimestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTrimestre.FormattingEnabled = true;
             this.cbTrimestre.Location = new System.Drawing.Point(565, 70);
             this.cbTrimestre.Name = "cbTrimestre";
@@ -48,6 +49,7 @@
             // 
             // cbConsulta
             // 
+            this.cbConsulta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConsulta.FormattingEnabled = true;
             this.cbConsulta.Location = new System.Drawing.Point(28, 113);
             this.cbConsulta.Name = "cbConsulta";
@@ -56,6 +58,7 @@
             // 
             // cbAnio
             // 
+            this.cbAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAnio.FormattingEnabled = true;
             this.cbAnio.Location = new System.Drawing.Point(347, 70);
             this.cbAnio.Name = "cbAnio";

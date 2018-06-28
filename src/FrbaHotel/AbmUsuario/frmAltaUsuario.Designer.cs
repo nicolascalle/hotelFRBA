@@ -152,6 +152,7 @@
             // 
             // cbDocTipo
             // 
+            this.cbDocTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDocTipo.FormattingEnabled = true;
             this.cbDocTipo.Location = new System.Drawing.Point(128, 140);
             this.cbDocTipo.Name = "cbDocTipo";
@@ -286,6 +287,7 @@
             // 
             // cbRoles
             // 
+            this.cbRoles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRoles.FormattingEnabled = true;
             this.cbRoles.Location = new System.Drawing.Point(451, 98);
             this.cbRoles.Name = "cbRoles";
