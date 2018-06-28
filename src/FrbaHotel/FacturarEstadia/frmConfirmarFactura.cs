@@ -26,17 +26,18 @@ namespace FrbaHotel.FacturarEstadia {
 
         private void btnConfirmar_Click(object sender, EventArgs e) {
             factura.guardar();
+            //estadia.registrarFechaSalida() esta_fecha_salida = getDate()
             this.Close();
         }
 
         private void cargarFactura() {
             factura.generar();
-            lbFactTipo.Text = factura.getTipo();
-            lbFactNro.Text = factura.getNro();
-            lbFecha.Text = factura.getFecha().ToShortDateString();
+            lbFactNro.Text     = factura.getTipo() + " - " + factura.getNro();
+            lbFecha.Text       = factura.getFecha().ToShortDateString();
             lbNombreHotel.Text = factura.getHotelNombre();
-            lbCliente.Text = factura.getNombreCliente();
-            lbTotal.Text = "U$ " + factura.getTotal().ToString();
+            lbCliente.Text     = factura.getNombreCliente();
+            lbTotal.Text       = "U$ " + factura.getTotal().ToString();
+            lvItems.Items.Add(this.nuevoItemFactura( new Item("0000", "Estadia", 1, factura.getTotalEstadia()) ));
             factura.getItems().ForEach(item => lvItems.Items.Add(this.nuevoItemFactura(item)));
         }
 

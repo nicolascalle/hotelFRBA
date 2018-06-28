@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.lbFrbaHotel = new System.Windows.Forms.Label();
-            this.lbFactTipo = new System.Windows.Forms.Label();
             this.lbFactNro = new System.Windows.Forms.Label();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.lbFecha = new System.Windows.Forms.Label();
@@ -45,25 +44,15 @@
             this.lbFrbaHotel.TabIndex = 0;
             this.lbFrbaHotel.Text = "FRBA-Hotel";
             // 
-            // lbFactTipo
-            // 
-            this.lbFactTipo.AutoSize = true;
-            this.lbFactTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFactTipo.Location = new System.Drawing.Point(354, 36);
-            this.lbFactTipo.Name = "lbFactTipo";
-            this.lbFactTipo.Size = new System.Drawing.Size(23, 24);
-            this.lbFactTipo.TabIndex = 1;
-            this.lbFactTipo.Text = "A";
-            // 
             // lbFactNro
             // 
             this.lbFactNro.AutoSize = true;
             this.lbFactNro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFactNro.Location = new System.Drawing.Point(380, 36);
+            this.lbFactNro.Location = new System.Drawing.Point(353, 36);
             this.lbFactNro.Name = "lbFactNro";
-            this.lbFactNro.Size = new System.Drawing.Size(80, 24);
+            this.lbFactNro.Size = new System.Drawing.Size(110, 24);
             this.lbFactNro.TabIndex = 2;
-            this.lbFactNro.Text = "0000000";
+            this.lbFactNro.Text = "0000000000";
             // 
             // btnConfirmar
             // 
@@ -148,7 +137,6 @@
             this.Controls.Add(this.lbFecha);
             this.Controls.Add(this.btnConfirmar);
             this.Controls.Add(this.lbFactNro);
-            this.Controls.Add(this.lbFactTipo);
             this.Controls.Add(this.lbFrbaHotel);
             this.Name = "frmConfirmarFactura";
             this.Text = "frmConfirmarFactura";
@@ -160,7 +148,6 @@
         #endregion
 
         private System.Windows.Forms.Label lbFrbaHotel;
-        private System.Windows.Forms.Label lbFactTipo;
         private System.Windows.Forms.Label lbFactNro;
         private System.Windows.Forms.Button btnConfirmar;
         private System.Windows.Forms.Label lbFecha;

@@ -24,7 +24,7 @@ namespace FrbaHotel.Login {
         }
 
         private void btnRegistroConsumible_Click(object sender, EventArgs e) {
-            RegistrarConsumible.frmRegistrarConsumible i = new RegistrarConsumible.frmRegistrarConsumible();
+            FacturarEstadia.frmFacturarEstadia i = new FacturarEstadia.frmFacturarEstadia();
             i.Show();
         }
 
