@@ -37,13 +37,11 @@ namespace FrbaHotel.AbmHotel {
         }
 
         private void frmBaja_Click(object sender, EventArgs e) {
-            if (this.lvHoteles.SelectedItems.Count == 1)
-            {
+            if (this.lvHoteles.SelectedItems.Count == 1) {
                 int codigoHotel = Convert.ToInt32(this.lvHoteles.SelectedItems[0].Text.ToString());
                 frmBajaHotel frmB = new frmBajaHotel(codigoHotel);
                 frmB.Show();
                 this.Close();
-
             }
         }
 
@@ -62,17 +60,25 @@ namespace FrbaHotel.AbmHotel {
         private string generateQuery() {
 
             string query = "SELECT hote_codigo, hote_nombre, hote_cant_estrellas, hote_ciudad, hote_pais FROM FAAE.Hotel";
-            string nombrehotel = tbNombreHotel.Text.ToString();
-            string estrellas = cbCantidadEstrellas.Text.ToString();
-            
-            if ( this.seIngresaronDatos() ) {
+            string nombrehotel = tbNombreHotel.Text;
+            string estrellas = cbCantidadEstrellas.Text;
+            string ciudad = tbCiudad.Text;
+            string pais = tbPais.Text;
+
+            if (this.seIngresaronDatos()) {
                 List<string> conditions = new List<string>();
 
-                if ( nombrehotel.Length != 0 )
+                if (nombrehotel.Length != 0)
                     conditions.Add("hote_nombre LIKE '%" + nombrehotel + "%'");
 
-                if ( estrellas.Length != 0 )
-                    conditions.Add("hote_cant_estrellas = " + estrellas); 
+                if (estrellas.Length != 0)
+                    conditions.Add("hote_cant_estrellas = " + estrellas);
+
+                if (ciudad.Length != 0)
+                    conditions.Add("hote_ciudad LIKE '%" + ciudad + "%'");
+
+                if (pais.Length != 0)
+                    conditions.Add("hote_pais LIKE '%" + pais + "%'"); 
 
                 query += " WHERE ";
                 foreach (var condition in conditions)
@@ -84,7 +90,7 @@ namespace FrbaHotel.AbmHotel {
         }
 
         private bool seIngresaronDatos() {
-            return new List<Control> { tbNombreHotel, cbCantidadEstrellas }.Any(form => form.Text.Length != 0);
+            return new List<Control> { tbNombreHotel, cbCantidadEstrellas, tbCiudad, tbPais }.Any(form => form.Text.Length != 0);
         }
 
         public void setLvProperties() {
