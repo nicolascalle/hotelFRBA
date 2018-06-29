@@ -31,7 +31,6 @@ namespace FrbaHotel.FacturarEstadia {
         }
 
         private void cargarFactura() {
-            factura.generar();
             lbFactNro.Text     = factura.getTipo() + " - " + factura.getNro();
             lbFecha.Text       = factura.getFecha().ToShortDateString();
             lbNombreHotel.Text = factura.getHotelNombre();

@@ -13,6 +13,7 @@ namespace FrbaHotel {
         DateTime fecha;
         string reservaNro;
         string formaDePago;
+        long hotelCodigo;
         string hotelNombre;
         string nombreCliente;
         List<Item> items;
@@ -24,6 +25,7 @@ namespace FrbaHotel {
         public string getReservaNro() { return this.reservaNro; }
         public string getFormaDePago() { return this.formaDePago; }
         public string getHotelNombre() { return this.hotelNombre; }
+        public long getHotelCodigo() { return this.hotelCodigo; }
         public string getNombreCliente() { return this.nombreCliente; }
         public decimal getTotalEstadia() { return this.total - this.calcularTotalConsumibles(); }
         public decimal getTotal() { return this.total; }
@@ -65,13 +67,14 @@ namespace FrbaHotel {
         }
 
         public void generar() {
-            string query = "SELECT fact_tipo, fact_nro, fact_fecha, fact_forma_pago, hote_nombre, nombreApellido";
+            string query = "SELECT fact_tipo, fact_nro, hote_codigo, hote_nombre, nombreApellido";
             query += " FROM FAAE.NuevaFactura(" + this.reservaNro + ")";
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
             if (dataReader.Read()) {
                 this.tipo = dataReader["fact_tipo"].ToString();
                 this.nro = dataReader["fact_nro"].ToString();
+                this.hotelCodigo = Convert.ToInt64(dataReader["hote_codigo"]);
                 this.hotelNombre = dataReader["hote_nombre"].ToString();
                 this.nombreCliente = dataReader["nombreApellido"].ToString();
             }

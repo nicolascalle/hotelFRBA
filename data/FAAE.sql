@@ -365,7 +365,6 @@ ALTER TABLE FAAE.Regimen_Hotel ADD CONSTRAINT Regimen_Hotel_Hotel FOREIGN KEY (r
 ALTER TABLE FAAE.Regimen_Hotel ADD CONSTRAINT Regimen_Hotel_Regimen FOREIGN KEY (reho_regi_codigo) REFERENCES FAAE.Regimen(regi_nombre)
 
 ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Hotel FOREIGN KEY (hiin_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
-ALTER TABLE FAAE.Historial_Inhabilitado ADD CONSTRAINT Historial_Inhabilitado_Motivo FOREIGN KEY (hiin_moti_codigo) REFERENCES FAAE.Motivo(moti_codigo)
 
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Usuario FOREIGN KEY (hous_usua_doc_tipo, hous_usua_doc_nro, hous_usua_mail) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro, usua_mail)
 ALTER TABLE FAAE.Hotel_Usuario ADD CONSTRAINT Hotel_Usuario_Hotel FOREIGN KEY (hous_hote_codigo) REFERENCES FAAE.Hotel(hote_codigo)
@@ -904,7 +903,7 @@ CREATE FUNCTION FAAE.NuevaFactura (@rese_codigo NUMERIC(10))
 RETURNS TABLE
 AS
 RETURN
-SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDATE() fact_fecha, 'efectivo' fact_forma_pago, hote_nombre, clie_apellido+', '+clie_nombre nombreApellido
+SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDATE() fact_fecha, 'efectivo' fact_forma_pago, rese_hote_codigo hote_codigo, hote_nombre, clie_apellido+', '+clie_nombre nombreApellido
 	FROM FAAE.Reserva r JOIN FAAE.Reserva_Habitacion rh ON (r.rese_codigo = rh.reha_rese_codigo)
 						JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
 						JOIN FAAE.Cliente c ON (r.rese_clie_doc_tipo = c.clie_doc_tipo AND r.rese_clie_doc_nro = c.clie_doc_nro AND r.rese_clie_mail = c.clie_mail)
@@ -928,12 +927,11 @@ RETURNS DECIMAL(10,2)
 AS
 BEGIN
 	RETURN (SELECT COALESCE( SUM(regi_precio_base * tipo_cant_personas + tipo_porcentual * DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta) + hote_recarga_estrellas) , 0 ) totalEstadia
-				FROM FAAE.Factura fact JOIN FAAE.Reserva res ON (fact.fact_rese_codigo = res.rese_codigo)
-									   JOIN FAAE.Regimen reg ON (res.rese_regi_codigo = reg.regi_nombre)
-									   JOIN FAAE.Reserva_Habitacion rh ON (res.rese_codigo = rh.reha_rese_codigo)
-									   JOIN FAAE.Habitacion habi ON (rh.reha_hote_codigo = habi.habi_hote_codigo AND rh.reha_habi_nro = habi.habi_nro)
-									   JOIN FAAE.Tipo t ON (habi.habi_tipo_codigo = t.tipo_codigo)
-									   JOIN FAAE.Hotel hote ON (res.rese_hote_codigo = hote.hote_codigo)
+				FROM FAAE.Reserva res JOIN FAAE.Regimen reg ON (res.rese_regi_codigo = reg.regi_nombre)
+									  JOIN FAAE.Reserva_Habitacion rh ON (res.rese_codigo = rh.reha_rese_codigo)
+									  JOIN FAAE.Habitacion habi ON (rh.reha_hote_codigo = habi.habi_hote_codigo AND rh.reha_habi_nro = habi.habi_nro)
+									  JOIN FAAE.Tipo t ON (habi.habi_tipo_codigo = t.tipo_codigo)
+									  JOIN FAAE.Hotel hote ON (res.rese_hote_codigo = hote.hote_codigo)
 				WHERE rese_codigo = @rese_codigo)
 END
 
