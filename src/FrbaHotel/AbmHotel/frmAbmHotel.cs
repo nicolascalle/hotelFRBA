@@ -37,9 +37,13 @@ namespace FrbaHotel.AbmHotel {
         }
 
         private void frmBaja_Click(object sender, EventArgs e) {
-            if (this.lvHoteles.SelectedItems.Count == 1) {
+            if (this.lvHoteles.SelectedItems.Count == 1)
+            {
                 int codigoHotel = Convert.ToInt32(this.lvHoteles.SelectedItems[0].Text.ToString());
-                new Hotel(codigoHotel).eliminar();
+                frmBajaHotel frmB = new frmBajaHotel(codigoHotel);
+                frmB.Show();
+                this.Close();
+
             }
         }
 

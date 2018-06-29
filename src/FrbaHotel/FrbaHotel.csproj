@@ -117,6 +117,12 @@
     <Compile Include="AbmHotel\frmAltaHotel.Designer.cs">
       <DependentUpon>frmAltaHotel.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbmHotel\frmBajaHotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbmHotel\frmBajaHotel.Designer.cs">
+      <DependentUpon>frmBajaHotel.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbmRegimen\AltaRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmHotel\frmAltaHotel.resx">
       <DependentUpon>frmAltaHotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AbmHotel\frmBajaHotel.resx">
+      <DependentUpon>frmBajaHotel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRegimen\AltaRegimen.resx">
       <DependentUpon>AltaRegimen.cs</DependentUpon>

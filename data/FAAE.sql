@@ -302,12 +302,9 @@ CREATE TABLE FAAE.Regimen (
 	regi_precio_base decimal(5,2),
 	regi_activo bit default 1
 )
-CREATE TABLE FAAE.Motivo (
-    moti_codigo nvarchar(10) PRIMARY KEY,
-	moti_descripcion nvarchar(50)
-)
+
 CREATE TABLE FAAE.Historial_Inhabilitado (
-    hiin_codigo nvarchar(10) PRIMARY KEY,
+    hiin_codigo INT IDENTITY PRIMARY KEY,
 	hiin_hote_codigo numeric(10),
 	hiin_moti_codigo nvarchar(10),
 	hiin_fecha_inicio smalldatetime,
@@ -619,11 +616,29 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE FAAE.eliminar_hotel
-@hote_codigo numeric(10)
+CREATE PROCEDURE FAAE.inhabilitar_hotel
+@hote_codigo numeric(10),@moti_descripcion nvarchar(50), @hiin_fecha_inicio datetime, @hiin_fecha_fin datetime
 AS
-BEGIN
-	DELETE FROM FAAE.Hotel WHERE hote_codigo = @hote_codigo
+BEGIN 
+	DECLARE @ErrorMessage NVARCHAR(255)
+	BEGIN TRY
+		IF NOT EXISTS (SELECT * FROM FAAE.Reserva 
+							 WHERE rese_fecha_desde BETWEEN @hiin_fecha_inicio AND @hiin_fecha_fin 
+							 		AND rese_fecha_hasta BETWEEN @hiin_fecha_inicio AND @hiin_fecha_fin)
+			BEGIN
+				INSERT INTO FAAE.Historial_Inhabilitado (hiin_hote_codigo,hiin_moti_codigo,hiin_fecha_inicio,hiin_fecha_fin)
+										VALUES  (@hote_codigo,@moti_descripcion,@hiin_fecha_inicio,@hiin_fecha_fin)
+			END
+		    ELSE
+			BEGIN
+				RAISERROR('Existe una reserva en ese periodo.', 16, 1)
+				RETURN
+			END			
+	END TRY
+	BEGIN CATCH
+		SELECT @ErrorMessage = ERROR_MESSAGE()
+		RAISERROR (@ErrorMessage, 17, 1)
+	END CATCH
 END
 GO
 

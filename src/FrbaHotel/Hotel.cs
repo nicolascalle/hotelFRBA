@@ -66,10 +66,10 @@ namespace FrbaHotel {
             dataReader.Close();
         }
 
-        public void eliminar() {
-            string[] param = { "@hote_codigo" };
-            object[] args = { this.codigo };
-            DBConnection.getInstance().executeProcedure("FAAE.eliminar_hotel", param, args);
+        public void inhabilitarHotel(string motivo,DateTime fechaIncio,DateTime fechaFin) {
+            string[] param = { "@hote_codigo", "@moti_descripcion", "@hiin_fecha_inicio", "@hiin_fecha_fin" };
+            object[] args = { this.codigo, motivo, fechaIncio, fechaFin };
+            DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_hotel", param, args);
         }
 
         // Si no existe el hotel lo crea, si existe lo actualiza
