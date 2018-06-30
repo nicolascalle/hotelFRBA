@@ -13,9 +13,13 @@ namespace FrbaHotel.AbmHabitacion
 {
     public partial class frmBajaHabitacion : Form
     {
+        long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
+
         public frmBajaHabitacion()
         {
             InitializeComponent();
+            tbcodHotel.Text = nroHotel.ToString();
+            tbcodHotel.Enabled = false;
         }
 
         private void btSeleccionar_Click(object sender, EventArgs e)
@@ -30,7 +34,7 @@ namespace FrbaHotel.AbmHabitacion
                 dataReader.Close();
             }
             else
-                MessageBox.Show("Error: No existe esa habitacion");
+                MessageBox.Show("No existe una habitacion con ese numero", "Habitacion error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             dataReader.Close();
         }

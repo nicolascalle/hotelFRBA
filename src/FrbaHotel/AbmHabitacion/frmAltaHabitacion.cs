@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,118 +14,55 @@ namespace FrbaHotel.AbmHabitacion
 {
     public partial class frmAltaHabitacion : Form
     {
+        long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
         public frmAltaHabitacion()
         {
             InitializeComponent();
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            tbcodHotel.Text = nroHotel.ToString();
+            tbcodHotel.Enabled = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (this.camposObligatoriosCompletos())
-                {
-                    int tipo = this.determinarTipo(cbTipoHab.Text.ToString()); //Esto no lo deberia hacer la habitacion pero bueno...
-                    Habitacion habitacion = new Habitacion(Convert.ToInt32(tbNumHab.Text), Convert.ToInt32(tbcodHotel.Text), Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), tipo, tbDescripcion.Text.ToString(), rbSi.Checked);
-                    habitacion.guardar();
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Falta completar los campos obligatorios");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error: Hay 2 habitaciones con el mismo numero en el mismo hotel"); //revisar
-            }
+           if (this.camposObligatoriosCompletos())
+           {
+               if(this.habitacionNoExiste())
+               {
+                   int tipo = this.determinarTipo(cbTipoHab.Text.ToString());
+                   Habitacion habitacion = new Habitacion(Convert.ToInt32(tbNumHab.Text), Convert.ToInt32(tbcodHotel.Text), Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), tipo, tbDescripcion.Text.ToString(), rbSi.Checked);
+                   habitacion.guardar();
+                   this.Close();
+               }
+               else
+                    MessageBox.Show("Hay 2 habitaciones con el mismo numero en el mismo hotel", "Habitacion error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+           }
+           else
+               MessageBox.Show("Campos obligatorios incompletos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private int determinarTipo(string tipo) //esto deberia hacerse con un query, solo de prueba
+        private bool camposObligatoriosCompletos() 
         {
-            if (tipo == "Base Simple")
-            {
-                return 1001;
-            }
-            else if (tipo == "Base Doble")
-            {
-                return 1002;
-            }
-            else if(tipo == "Base Triple")
-            { 
-                return 1003; 
-            }
-            else if (tipo == "Base Cuádruple")
-            {
-                return 1004;
-            }
-            else
-            {
-                return 1005;
-            }
-
-        }
-               
-
-
-
-
-
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            return new List<Control> { tbNumHab, tbcodHotel, tbPiso, cbUbicacion, tbDescripcion }.All(form => form.Text.Length != 0) && (rbSi.Checked || rbNo.Checked);
         }
 
-        private void AltaHabitación_Load(object sender, EventArgs e)
+        private bool habitacionNoExiste()
         {
-
+            bool habitacionUnica;
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT COUNT(*) existencias FROM FAAE.Habitacion WHERE habi_nro = " + this.tbNumHab.Text + " AND habi_hote_codigo = " + this.tbcodHotel.Text);
+            dataReader.Read();
+            habitacionUnica = (int)dataReader["existencias"] == 0;
+            dataReader.Close();
+            return habitacionUnica;
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private int determinarTipo(string tipo)
         {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
-        {
-
+            int nroTipo;
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + tipo + "'");
+            dataReader.Read();
+            nroTipo = Convert.ToInt32(dataReader["tipo_codigo"]);
+            dataReader.Close();
+            return nroTipo;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -140,12 +78,39 @@ namespace FrbaHotel.AbmHabitacion
         }
 
         private void cbTipoHab_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {        }
 
-        }
-        private bool camposObligatoriosCompletos()
-        {
-            return tbNumHab.Text.Length != 0 && tbcodHotel.Text.Length != 0 && tbPiso.Text.Length != 0 && cbUbicacion.Text.Length != 0 && cbTipoHab.Text.Length != 0;            
-        }
+        private void label3_Click(object sender, EventArgs e)
+        {        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {        }
+
+        private void AltaHabitación_Load(object sender, EventArgs e)
+        {        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {        }
+
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
+        {        }
     }
 }

@@ -757,39 +757,6 @@ BEGIN
 		WHERE habi_nro = @habi_nro AND habi_hote_codigo = @habi_hote_codigo
 END
 GO
-/*
---Instancias para probar ABM habitaciones
---Hoteles
-INSERT FAAE.Hotel
-(hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_recarga_estrellas) 
-Values('calle falsa', 12345, 3, 'ciudad fantasma', 1)
-INSERT FAAE.Hotel
-(hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_recarga_estrellas) 
-Values('calle falsa2', 123, 5, 'ciudad fantasma2', 4)
-
---Tipos
-INSERT FAAE.Tipo
-Values(1001, 'Base Simple', 3, 15)
-INSERT FAAE.Tipo
-Values(1002, 'Base Doble', 7, 45)
-INSERT FAAE.Tipo
-Values(1003, 'Base Triple', 8, 35)
-INSERT FAAE.Tipo
-Values(1004, 'Base Cuadruple', 4, 25)
-INSERT FAAE.Tipo
-Values(1005, 'King', 9, 70)
-
---Habitaciones
-INSERT FAAE.Habitacion
-(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
-VALUES(11, 6, 3, 'S', 1001 ,1)
-INSERT FAAE.Habitacion
-(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
-VALUES(12, 6, 7, 'N', 1001 ,1)
-INSERT FAAE.Habitacion
-(habi_nro, habi_hote_codigo, habi_piso, habi_vista_exterior, habi_tipo_codigo, habi_habilitada)
-VALUES(17, 7, 2, 'N', 1002 ,0)
-*/
 
 
 -- ABM USUARIO
@@ -1068,5 +1035,3 @@ RETURN -- Nombre, Apellido, PuntosTotalEstadia + PuntosTotalConsumibles
 									 JOIN FAAE.Cliente c ON (rese_clie_doc_tipo = c.clie_doc_tipo AND rese_clie_doc_nro = clie_doc_nro AND rese_clie_mail = clie_mail)
 		WHERE fact_fecha BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY clie_doc_tipo, clie_doc_nro, clie_mail, clie_nombre, clie_apellido)
-
-

@@ -35,20 +35,20 @@ namespace FrbaHotel.AbmHabitacion
             tbcodHotel.Enabled = false;
             tbPiso.Text = dataReader["habi_piso"].ToString();
             cbUbicacion.Text = dataReader["habi_vista_exterior"].ToString();
-            cbTipoHab.Text = dataReader["habi_tipo_codigo"].ToString();
-            cbTipoHab.Enabled = false;
+
+            string tipoEnCodigo = dataReader["habi_tipo_codigo"].ToString();
+
             tbDescripcion.Text = dataReader["habi_descripcion"].ToString();
             estaHabilitada = Convert.ToBoolean(dataReader["habi_habilitada"].ToString());
             if (estaHabilitada)
                 rbSi.Checked = true;
             else
                 rbNo.Checked = true;
+            dataReader.Close();
+            cbTipoHab.Text = this.convertirCodigoTipo(tipoEnCodigo);
+            cbTipoHab.Enabled = false;
         }
 
-        private void frmModificarHabitacion_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -56,13 +56,26 @@ namespace FrbaHotel.AbmHabitacion
             object[] args = { this.numeroHabitacion, this.codigoHotel, Convert.ToInt32(tbPiso.Text), Convert.ToChar(cbUbicacion.Text), rbSi.Checked, tbDescripcion.Text.ToString() };
             DBConnection.getInstance().executeProcedure("FAAE.modificar_habitacion", param, args);
             MessageBox.Show("Se guardo satisfactoriamente");
-            this.Close();
             dataReader.Close();
+            this.Close();
+        }
+
+        private string convertirCodigoTipo(string codigoTipo)
+        {
+            string tipo;
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT tipo_descripcion FROM FAAE.Tipo WHERE tipo_codigo = " + codigoTipo);
+            dataReader.Read();
+            tipo = dataReader["tipo_descripcion"].ToString();
+            dataReader.Close();
+            return tipo;
         }
 
         private void btnAtras_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        private void frmModificarHabitacion_Load(object sender, EventArgs e)
+        { }
     }
 }
