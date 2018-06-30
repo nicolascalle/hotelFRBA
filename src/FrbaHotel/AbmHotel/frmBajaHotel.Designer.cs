@@ -31,11 +31,12 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.tbFechaInicio = new System.Windows.Forms.TextBox();
-            this.tbFechaFin = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tbMotivo = new System.Windows.Forms.TextBox();
+            this.dpFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.dpFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.btnAtras = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -66,20 +67,6 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Fecha fin:";
             // 
-            // tbFechaInicio
-            // 
-            this.tbFechaInicio.Location = new System.Drawing.Point(201, 132);
-            this.tbFechaInicio.Name = "tbFechaInicio";
-            this.tbFechaInicio.Size = new System.Drawing.Size(100, 20);
-            this.tbFechaInicio.TabIndex = 7;
-            // 
-            // tbFechaFin
-            // 
-            this.tbFechaFin.Location = new System.Drawing.Point(201, 170);
-            this.tbFechaFin.Name = "tbFechaFin";
-            this.tbFechaFin.Size = new System.Drawing.Size(100, 20);
-            this.tbFechaFin.TabIndex = 8;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -106,16 +93,41 @@
             this.tbMotivo.Size = new System.Drawing.Size(100, 20);
             this.tbMotivo.TabIndex = 11;
             // 
+            // dpFechaInicio
+            // 
+            this.dpFechaInicio.Location = new System.Drawing.Point(201, 129);
+            this.dpFechaInicio.Name = "dpFechaInicio";
+            this.dpFechaInicio.Size = new System.Drawing.Size(200, 20);
+            this.dpFechaInicio.TabIndex = 12;
+            // 
+            // dpFechaFin
+            // 
+            this.dpFechaFin.Location = new System.Drawing.Point(201, 167);
+            this.dpFechaFin.Name = "dpFechaFin";
+            this.dpFechaFin.Size = new System.Drawing.Size(200, 20);
+            this.dpFechaFin.TabIndex = 13;
+            // 
+            // btnAtras
+            // 
+            this.btnAtras.Location = new System.Drawing.Point(59, 213);
+            this.btnAtras.Name = "btnAtras";
+            this.btnAtras.Size = new System.Drawing.Size(75, 23);
+            this.btnAtras.TabIndex = 14;
+            this.btnAtras.Text = "Atras";
+            this.btnAtras.UseVisualStyleBackColor = true;
+            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
+            // 
             // frmBajaHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 260);
+            this.ClientSize = new System.Drawing.Size(433, 260);
+            this.Controls.Add(this.btnAtras);
+            this.Controls.Add(this.dpFechaFin);
+            this.Controls.Add(this.dpFechaInicio);
             this.Controls.Add(this.tbMotivo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.tbFechaFin);
-            this.Controls.Add(this.tbFechaInicio);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnAceptar);
@@ -131,10 +143,11 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tbFechaInicio;
-        private System.Windows.Forms.TextBox tbFechaFin;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbMotivo;
+        private System.Windows.Forms.DateTimePicker dpFechaInicio;
+        private System.Windows.Forms.DateTimePicker dpFechaFin;
+        private System.Windows.Forms.Button btnAtras;
     }
 }
