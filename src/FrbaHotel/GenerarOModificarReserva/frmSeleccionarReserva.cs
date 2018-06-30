@@ -19,7 +19,7 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void btSeleccionar_Click(object sender, EventArgs e)
         {
-            frmModificarRserva ventanaModificar = new frmModificarRserva();
+            frmModificarReserva ventanaModificar = new frmModificarReserva();
             ventanaModificar.Show();
         }
     }

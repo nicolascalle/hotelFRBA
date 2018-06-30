@@ -185,11 +185,11 @@
     <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.Designer.cs">
       <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.cs">
+    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.Designer.cs">
-      <DependentUpon>frmInformarCostoDeLaHabitacion.cs</DependentUpon>
+    <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaReserva.Designer.cs">
+      <DependentUpon>frmInformarCostoDeLaReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Item.cs" />
     <Compile Include="Reserva.cs" />
@@ -199,11 +199,11 @@
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.Designer.cs">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmModificarRserva.cs">
+    <Compile Include="GenerarOModificarReserva\frmModificarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmModificarRserva.Designer.cs">
-      <DependentUpon>frmModificarRserva.cs</DependentUpon>
+    <Compile Include="GenerarOModificarReserva\frmModificarReserva.Designer.cs">
+      <DependentUpon>frmModificarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="GenerarOModificarReserva\frmSeleccionarReserva.cs">
       <SubType>Form</SubType>
@@ -355,8 +355,8 @@
     <EmbeddedResource Include="GenerarOModificarReserva\frmGenerarReserva.resx">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenerarOModificarReserva\frmInformarCostoDeLaHabitacion.resx">
-      <DependentUpon>frmInformarCostoDeLaHabitacion.cs</DependentUpon>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmInformarCostoDeLaReserva.resx">
+      <DependentUpon>frmInformarCostoDeLaReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarReserva.resx">
       <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>

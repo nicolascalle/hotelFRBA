@@ -13,21 +13,12 @@ namespace FrbaHotel.GenerarOModificarReserva
 {
     public partial class frmEleccionDeRegimen : Form
     {
-        string codHotel;
+        long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
         string regimenQueEligio;
-        public frmEleccionDeRegimen(string codHotel)
+        public frmEleccionDeRegimen()
         {
             InitializeComponent();
-            this.codHotel = codHotel;
-            this.lvRegimenes.Items.Clear();
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT reho_regi_codigo FROM FAAE.Regimen_Hotel WHERE reho_hote_codigo = " + codHotel);
-
-            while (dataReader.Read())
-            {
-                ListViewItem listItem = this.nuevoItem(dataReader);
-                this.lvRegimenes.Items.Add(listItem);
-            }
-            dataReader.Close();
+            this.setLvProperties();
         }
 
         public ListViewItem nuevoItem(SqlDataReader dataReader)
@@ -36,15 +27,43 @@ namespace FrbaHotel.GenerarOModificarReserva
             return listItems;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            regimenQueEligio = this.lvRegimenes.SelectedItems[0].Text.ToString();
-            Close();
-        }
-
         public string regimenElegido()
         {
-            return regimenQueEligio;
+           return regimenQueEligio;
+        }
+
+        private void btnAgregarRol_Click(object sender, EventArgs e)
+        {
+            if (this.lvRegimenes.SelectedItems.Count == 1)
+            {
+                this.regimenQueEligio = this.lvRegimenes.SelectedItems[0].Text.ToString();
+            }
+            this.Close();
+        }
+
+        public void setLvProperties() 
+        {
+            new List<string>() { "Regimenes" }.ForEach(columna => this.lvRegimenes.Columns.Add(columna));
+            this.lvRegimenes.View = View.Details;
+            this.lvRegimenes.MultiSelect = false;
+
+            this.lvRegimenes.Items.Clear();
+            string query = "SELECT reho_regi_codigo FROM FAAE.Regimen_Hotel WHERE reho_hote_codigo = " + nroHotel.ToString();
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+
+            while (dataReader.Read())
+            {
+                ListViewItem listItem = this.nuevoItem(dataReader, new List<string>() { "reho_regi_codigo"});
+                this.lvRegimenes.Items.Add(listItem);
+            }
+            dataReader.Close();
+        }
+
+        public ListViewItem nuevoItem(SqlDataReader dataReader, List<string> campos)
+        {
+            ListViewItem listItems = new ListViewItem(dataReader[campos[0]].ToString());
+            campos.Skip(1).ToList().ForEach(subitem => listItems.SubItems.Add(dataReader[subitem].ToString()));
+            return listItems;
         }
     }
 }

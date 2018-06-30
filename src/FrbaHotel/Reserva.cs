@@ -35,6 +35,10 @@ namespace FrbaHotel
             this.tipoReg = tipoReg;
         }
 
+        public string getRegimen()
+        { return tipoReg; }
+
+
         public void guardar()
         {
             //string sqlDate = this.fechaCreacion.ToString("yyyy-MM-dd HH:mm:ss.fff");
@@ -42,6 +46,5 @@ namespace FrbaHotel
             object[] args = { this.fechaRealizacion, this.fechaDesde, this.fechaHasta, this.tipoHab, this.tipoReg, this.estado };
             DBConnection.getInstance().executeProcedure("FAAE.guardar_reserva", param, args);
         }
-
     }
 }

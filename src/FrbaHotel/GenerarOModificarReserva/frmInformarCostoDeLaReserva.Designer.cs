@@ -1,6 +1,6 @@
 ﻿namespace FrbaHotel.GenerarOModificarReserva
 {
-    partial class frmInformarCostoDeLaHabitacion
+    partial class frmInformarCostoDeLaReserva
     {
         /// <summary>
         /// Required designer variable.
@@ -38,11 +38,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(79, 40);
+            this.label2.Location = new System.Drawing.Point(90, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(166, 13);
+            this.label2.Size = new System.Drawing.Size(126, 13);
             this.label2.TabIndex = 56;
-            this.label2.Text = "El costo de la/s habitacion/es es:";
+            this.label2.Text = "El costo de la reserva es:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // tbCostoHabitacion
@@ -76,7 +76,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 18);
+            this.label1.Location = new System.Drawing.Point(103, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 62;
