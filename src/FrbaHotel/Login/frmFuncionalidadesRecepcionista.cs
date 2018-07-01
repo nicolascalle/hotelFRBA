@@ -19,13 +19,11 @@ namespace FrbaHotel.Login {
         }
 
         private void btnABMCliente_Click(object sender, EventArgs e) {
-            AbmCliente.frmABMCliente i = new AbmCliente.frmABMCliente();
-            i.Show();
+            new AbmCliente.frmABMCliente().Show();
         }
 
         private void btnRegistroConsumible_Click(object sender, EventArgs e) {
-            FacturarEstadia.frmFacturarEstadia i = new FacturarEstadia.frmFacturarEstadia();
-            i.Show();
+            new FacturarEstadia.frmFacturarEstadia().Show();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e) {
@@ -34,10 +32,13 @@ namespace FrbaHotel.Login {
             i.Show();     
         }
 
-        private void btnFacturarEstadia_Click(object sender, EventArgs e)
-        {
-            FacturarEstadia.frmFacturarEstadia i = new FacturarEstadia.frmFacturarEstadia();
-            i.Show();
+        private void btnFacturarEstadia_Click(object sender, EventArgs e) {
+            new FacturarEstadia.frmFacturarEstadia().Show();
+        }
+
+        private void btnRegistroEstadia_Click(object sender, EventArgs e) {
+            DBConnection.getInstance().getUsuario().buscar();
+            new RegistrarEstadia.frmRegistrarEstadia().Show();
         }
 
      
