@@ -179,6 +179,24 @@
     <Compile Include="FacturarEstadia\frmConfirmarFactura.Designer.cs">
       <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarOModificarReserva\frmBuscarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmBuscarCliente.Designer.cs">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmModificarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmModificarReserva.Designer.cs">
+      <DependentUpon>frmModificarReserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmMostrarNumeroDeReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmMostrarNumeroDeReserva.Designer.cs">
+      <DependentUpon>frmMostrarNumeroDeReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenerarOModificarReserva\frmEleccionDeRegimen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +208,18 @@
     </Compile>
     <Compile Include="GenerarOModificarReserva\frmInformarCostoDeLaReserva.Designer.cs">
       <DependentUpon>frmInformarCostoDeLaReserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmRegistrarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmRegistrarCliente.Designer.cs">
+      <DependentUpon>frmRegistrarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarSiSeAlojoAlgunaVez.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarSiSeAlojoAlgunaVez.Designer.cs">
+      <DependentUpon>frmSeleccionarSiSeAlojoAlgunaVez.cs</DependentUpon>
     </Compile>
     <Compile Include="Item.cs" />
     <Compile Include="RegistrarEstadia\CheckInRestantes.cs">
@@ -205,11 +235,11 @@
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.Designer.cs">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmModificarReserva.cs">
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmModificarReserva.Designer.cs">
-      <DependentUpon>frmModificarReserva.cs</DependentUpon>
+    <Compile Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.Designer.cs">
+      <DependentUpon>frmSeleccionarModificarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="GenerarOModificarReserva\frmSeleccionarReserva.cs">
       <SubType>Form</SubType>
@@ -355,6 +385,9 @@
     <EmbeddedResource Include="FacturarEstadia\frmConfirmarFactura.resx">
       <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmBuscarCliente.resx">
+      <DependentUpon>frmBuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmEleccionDeRegimen.resx">
       <DependentUpon>frmEleccionDeRegimen.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,8 +397,23 @@
     <EmbeddedResource Include="GenerarOModificarReserva\frmInformarCostoDeLaReserva.resx">
       <DependentUpon>frmInformarCostoDeLaReserva.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmModificarReserva.resx">
+      <DependentUpon>frmModificarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.resx">
+      <DependentUpon>frmSeleccionarModificarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmMostrarNumeroDeReserva.resx">
+      <DependentUpon>frmMostrarNumeroDeReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmRegistrarCliente.resx">
+      <DependentUpon>frmRegistrarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarReserva.resx">
       <DependentUpon>frmSeleccionarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarSiSeAlojoAlgunaVez.resx">
+      <DependentUpon>frmSeleccionarSiSeAlojoAlgunaVez.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>

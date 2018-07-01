@@ -16,6 +16,7 @@ namespace FrbaHotel.GenerarOModificarReserva
         long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
         SqlDataReader dataReader;
         string regimen;
+        string numReserva;
         public frmGenerarReserva()
         {
             InitializeComponent();
@@ -38,9 +39,18 @@ namespace FrbaHotel.GenerarOModificarReserva
                     ventanaCosto.ShowDialog();
                     if (ventanaCosto.aceptoCosto())
                     {
-                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); //Convert.ToInt32(cbTipoHab.Text.ToString()), 
+                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value);//, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
                         nuevaReserva.guardar();
+                        this.obtenerNumeroReserva();
+                        frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
+                        ventanaMostrarNumReserva.ShowDialog();
+                        nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
 
+                       // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
+                        nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
+
+                        frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
+                        ventanaCliente.ShowDialog();
                     }
                     else
                         this.Close();
@@ -51,6 +61,9 @@ namespace FrbaHotel.GenerarOModificarReserva
             else
                 MessageBox.Show("Campos obligatorios incompletos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+
+        
 
         private bool camposObligatoriosCompletos()
         {
@@ -88,7 +101,7 @@ namespace FrbaHotel.GenerarOModificarReserva
             int precioHotel = (int) (Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString()));
             dataReader.Close();
             
-            return precioRegimen * precioTipo * precioHotel * Convert.ToInt32(tbCantHabitaciones.Text);   
+            return precioRegimen * precioTipo * precioHotel;   
         }
 
         private void determinarRegimen()
@@ -126,6 +139,18 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void frmGenerarReserva_Load(object sender, EventArgs e)
         { }
+
+        private void obtenerNumeroReserva()
+        {
+            InitializeComponent();
+            SqlDataReader dataReader;
+            string query = "SELECT @@IDENTITY ultimaReserva";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            numReserva = dataReader["ultimaReserva"].ToString();
+            dataReader.Close();
+        }
+
     }
 
 }

@@ -72,7 +72,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 255);
+            this.ClientSize = new System.Drawing.Size(282, 255);
             this.Controls.Add(this.btnAgregarRol);
             this.Controls.Add(this.lvRegimenes);
             this.Controls.Add(this.label14);

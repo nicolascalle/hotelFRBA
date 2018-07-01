@@ -1063,3 +1063,46 @@ BEGIN
 		END
 END
 go
+
+--generar reserva
+CREATE PROCEDURE FAAE.guardar_reserva
+@rese_fecha_desde smalldatetime, @rese_fecha_hasta smalldatetime, 
+@rese_hote_codigo numeric(10)--, @rese_regi_codigo nvarchar(30) 
+--,@rese_clie_doc_tipo nvarchar(10), @rese_clie_doc_nro numeric(10), @rese_clie_mail nvarchar(50)
+AS
+BEGIN
+		BEGIN --nuevo registro
+			INSERT INTO FAAE.Reserva
+			(rese_fecha_realizacion, rese_fecha_desde, rese_fecha_hasta, rese_hote_codigo)
+			VALUES(getdate(), @rese_fecha_desde, @rese_fecha_hasta, @rese_hote_codigo)
+			--, @rese_regi_codigo, @rese_clie_doc_tipo, @rese_clie_doc_nro, @rese_clie_mail)
+		END
+END
+GO
+
+
+CREATE FUNCTION FAAE.obtenerPrimeraHabitacionDisponible (@hote_codigo numeric(10))--, @habi_tipo_codigo numeric(10))
+RETURNS numeric(10)
+AS
+BEGIN
+	RETURN  (SELECT top 1 habi_nro
+		FROM FAAE.Habitacion WHERE habi_hote_codigo = @hote_codigo --dame todas las habitaciones que esten en este hotel
+		AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion 
+		WHERE reha_hote_codigo = @hote_codigo AND habi_nro = reha_habi_nro)) -- y que no aparezca en ninguna reservaHabi que tenga ese hotel		   
+END
+GO
+
+CREATE PROCEDURE FAAE.guardar_reservaPorHabitacion
+@reha_rese_codigo numeric(10), @rese_hote_codigo numeric(10)
+AS
+BEGIN
+		--BEGIN --nuevos reserva_habitacion, la cantidad depende de la reserva
+		INSERT INTO FAAE.Reserva_Habitacion
+		(reha_rese_codigo, reha_habi_nro,reha_hote_codigo)
+		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo) ,@rese_hote_codigo)
+END		--END		
+GO
+
+--SELECT * FROM FAAE.Reserva_Habitacion 
+--WHERE reha_hote_codigo = 1
+--AND reha_habi_nro >= 100

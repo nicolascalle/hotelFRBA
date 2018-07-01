@@ -8,11 +8,11 @@ namespace FrbaHotel
 {
     class Reserva
     {
-        private int codigo;
+        int codReserva;
         private DateTime fechaRealizacion;
         private DateTime fechaDesde;
         private DateTime fechaHasta;
-        private int codigohotel;
+        private int codigohotel = Convert.ToInt32(DBConnection.getInstance().getUsuario().getHotelUltimoLogin());
         private string codigoRegimen; //?
         private string clienteDocTipo;
         private int clienteDocNro;
@@ -26,25 +26,32 @@ namespace FrbaHotel
         private string p1;
         private string p2;
 
-        public Reserva(DateTime fechaDesde, DateTime fechaHasta, string tipoHab, string tipoReg)
+        public Reserva(DateTime fechaDesde, DateTime fechaHasta)//, string tipoHab, string tipoReg)
         {
-            this.fechaRealizacion = DateTime.Now;
             this.fechaDesde = fechaDesde;
             this.fechaHasta = fechaHasta;
-            this.tipoHab = tipoHab;
-            this.tipoReg = tipoReg;
+            //this.tipoHab = tipoHab;
+            //this.tipoReg = tipoReg;
         }
 
-        public string getRegimen()
-        { return tipoReg; }
+        public void setCodigo(int codigo)
+        {
+            this.codReserva = codigo;
+        }
 
 
         public void guardar()
         {
-            //string sqlDate = this.fechaCreacion.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            string[] param = { "@rese_fecha_realizacion", "@rese_fecha_desde", "@rese_fecha_hasta", "@rese_hote_codigo", "@rese_regi_codigo", "@rese_clie_doc_tipo", "@rese_clie_doc_nro", "@rese_estado" };
-            object[] args = { this.fechaRealizacion, this.fechaDesde, this.fechaHasta, this.tipoHab, this.tipoReg, this.estado };
+            string[] param = { "@rese_fecha_desde", "@rese_fecha_hasta", "@rese_hote_codigo" };//, "@rese_regi_codigo" , "@rese_clie_doc_tipo", "@rese_clie_doc_nro", "@rese_clie_mail" };
+            object[] args = { this.fechaDesde, this.fechaHasta, this.codigohotel };//, //this.tipoReg };, this.tipoHab };, this.estado };
             DBConnection.getInstance().executeProcedure("FAAE.guardar_reserva", param, args);
+        }
+
+        public void guardarReservaPorHabitacion()
+        {
+            string[] param = { "@reha_rese_codigo", "@rese_hote_codigo" };//, "@rese_regi_codigo" , "@rese_clie_doc_tipo", "@rese_clie_doc_nro", "@rese_clie_mail" };
+            object[] args = { this.codReserva, this.codigohotel };//, //this.tipoReg };, this.tipoHab };, this.estado };
+            DBConnection.getInstance().executeProcedure("FAAE.guardar_reservaPorHabitacion", param, args);
         }
     }
 }

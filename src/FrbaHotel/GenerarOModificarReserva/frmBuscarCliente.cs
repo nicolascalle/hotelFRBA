@@ -10,17 +10,11 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.GenerarOModificarReserva
 {
-    public partial class frmSeleccionarReserva : Form
+    public partial class frmBuscarCliente : Form
     {
-        public frmSeleccionarReserva()
+        public frmBuscarCliente()
         {
             InitializeComponent();
-        }
-
-        private void btSeleccionar_Click(object sender, EventArgs e)
-        {
-            frmSeleccionarModificarReserva ventanaModificar = new frmSeleccionarModificarReserva();
-            ventanaModificar.Show();
         }
     }
 }

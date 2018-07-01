@@ -29,8 +29,8 @@ namespace FrbaHotel.RegistrarEstadia
             {
                 if (textBox1.Text.ToString().Length > 0 && comboBox1.Text.ToString().Length > 0 && textBox2.Text.ToString().Length > 0 && textBox3.Text.ToString().Length > 0 && espaciosEnLaReserva(textBox1.Text.ToString()))
                 {
-                    CheckIn checkIn = new CheckIn(textBox1.Text.ToString(), comboBox1.Text.ToString(), Convert.ToInt32(textBox2.Text), textBox3.Text.ToString(), docTipo, Convert.ToInt32(docNro), mail);
-                    checkIn.guardar();
+                    //CheckIn checkIn = new CheckIn(textBox1.Text.ToString(), comboBox1.Text.ToString(), Convert.ToInt32(textBox2.Text), textBox3.Text.ToString(), docTipo, Convert.ToInt32(docNro), mail);
+                    //checkIn.guardar();
                     MessageBox.Show("Check-in realizado correctamente");
                 }
                 else

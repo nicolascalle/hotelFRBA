@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,17 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.GenerarOModificarReserva
 {
-    public partial class frmSeleccionarReserva : Form
+    public partial class frmMostrarNumeroDeReserva : Form
     {
-        public frmSeleccionarReserva()
+        public frmMostrarNumeroDeReserva(string numReserva)
         {
             InitializeComponent();
+            tbNumeroDeReserva.Text = numReserva;
         }
 
-        private void btSeleccionar_Click(object sender, EventArgs e)
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
-            frmSeleccionarModificarReserva ventanaModificar = new frmSeleccionarModificarReserva();
-            ventanaModificar.Show();
+            this.Close();
         }
     }
 }

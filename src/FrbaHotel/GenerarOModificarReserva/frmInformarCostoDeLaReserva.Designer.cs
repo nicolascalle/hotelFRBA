@@ -38,11 +38,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(90, 40);
+            this.label2.Location = new System.Drawing.Point(71, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 13);
+            this.label2.Size = new System.Drawing.Size(170, 13);
             this.label2.TabIndex = 56;
-            this.label2.Text = "El costo de la reserva es:";
+            this.label2.Text = "El costo por hotel de la reserva es:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // tbCostoHabitacion
@@ -83,7 +83,7 @@
             this.label1.Text = "Hay disponibilidad";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // frmInformarCostoDeLaHabitacion
+            // frmInformarCostoDeLaReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -93,7 +93,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.tbCostoHabitacion);
             this.Controls.Add(this.label2);
-            this.Name = "frmInformarCostoDeLaHabitacion";
+            this.Name = "frmInformarCostoDeLaReserva";
             this.Text = "frmInformarCostoDeLaHabitacion";
             this.ResumeLayout(false);
             this.PerformLayout();
