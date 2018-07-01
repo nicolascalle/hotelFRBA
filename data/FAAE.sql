@@ -208,6 +208,12 @@ CREATE TABLE FAAE.Estadia (
 	esta_clie_doc_nro numeric(10),
 	esta_clie_mail nvarchar(50),
 	esta_fecha_salida smalldatetime,
+	esta_usuaIn_doc_tipo nvarchar(10) default 'pasaporte',
+	esta_usuaIn_doc_nro numeric(10),
+	esta_usuaIn_mail nvarchar(50),
+	esta_usuaOut_doc_tipo nvarchar(10) default 'pasaporte',
+	esta_usuaOut_doc_nro numeric(10),
+	esta_usuaOut_mail nvarchar(50),
 	PRIMARY KEY (esta_rese_codigo, esta_habi_nro, esta_hote_codigo,esta_clie_doc_tipo,esta_clie_doc_nro, esta_clie_mail)
 )
 CREATE TABLE FAAE.Reserva_Habitacion (
@@ -1035,3 +1041,23 @@ RETURN -- Nombre, Apellido, PuntosTotalEstadia + PuntosTotalConsumibles
 									 JOIN FAAE.Cliente c ON (rese_clie_doc_tipo = c.clie_doc_tipo AND rese_clie_doc_nro = clie_doc_nro AND rese_clie_mail = clie_mail)
 		WHERE fact_fecha BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY clie_doc_tipo, clie_doc_nro, clie_mail, clie_nombre, clie_apellido)
+go
+-- Registrar CheckIN
+CREATE PROCEDURE FAAE.guardar_checkIn
+@reseCodigo numeric(10), @docTipo nvarchar(10), @docNro numeric(10), @mail nvarchar(50), @docTipoUsua nvarchar(10), @docNroUsua numeric(10), @mailUsua nvarchar(50)
+AS
+BEGIN
+	IF( EXISTS(SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = @fact_rese_codigo) )
+		BEGIN
+			INSERT INTO FAAE.Estadia (esta_rese_codigo, esta_habi_nro, esta_hote_codigo, esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail, esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail)
+			select top 1 @reseCodigo, reha_habi_nro, reha_hote_codigo, @docTipo, @docNro, @mail, @docTipoUsua, @docNroUsua, @mailUsua
+			from FAAE.Reserva_Habitacion join FAAE.Habitacion on habi_nro = reha_habi_nro and habi_hote_codigo = reha_hote_codigo
+										 join FAAE.Tipo on habi_tipo_codigo = tipo_codigo
+			where @reseCodigo = reha_rese_codigo and tipo_cant_personas < (select count(*)
+																		   from FAAE.Estadia
+																		   where esta_habi_nro = reha_habi_nro and
+																		         esta_hote_codigo = reha_hote_codigo and
+																				 esta_rese_codigo = @reseCodigo)
+		END
+END
+go
