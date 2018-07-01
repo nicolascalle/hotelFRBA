@@ -45,6 +45,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.btnGenerarReserva = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbCiudad = new System.Windows.Forms.TextBox();
+            this.tbPais = new System.Windows.Forms.TextBox();
+            this.tbNacionalidad = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbApellido
@@ -141,7 +149,7 @@
             // 
             // tbDireNro
             // 
-            this.tbDireNro.Location = new System.Drawing.Point(129, 278);
+            this.tbDireNro.Location = new System.Drawing.Point(321, 70);
             this.tbDireNro.Margin = new System.Windows.Forms.Padding(2);
             this.tbDireNro.Name = "tbDireNro";
             this.tbDireNro.Size = new System.Drawing.Size(55, 20);
@@ -149,7 +157,7 @@
             // 
             // tbDireCalle
             // 
-            this.tbDireCalle.Location = new System.Drawing.Point(129, 244);
+            this.tbDireCalle.Location = new System.Drawing.Point(321, 33);
             this.tbDireCalle.Margin = new System.Windows.Forms.Padding(2);
             this.tbDireCalle.Name = "tbDireCalle";
             this.tbDireCalle.Size = new System.Drawing.Size(136, 20);
@@ -176,7 +184,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(91, 281);
+            this.label12.Location = new System.Drawing.Point(274, 70);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
@@ -186,7 +194,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(91, 251);
+            this.label11.Location = new System.Drawing.Point(274, 40);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(33, 13);
@@ -195,18 +203,99 @@
             // 
             // btnGenerarReserva
             // 
-            this.btnGenerarReserva.Location = new System.Drawing.Point(94, 315);
+            this.btnGenerarReserva.Location = new System.Drawing.Point(202, 279);
             this.btnGenerarReserva.Name = "btnGenerarReserva";
             this.btnGenerarReserva.Size = new System.Drawing.Size(84, 34);
             this.btnGenerarReserva.TabIndex = 36;
             this.btnGenerarReserva.Text = "Guardar";
             this.btnGenerarReserva.UseVisualStyleBackColor = true;
+            this.btnGenerarReserva.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(274, 109);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "Ciudad:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(274, 143);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "País:";
+            // 
+            // tbCiudad
+            // 
+            this.tbCiudad.Location = new System.Drawing.Point(321, 106);
+            this.tbCiudad.Margin = new System.Windows.Forms.Padding(2);
+            this.tbCiudad.Name = "tbCiudad";
+            this.tbCiudad.Size = new System.Drawing.Size(136, 20);
+            this.tbCiudad.TabIndex = 39;
+            // 
+            // tbPais
+            // 
+            this.tbPais.Location = new System.Drawing.Point(321, 140);
+            this.tbPais.Margin = new System.Windows.Forms.Padding(2);
+            this.tbPais.Name = "tbPais";
+            this.tbPais.Size = new System.Drawing.Size(136, 20);
+            this.tbPais.TabIndex = 40;
+            // 
+            // tbNacionalidad
+            // 
+            this.tbNacionalidad.Location = new System.Drawing.Point(321, 175);
+            this.tbNacionalidad.Margin = new System.Windows.Forms.Padding(2);
+            this.tbNacionalidad.Name = "tbNacionalidad";
+            this.tbNacionalidad.Size = new System.Drawing.Size(136, 20);
+            this.tbNacionalidad.TabIndex = 41;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(248, 178);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.TabIndex = 42;
+            this.label6.Text = "Nacionalidad:";
+            // 
+            // dtFechaNacimiento
+            // 
+            this.dtFechaNacimiento.Location = new System.Drawing.Point(307, 237);
+            this.dtFechaNacimiento.Margin = new System.Windows.Forms.Padding(2);
+            this.dtFechaNacimiento.Name = "dtFechaNacimiento";
+            this.dtFechaNacimiento.Size = new System.Drawing.Size(192, 20);
+            this.dtFechaNacimiento.TabIndex = 52;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(245, 213);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(109, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "Fecha de nacimiento:";
             // 
             // frmRegistrarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(283, 361);
+            this.ClientSize = new System.Drawing.Size(539, 325);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dtFechaNacimiento);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.tbNacionalidad);
+            this.Controls.Add(this.tbPais);
+            this.Controls.Add(this.tbCiudad);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnGenerarReserva);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -250,5 +339,13 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnGenerarReserva;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbCiudad;
+        private System.Windows.Forms.TextBox tbPais;
+        private System.Windows.Forms.TextBox tbNacionalidad;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtFechaNacimiento;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -30,6 +30,7 @@
         {
             this.tbCliente = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbCliente
@@ -50,11 +51,22 @@
             this.label1.TabIndex = 24;
             this.label1.Text = "Bienvenido:";
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(59, 114);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 61;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
             // frmMostrarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(200, 149);
+            this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbCliente);
             this.Name = "frmMostrarCliente";
@@ -68,5 +80,6 @@
 
         private System.Windows.Forms.TextBox tbCliente;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }

@@ -32,6 +32,7 @@ namespace FrbaHotel.GenerarOModificarReserva
             }
             else
             {
+                this.Close();
                 if (tbMail.Text.Length != 0)
                 {
                     frmMostrarCliente ventanaCliente = new frmMostrarCliente(this.buscarPorMail());

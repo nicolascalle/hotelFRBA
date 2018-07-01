@@ -17,5 +17,10 @@ namespace FrbaHotel.GenerarOModificarReserva
             InitializeComponent();
             tbCliente.Text = hola;
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

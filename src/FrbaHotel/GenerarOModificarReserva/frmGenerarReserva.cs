@@ -45,16 +45,16 @@ namespace FrbaHotel.GenerarOModificarReserva
                         nuevaReserva.guardar();
                         this.obtenerNumeroReserva();
                         nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
-                       
-                        frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
-                        ventanaMostrarNumReserva.ShowDialog();
-                        
+     
 
                        // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
                         nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
 
                         frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
                         ventanaCliente.ShowDialog();
+                        this.Close();
+                        frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
+                        ventanaMostrarNumReserva.ShowDialog();
                     }
                     else
                         this.Close();

@@ -21,12 +21,14 @@ namespace FrbaHotel.GenerarOModificarReserva
         {
             frmBuscarCliente ventanaBuscarCliente = new frmBuscarCliente();
             ventanaBuscarCliente.ShowDialog();
+            this.Close();
         }
 
         private void btnNo_Click(object sender, EventArgs e)
         {
             frmRegistrarCliente ventanaRegistrarCliente = new frmRegistrarCliente();
             ventanaRegistrarCliente.ShowDialog();
+            this.Close();
         }
     }
 }
