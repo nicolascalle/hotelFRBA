@@ -350,7 +350,9 @@ ALTER TABLE FAAE.Rol_Usuario ADD CONSTRAINT Rol_Usuario_Rol FOREIGN KEY (rous_ro
 
 ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Reserva_Habitacion FOREIGN KEY (esta_rese_codigo, esta_habi_nro, esta_hote_codigo) REFERENCES FAAE.Reserva_Habitacion(reha_rese_codigo, reha_habi_nro, reha_hote_codigo)
 ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_Cliente FOREIGN KEY (esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail) REFERENCES FAAE.Cliente(clie_doc_tipo, clie_doc_nro, clie_mail)
-
+ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_UsuarioIn FOREIGN KEY (esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro, usua_mail)
+ALTER TABLE FAAE.Estadia ADD CONSTRAINT Estadia_UsuarioOut FOREIGN KEY (esta_usuaOut_doc_tipo, esta_usuaOut_doc_nro, esta_usuaOut_mail) REFERENCES FAAE.Usuario(usua_doc_tipo, usua_doc_nro, usua_mail)	          
+	      
 ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Reserva FOREIGN KEY (reha_rese_codigo) REFERENCES FAAE.Reserva(rese_codigo)
 ALTER TABLE FAAE.Reserva_Habitacion ADD CONSTRAINT Reserva_Habitacion_Habitacion FOREIGN KEY (reha_habi_nro, reha_hote_codigo) REFERENCES FAAE.Habitacion(habi_nro, habi_hote_codigo)
 
