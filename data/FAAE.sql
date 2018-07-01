@@ -166,6 +166,9 @@ IF OBJECT_ID('FAAE.asignar_regimen_hotel') IS NOT NULL
 IF OBJECT_ID('FAAE.eliminar_regimenes_hotel') IS NOT NULL
     DROP PROC FAAE.eliminar_regimenes_hotel;
 
+IF OBJECT_ID('FAAE.inhabilitar_hotel') IS NOT NULL
+    DROP PROC FAAE.inhabilitar_hotel;
+
 GO
 
 
@@ -1164,7 +1167,7 @@ BEGIN
 		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo) ,@rese_hote_codigo)
 END		--END		
 GO
-
+exec faae.inhabilitar_hotel
 --SELECT * FROM FAAE.Reserva_Habitacion 
 --WHERE reha_hote_codigo = 1
 --AND reha_habi_nro >= 100
