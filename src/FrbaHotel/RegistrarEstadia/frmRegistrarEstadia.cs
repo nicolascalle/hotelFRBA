@@ -49,7 +49,7 @@ namespace FrbaHotel.RegistrarEstadia
                         "insert FAAE.Estadia(esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail, esta_habi_nro, esta_hote_codigo, esta_rese_codigo, esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail) select top 1 rese_clie_doc_tipo, rese_clie_doc_nro, rese_clie_mail, reha_habi_nro, reha_hote_codigo, rese_codigo, '" + docTipo + "', " + Convert.ToInt32(docNro) + ", '" + mail + "' from FAAE.Reserva join FAAE.Reserva_Habitacion on reha_rese_codigo = rese_codigo where rese_codigo = " + textBox1.Text.ToString());
                     MessageBox.Show("Check-in realizado correctamente");
                     this.Close();
-                    CheckInRestantes CheckInRestantes = new CheckInRestantes();
+                    Form1 CheckInRestantes = new Form1(textBox1.Text.ToString());
                     CheckInRestantes.Show();
                 }
                 else
@@ -71,7 +71,7 @@ namespace FrbaHotel.RegistrarEstadia
             }
             catch (Exception)
             {
-                MessageBox.Show("Reserva sin efecto, realizar una nueva reserva"); return false;
+                MessageBox.Show("Reserva sin efecto, realizar una nueva"); return false;
             }
         }
     }

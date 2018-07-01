@@ -13,33 +13,35 @@ namespace FrbaHotel.RegistrarEstadia
 {
     public partial class CheckInRestantes : Form
     {
-
+        SqlDataReader dataReader;
         string docTipo = DBConnection.getInstance().getUsuario().getDocTipo().ToString();
         string docNro = DBConnection.getInstance().getUsuario().getDocNro().ToString();
         string mail = DBConnection.getInstance().getUsuario().getMail().ToString();
+        string codigoReserva;
+        string codigoCliente;
 
-        public CheckInRestantes()
+        public CheckInRestantes(string codigoReserva2, string codigoCliente2)
         {
             InitializeComponent();
+            codigoReserva = codigoReserva2;
+            codigoCliente = codigoCliente2;
+            textBox1.Text = buscarPorMail();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (DBConnection.getInstance().conexionCorrecta())
             {
-                if (textBox1.Text.ToString().Length > 0 && comboBox1.Text.ToString().Length > 0 && textBox2.Text.ToString().Length > 0 && textBox3.Text.ToString().Length > 0 && espaciosEnLaReserva(textBox1.Text.ToString()))
+                if (espaciosEnLaReserva(codigoReserva))
                 {
-                    //CheckIn checkIn = new CheckIn(textBox1.Text.ToString(), comboBox1.Text.ToString(), Convert.ToInt32(textBox2.Text), textBox3.Text.ToString(), docTipo, Convert.ToInt32(docNro), mail);
-                    //checkIn.guardar();
+                    CheckIn checkIn = new CheckIn(codigoReserva, buscarClienteDocTipo(), buscarClienteDocNro(), codigoCliente, docTipo, Convert.ToInt32(docNro), mail);
+                    checkIn.guardar();
                     MessageBox.Show("Check-in realizado correctamente");
                 }
                 else
                 {
                     MessageBox.Show("Error al Realizar el Check-In", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                textBox1.Clear();
-                textBox2.Clear();
-                textBox3.Clear();
             }
         }
 
@@ -57,6 +59,37 @@ namespace FrbaHotel.RegistrarEstadia
             {
                 MessageBox.Show("Reserva sin efecto, realizar una nueva reserva"); return false;
             }
+        }
+
+        private string buscarPorMail()
+        {
+            string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_mail LIKE '" + textBox2.Text.ToString() + "'";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            string nombre = dataReader["clie_nombre"].ToString();
+            string apellido = dataReader["clie_apellido"].ToString();
+            dataReader.Close();
+            return nombre + " " + apellido;
+        }
+
+        private string buscarClienteDocTipo()
+        {
+            string query = "SELECT clie_doc_tipo FROM FAAE.Cliente WHERE clie_mail LIKE '" + codigoCliente + "'";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            string docTipo = dataReader["clie_doc_tipo"].ToString();
+            dataReader.Close();
+            return docTipo;
+        }
+
+        private string buscarClienteDocNro()
+        {
+            string query = "SELECT clie_doc_nro FROM FAAE.Cliente WHERE clie_mail LIKE '" + codigoCliente + "'";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            string docTipo = dataReader["clie_doc_tipo"].ToString();
+            dataReader.Close();
+            return docTipo;
         }
     }
 }
