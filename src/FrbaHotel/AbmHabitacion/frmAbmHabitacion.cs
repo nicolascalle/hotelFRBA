@@ -13,10 +13,13 @@ namespace FrbaHotel.AbmHabitacion
 {
     public partial class frmAbmHabitacion : Form
     {
+        long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
         public frmAbmHabitacion()
         {
             InitializeComponent();
             this.setLvProperties();
+            tbCodigoHotel.Enabled = false;
+            tbCodigoHotel.Text = nroHotel.ToString();
         }
 
         private void frmAlta_Click(object sender, EventArgs e)
@@ -139,7 +142,7 @@ namespace FrbaHotel.AbmHabitacion
         private void btLimpiar_Click(object sender, EventArgs e)
         {
             tbNumeroHabitacion.Text = "";
-            tbCodigoHotel.Text = "";
+            
             tbPiso.Text = "";
             tbVistaExterior.Text = "";
             rbNo.Checked = false;

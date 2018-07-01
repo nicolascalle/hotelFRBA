@@ -1167,7 +1167,21 @@ BEGIN
 		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo) ,@rese_hote_codigo)
 END		--END		
 GO
-exec faae.inhabilitar_hotel
---SELECT * FROM FAAE.Reserva_Habitacion 
---WHERE reha_hote_codigo = 1
---AND reha_habi_nro >= 100
+
+--exec faae.inhabilitar_hotel
+
+--para generarOModificarReserva
+CREATE PROCEDURE FAAE.guardar_cliente
+@clie_nombre nvarchar(25), @clie_apellido nvarchar(25), @clie_doc_tipo nvarchar(10), 
+@clie_doc_nro numeric(10), @clie_mail nvarchar(50) , @clie_telefono nvarchar(16), 
+@clie_dire_calle nvarchar(50), @clie_dire_nro numeric(10), @clie_dire_localidad nvarchar(16),
+@clie_dire_pais nvarchar(16), @clie_nacionalidad nvarchar(16),  @clie_fecha_nacimiento smalldatetime
+AS
+BEGIN
+		INSERT INTO FAAE.Cliente
+		(clie_nombre, clie_apellido, clie_doc_tipo, clie_doc_nro, clie_mail , clie_telefono, 
+		clie_dire_calle, clie_dire_nro, clie_dire_localidad,clie_dire_pais, clie_nacionalidad, clie_fecha_nacimiento)
+		VALUES(@clie_nombre, @clie_apellido, @clie_doc_tipo, @clie_doc_nro, @clie_mail , @clie_telefono, 
+		@clie_dire_calle, @clie_dire_nro, @clie_dire_localidad, @clie_dire_pais, @clie_nacionalidad, @clie_fecha_nacimiento)
+END				
+GO

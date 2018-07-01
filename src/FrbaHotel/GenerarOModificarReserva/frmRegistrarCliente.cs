@@ -15,14 +15,16 @@ namespace FrbaHotel.GenerarOModificarReserva
         public frmRegistrarCliente()
         {
             InitializeComponent();
+            this.setDocTipoOptions();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            this.guardar();
+            this.guardarCliente();
+            this.Close();
         }
 
-        public void guardar()
+        public void guardarCliente()
         {
             string[] param = { "@clie_nombre", "@clie_apellido", "@clie_doc_tipo", 
                                  "@clie_doc_nro", "@clie_mail", "@clie_telefono", 
@@ -33,6 +35,12 @@ namespace FrbaHotel.GenerarOModificarReserva
                                 tbDireCalle.Text.ToString(), Convert.ToInt32(tbDireNro.Text), tbCiudad.Text.ToString(), 
                                 tbPais.Text.ToString(), tbNacionalidad.Text.ToString(), dtFechaNacimiento.Value};
             DBConnection.getInstance().executeProcedure("FAAE.guardar_cliente", param, args);
+        }
+
+        private void setDocTipoOptions()
+        {
+            new List<string>() { "Pasaporte", "DNI", "LE" }.ForEach(docTipo => cbDocTipo.Items.Add(docTipo));
+            cbDocTipo.SelectedItem = "Pasaporte";
         }
     }
 }
