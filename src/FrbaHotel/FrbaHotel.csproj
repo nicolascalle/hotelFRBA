@@ -171,6 +171,7 @@
     <Compile Include="CancelarReserva\frmCancelarReserva.Designer.cs">
       <DependentUpon>frmCancelarReserva.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckIn.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="FacturarEstadia\frmConfirmarFactura.cs">
