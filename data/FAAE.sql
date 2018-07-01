@@ -1114,7 +1114,7 @@ CREATE PROCEDURE FAAE.guardar_checkIn
 @reseCodigo numeric(10), @docTipo nvarchar(10), @docNro numeric(10), @mail nvarchar(50), @docTipoUsua nvarchar(10), @docNroUsua numeric(10), @mailUsua nvarchar(50)
 AS
 BEGIN
-	IF( EXISTS(SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = @fact_rese_codigo) )
+	IF( EXISTS(SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = @reseCodigo) )
 		BEGIN
 			INSERT INTO FAAE.Estadia (esta_rese_codigo, esta_habi_nro, esta_hote_codigo, esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail, esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail)
 			select top 1 @reseCodigo, reha_habi_nro, reha_hote_codigo, @docTipo, @docNro, @mail, @docTipoUsua, @docNroUsua, @mailUsua
