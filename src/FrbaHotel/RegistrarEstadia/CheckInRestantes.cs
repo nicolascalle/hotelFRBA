@@ -34,7 +34,7 @@ namespace FrbaHotel.RegistrarEstadia
             {
                 if (espaciosEnLaReserva(codigoReserva))
                 {
-                    CheckIn checkIn = new CheckIn(codigoReserva, buscarClienteDocTipo(), buscarClienteDocNro(), codigoCliente, docTipo, Convert.ToInt32(docNro), mail);
+                    CheckIn checkIn = new CheckIn(codigoReserva, buscarClienteDocTipo(), Convert.ToInt32(buscarClienteDocNro()), codigoCliente, docTipo, Convert.ToInt32(docNro), mail);
                     checkIn.guardar();
                     MessageBox.Show("Check-in realizado correctamente");
                 }
@@ -63,7 +63,7 @@ namespace FrbaHotel.RegistrarEstadia
 
         private string buscarPorMail()
         {
-            string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_mail LIKE '" + textBox2.Text.ToString() + "'";
+            string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_mail LIKE '" + codigoCliente + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
             string nombre = dataReader["clie_nombre"].ToString();
