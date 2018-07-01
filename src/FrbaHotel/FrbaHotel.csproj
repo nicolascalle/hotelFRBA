@@ -192,6 +192,12 @@
       <DependentUpon>frmInformarCostoDeLaReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Item.cs" />
+    <Compile Include="RegistrarEstadia\CheckInRestantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarEstadia\CheckInRestantes.Designer.cs">
+      <DependentUpon>CheckInRestantes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reserva.cs" />
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.cs">
       <SubType>Form</SubType>
@@ -396,6 +402,9 @@
     </Compile>
     <EmbeddedResource Include="FacturarEstadia\frmFacturarEstadia.resx">
       <DependentUpon>frmFacturarEstadia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarEstadia\CheckInRestantes.resx">
+      <DependentUpon>CheckInRestantes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RegistrarEstadia\frmRegistrarEstadia.resx">
       <DependentUpon>frmRegistrarEstadia.cs</DependentUpon>
