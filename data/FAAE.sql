@@ -154,6 +154,18 @@ IF OBJECT_ID('FAAE.ClientesConMasPuntos') IS NOT NULL
 IF OBJECT_ID('FAAE.Codigo_Hoteles_Usuario') IS NOT NULL
     DROP FUNCTION FAAE.Codigo_Hoteles_Usuario;
 
+IF OBJECT_ID('FAAE.asignar_hotel_usuario') IS NOT NULL
+    DROP PROC FAAE.asignar_hotel_usuario;
+
+IF OBJECT_ID('FAAE.eliminar_hoteles_usuario') IS NOT NULL
+    DROP PROC FAAE.eliminar_hoteles_usuario;
+
+IF OBJECT_ID('FAAE.asignar_regimen_hotel') IS NOT NULL
+    DROP PROC FAAE.asignar_regimen_hotel;
+
+IF OBJECT_ID('FAAE.eliminar_regimenes_hotel') IS NOT NULL
+    DROP PROC FAAE.eliminar_regimenes_hotel;
+
 GO
 
 
@@ -649,6 +661,29 @@ BEGIN
 END
 GO
 
+GO
+CREATE PROCEDURE FAAE.asignar_regimen_hotel
+@hote_codigo NUMERIC(10), @regi_nombre NVARCHAR(30)
+AS
+BEGIN
+	IF NOT EXISTS (SELECT 1 FROM FAAE.Regimen_Hotel 
+						WHERE reho_hote_codigo = @hote_codigo AND reho_regi_codigo = @regi_nombre)
+		BEGIN
+			INSERT INTO FAAE.Regimen_Hotel (reho_hote_codigo, reho_regi_codigo)
+				VALUES (@hote_codigo, @regi_nombre)
+		END
+END
+
+GO
+CREATE PROCEDURE FAAE.eliminar_regimenes_hotel
+@hote_codigo NUMERIC(10)
+AS
+BEGIN
+	DELETE FROM FAAE.Regimen_Hotel
+		WHERE reho_hote_codigo = @hote_codigo
+END
+
+GO
 CREATE PROCEDURE FAAE.inhabilitar_usuario
 @username nvarchar(10)
 AS
@@ -838,6 +873,33 @@ BEGIN
 END
 
 
+GO
+CREATE PROC FAAE.asignar_hotel_usuario
+@usua_username NVARCHAR(10), @hous_hote_codigo NUMERIC (10)
+AS
+BEGIN
+	INSERT INTO FAAE.Hotel_Usuario (hous_hote_codigo, hous_usua_doc_tipo, hous_usua_doc_nro, hous_usua_mail)
+		SELECT @hous_hote_codigo, usua_doc_tipo, usua_doc_nro, usua_mail
+			FROM FAAE.Usuario
+			WHERE usua_username = @usua_username
+END
+
+GO
+CREATE PROCEDURE FAAE.eliminar_hoteles_usuario
+@usua_username NVARCHAR(10)
+AS
+BEGIN
+	DECLARE @doc_tipo NVARCHAR(10), @doc_nro NUMERIC(10), @mail NVARCHAR(50)
+	
+	SELECT @doc_tipo = usua_doc_tipo, @doc_nro = usua_doc_nro, @mail = usua_mail
+		FROM FAAE.Usuario
+		WHERE usua_username = @usua_username
+
+	DELETE FROM FAAE.Hotel_Usuario
+		WHERE hous_usua_doc_tipo = @doc_tipo AND hous_usua_doc_nro = @doc_nro AND hous_usua_mail = @mail
+END
+
+
 --Modificar cliente
 
 GO
@@ -878,7 +940,7 @@ CREATE FUNCTION FAAE.NuevaFactura (@rese_codigo NUMERIC(10))
 RETURNS TABLE
 AS
 RETURN
-SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDATE() fact_fecha, 'efectivo' fact_forma_pago, rese_hote_codigo hote_codigo, hote_nombre, clie_apellido+', '+clie_nombre nombreApellido
+SELECT 'A' fact_tipo, (SELECT MAX(fact_nro)+1 FROM FAAE.Factura) fact_nro, GETDATE() fact_fecha, 'efectivo' fact_forma_pago, rese_hote_codigo hote_codigo, hote_nombre, rese_regi_codigo regi_codigo, clie_apellido+', '+clie_nombre nombreApellido
 	FROM FAAE.Reserva r JOIN FAAE.Reserva_Habitacion rh ON (r.rese_codigo = rh.reha_rese_codigo)
 						JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
 						JOIN FAAE.Cliente c ON (r.rese_clie_doc_tipo = c.clie_doc_tipo AND r.rese_clie_doc_nro = c.clie_doc_nro AND r.rese_clie_mail = c.clie_mail)
