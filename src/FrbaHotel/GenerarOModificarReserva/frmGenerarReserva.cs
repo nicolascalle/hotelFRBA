@@ -39,12 +39,16 @@ namespace FrbaHotel.GenerarOModificarReserva
                     ventanaCosto.ShowDialog();
                     if (ventanaCosto.aceptoCosto())
                     {
+                       
+                       
                         Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value);//, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
                         nuevaReserva.guardar();
                         this.obtenerNumeroReserva();
+                        nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
+                       
                         frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
                         ventanaMostrarNumReserva.ShowDialog();
-                        nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
+                        
 
                        // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
                         nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
