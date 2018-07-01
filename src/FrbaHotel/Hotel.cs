@@ -19,10 +19,25 @@ namespace FrbaHotel {
         private string dire_nro;
         private DateTime fechaCreacion;
         private decimal recargaEstrellas;
+        List<string> regimenes;
 
-        public Hotel() { this.codigo = 0; }
-        public Hotel(int codigo) { this.codigo = codigo; }
+        public Hotel() { 
+            this.codigo = 0;
+            this.regimenes = new List<string>();
+        }
 
+        public Hotel(int codigo) { 
+            this.codigo = codigo;
+            this.regimenes = new List<string>();
+        }
+
+        public Hotel(int codigo, string nombre) { 
+            this.codigo = codigo; 
+            this.nombre = nombre;
+            this.regimenes = new List<string>();
+        }
+
+        public int getCodigo() { return this.codigo; }
         public string getNombre() { return this.nombre; }
         public short getEstrellas() { return this.estrellas; }
         public string getCiudad() { return this.ciudad; }
@@ -33,6 +48,7 @@ namespace FrbaHotel {
         public string getDire_nro() { return this.dire_nro; }
         public DateTime getFechaCreacion() { return this.fechaCreacion; }
         public decimal getRecargaEstrellas() { return this.recargaEstrellas; }
+        public List<string> getRegimenes() { return this.regimenes; }
 
         public void setNombre(string nombre) { this.nombre = nombre; }
         public void setEstrellas(short estrellas) { this.estrellas = estrellas; }
@@ -45,11 +61,35 @@ namespace FrbaHotel {
         public void setFechaCreacion(DateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
         public void setRecargaEstrellas(decimal recargaEstrellas) { this.recargaEstrellas = recargaEstrellas; }
 
+        public void agregarRegimen(string regimen) { this.regimenes.Add(regimen); }
+
+        public void limpiarRegimenes() { this.regimenes = new List<string>(); }
+
+        public bool tieneReservasConRegimen(string regimen) {
+            bool tieneReservas = false;
+            if (this.codigo != 0) {
+                string query = "SELECT DISTINCT 1 tieneReservas FROM FAAE.Reserva WHERE rese_hote_codigo = " + this.codigo;
+                query += " AND rese_regi_codigo = '" + regimen + "' AND (rese_fecha_desde > GETDATE() OR rese_fecha_hasta > GETDATE())";
+                SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+                tieneReservas = dataReader.Read();
+                dataReader.Close();
+            }
+            return tieneReservas;
+        }
+
         public void buscar() {
+            string query;
+            SqlDataReader dataReader;
 
-            string query = "SELECT hote_codigo, hote_nombre, hote_mail, hote_telefono, hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_pais, hote_fecha_creacion, hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_codigo =" + this.codigo;
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+            if (this.codigo == 0) {
+                dataReader = DBConnection.getInstance().executeQuery("SELECT MAX(hote_codigo)+1 hote_codigo FROM FAAE.Hotel");
+                dataReader.Read();
+                this.codigo = Convert.ToInt32(dataReader["hote_codigo"]);
+                dataReader.Close();
+            }
 
+            query = "SELECT hote_codigo, hote_nombre, hote_mail, hote_telefono, hote_dire_calle, hote_dire_nro, hote_cant_estrellas, hote_ciudad, hote_pais, hote_fecha_creacion, hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_codigo =" + this.codigo;
+            dataReader = DBConnection.getInstance().executeQuery(query);
             if (dataReader.Read()) {
                     this.nombre = dataReader["hote_nombre"].ToString();
                     this.estrellas = Convert.ToInt16(dataReader["hote_cant_estrellas"].ToString());
@@ -62,6 +102,12 @@ namespace FrbaHotel {
                     this.fechaCreacion = Convert.ToDateTime(dataReader["hote_fecha_creacion"].ToString());
                     this.recargaEstrellas = Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString());                
             }
+            dataReader.Close();
+
+            query = "SELECT reho_regi_codigo regi_nombre FROM FAAE.Regimen_Hotel WHERE reho_hote_codigo = " + this.codigo;
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            while (dataReader.Read())
+                this.regimenes.Add(dataReader["regi_nombre"].ToString());
 
             dataReader.Close();
         }
@@ -75,10 +121,20 @@ namespace FrbaHotel {
         // Si no existe el hotel lo crea, si existe lo actualiza
         public void guardar() {
             string sqlDate = this.fechaCreacion.ToString("yyyy-MM-dd HH:mm:ss.fff");
-            string[] param = { "@hote_codigo", "@hote_nombre", "@hote_mail", "@hote_telefono", "@hote_dire_calle", "@hote_dire_nro", "@hote_cant_estrellas", "@hote_ciudad", "@hote_pais", "@hote_fecha_creacion", "@hote_recarga_estrellas" };
-            object[] args = { this.codigo, this.nombre, this.mail, this.telefono, this.dire_calle, this.dire_nro, this.estrellas, this.ciudad, this.pais, sqlDate, this.recargaEstrellas };
-            DBConnection.getInstance().executeProcedure("FAAE.guardar_hotel", param, args);
-        } // El hote_codigo es identity
+            string[] param1 = { "@hote_codigo", "@hote_nombre", "@hote_mail", "@hote_telefono", "@hote_dire_calle", "@hote_dire_nro", "@hote_cant_estrellas", "@hote_ciudad", "@hote_pais", "@hote_fecha_creacion", "@hote_recarga_estrellas" };
+            object[] args1 = { this.codigo, this.nombre, this.mail, this.telefono, this.dire_calle, this.dire_nro, this.estrellas, this.ciudad, this.pais, sqlDate, this.recargaEstrellas };
+            DBConnection.getInstance().executeProcedure("FAAE.guardar_hotel", param1, args1);
+
+            string[] param2 = { "@hote_codigo" };
+            object[] args2 = { this.codigo };
+            DBConnection.getInstance().executeProcedure("FAAE.eliminar_regimenes_hotel", param2, args2);
+
+            string[] param3 = { "@hote_codigo", "@regi_nombre" };
+            this.regimenes.ForEach(regimen => {
+                object[] args3 = { this.codigo, regimen };
+                DBConnection.getInstance().executeProcedure("FAAE.asignar_regimen_hotel", param3, args3);
+            });
+        }
 
     }
 }

@@ -42,6 +42,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbCiudad = new System.Windows.Forms.TextBox();
             this.tbPais = new System.Windows.Forms.TextBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // frmModificacion
@@ -79,7 +80,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(531, 362);
+            this.btnBuscar.Location = new System.Drawing.Point(546, 339);
             this.btnBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(100, 37);
@@ -112,6 +113,7 @@
             // 
             // cbCantidadEstrellas
             // 
+            this.cbCantidadEstrellas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCantidadEstrellas.FormattingEnabled = true;
             this.cbCantidadEstrellas.Items.AddRange(new object[] {
             "",
@@ -182,11 +184,23 @@
             this.tbPais.Size = new System.Drawing.Size(136, 22);
             this.tbPais.TabIndex = 17;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(546, 385);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(100, 37);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // frmAbmHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 450);
+            this.ClientSize = new System.Drawing.Size(783, 450);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.tbPais);
             this.Controls.Add(this.tbCiudad);
             this.Controls.Add(this.label5);
@@ -225,5 +239,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbCiudad;
         private System.Windows.Forms.TextBox tbPais;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

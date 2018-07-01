@@ -45,6 +45,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.ModificarHotel = new System.Windows.Forms.Label();
+            this.btnQuitarRegimen = new System.Windows.Forms.Button();
+            this.cbRegimen = new System.Windows.Forms.ComboBox();
+            this.btnAgregarRegimen = new System.Windows.Forms.Button();
+            this.lvRegimen = new System.Windows.Forms.ListView();
+            this.label15 = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudRecargaEstrellasHotel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,6 +89,7 @@
             this.tbNroCalleHotel.Name = "tbNroCalleHotel";
             this.tbNroCalleHotel.Size = new System.Drawing.Size(78, 22);
             this.tbNroCalleHotel.TabIndex = 39;
+            this.tbNroCalleHotel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroCalleHotel_KeyPress);
             // 
             // tbCalleHotel
             // 
@@ -97,6 +104,7 @@
             this.tbTelefonoHotel.Name = "tbTelefonoHotel";
             this.tbTelefonoHotel.Size = new System.Drawing.Size(143, 22);
             this.tbTelefonoHotel.TabIndex = 37;
+            this.tbTelefonoHotel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbTelefonoHotel_KeyPress);
             // 
             // cbCantidadEstrellasHotel
             // 
@@ -218,9 +226,9 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(379, 359);
+            this.btnAceptar.Location = new System.Drawing.Point(695, 319);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(82, 32);
+            this.btnAceptar.Size = new System.Drawing.Size(84, 37);
             this.btnAceptar.TabIndex = 23;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -236,11 +244,78 @@
             this.ModificarHotel.TabIndex = 22;
             this.ModificarHotel.Text = "Modificar Hotel";
             // 
+            // btnQuitarRegimen
+            // 
+            this.btnQuitarRegimen.Location = new System.Drawing.Point(695, 126);
+            this.btnQuitarRegimen.Name = "btnQuitarRegimen";
+            this.btnQuitarRegimen.Size = new System.Drawing.Size(84, 30);
+            this.btnQuitarRegimen.TabIndex = 48;
+            this.btnQuitarRegimen.Text = "Quitar";
+            this.btnQuitarRegimen.UseVisualStyleBackColor = true;
+            this.btnQuitarRegimen.Click += new System.EventHandler(this.btnQuitarRegimen_Click);
+            // 
+            // cbRegimen
+            // 
+            this.cbRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRegimen.FormattingEnabled = true;
+            this.cbRegimen.Location = new System.Drawing.Point(525, 83);
+            this.cbRegimen.Name = "cbRegimen";
+            this.cbRegimen.Size = new System.Drawing.Size(154, 24);
+            this.cbRegimen.TabIndex = 47;
+            // 
+            // btnAgregarRegimen
+            // 
+            this.btnAgregarRegimen.Location = new System.Drawing.Point(695, 79);
+            this.btnAgregarRegimen.Name = "btnAgregarRegimen";
+            this.btnAgregarRegimen.Size = new System.Drawing.Size(84, 30);
+            this.btnAgregarRegimen.TabIndex = 46;
+            this.btnAgregarRegimen.Text = "Agregar";
+            this.btnAgregarRegimen.UseVisualStyleBackColor = true;
+            this.btnAgregarRegimen.Click += new System.EventHandler(this.btnAgregarRegimen_Click);
+            // 
+            // lvRegimen
+            // 
+            this.lvRegimen.FullRowSelect = true;
+            this.lvRegimen.GridLines = true;
+            this.lvRegimen.Location = new System.Drawing.Point(525, 125);
+            this.lvRegimen.MultiSelect = false;
+            this.lvRegimen.Name = "lvRegimen";
+            this.lvRegimen.Size = new System.Drawing.Size(154, 149);
+            this.lvRegimen.TabIndex = 45;
+            this.lvRegimen.UseCompatibleStateImageBehavior = false;
+            this.lvRegimen.View = System.Windows.Forms.View.Details;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(521, 50);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(112, 24);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Regimenes:";
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(605, 319);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(84, 37);
+            this.btnLimpiar.TabIndex = 49;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // frmAltaHotel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 403);
+            this.ClientSize = new System.Drawing.Size(806, 382);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.btnQuitarRegimen);
+            this.Controls.Add(this.cbRegimen);
+            this.Controls.Add(this.btnAgregarRegimen);
+            this.Controls.Add(this.lvRegimen);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.nudRecargaEstrellasHotel);
             this.Controls.Add(this.dtFechaCreacionHotel);
             this.Controls.Add(this.tbPaisHotel);
@@ -295,5 +370,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label ModificarHotel;
+        private System.Windows.Forms.Button btnQuitarRegimen;
+        private System.Windows.Forms.ComboBox cbRegimen;
+        private System.Windows.Forms.Button btnAgregarRegimen;
+        private System.Windows.Forms.ListView lvRegimen;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

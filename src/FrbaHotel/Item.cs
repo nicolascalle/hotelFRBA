@@ -24,6 +24,8 @@ namespace FrbaHotel {
         public int getCantidad() { return this.cantidad; }
         public decimal getPrecioUnitario() { return this.precioUnitario; }
 
+        public void setPrecioUnitario(decimal precioUnitario) { this.precioUnitario = precioUnitario; }
+
         public decimal total() {
             return cantidad * precioUnitario;
         }

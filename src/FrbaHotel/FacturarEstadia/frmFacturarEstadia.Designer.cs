@@ -46,6 +46,7 @@
             this.btnFacturarEstadia = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.tbNroTarjeta = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -163,7 +164,7 @@
             "Efectivo",
             "Credito",
             "Debito"});
-            this.cbFormaDePago.Location = new System.Drawing.Point(377, 66);
+            this.cbFormaDePago.Location = new System.Drawing.Point(377, 67);
             this.cbFormaDePago.Name = "cbFormaDePago";
             this.cbFormaDePago.Size = new System.Drawing.Size(95, 24);
             this.cbFormaDePago.TabIndex = 16;
@@ -182,11 +183,11 @@
             // 
             // tbNroReserva
             // 
-            this.tbNroReserva.Location = new System.Drawing.Point(51, 66);
+            this.tbNroReserva.Location = new System.Drawing.Point(106, 67);
             this.tbNroReserva.Margin = new System.Windows.Forms.Padding(4);
             this.tbNroReserva.MaxLength = 16;
             this.tbNroReserva.Name = "tbNroReserva";
-            this.tbNroReserva.Size = new System.Drawing.Size(184, 22);
+            this.tbNroReserva.Size = new System.Drawing.Size(140, 22);
             this.tbNroReserva.TabIndex = 14;
             this.tbNroReserva.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroReserva_KeyPress);
             // 
@@ -204,7 +205,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(263, 69);
+            this.label5.Location = new System.Drawing.Point(263, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 17);
             this.label5.TabIndex = 17;
@@ -212,18 +213,28 @@
             // 
             // tbNroTarjeta
             // 
-            this.tbNroTarjeta.Location = new System.Drawing.Point(487, 67);
+            this.tbNroTarjeta.Location = new System.Drawing.Point(487, 68);
             this.tbNroTarjeta.Name = "tbNroTarjeta";
             this.tbNroTarjeta.ReadOnly = true;
             this.tbNroTarjeta.Size = new System.Drawing.Size(120, 22);
             this.tbNroTarjeta.TabIndex = 18;
             this.tbNroTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroTarjeta_KeyPress);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(34, 70);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 17);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Reserva:";
+            // 
             // frmFacturarEstadia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(723, 359);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.tbNroTarjeta);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbFormaDePago);
@@ -266,5 +277,6 @@
         private System.Windows.Forms.Button btnFacturarEstadia;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbNroTarjeta;
+        private System.Windows.Forms.Label label6;
     }
 }

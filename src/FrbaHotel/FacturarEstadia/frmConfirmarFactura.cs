@@ -36,7 +36,7 @@ namespace FrbaHotel.FacturarEstadia {
             lbNombreHotel.Text = factura.getHotelNombre();
             lbCliente.Text     = factura.getNombreCliente();
             lbTotal.Text       = "U$ " + factura.getTotal().ToString();
-            lvItems.Items.Add(this.nuevoItemFactura( new Item("0000", "Estadia", 1, factura.getTotalEstadia()) ));
+            //lvItems.Items.Add(this.nuevoItemFactura( new Item("0000", "Estadia " + factura.cantidadNochesReservadas() + " noches", 1, factura.getTotalEstadia()) ));
             factura.getItems().ForEach(item => lvItems.Items.Add(this.nuevoItemFactura(item)));
         }
 
@@ -48,7 +48,7 @@ namespace FrbaHotel.FacturarEstadia {
         }
 
         public void setLvProperties() {
-            new List<string>() { "Item", "Cantidad", "Precio unitario" }
+            new List<string>() { "Concepto", "Cantidad", "Precio unitario" }
                 .ForEach(columna => this.lvItems.Columns.Add(columna));
             this.lvItems.View = View.Details;
             this.lvItems.MultiSelect = false;

@@ -23,6 +23,7 @@ namespace FrbaHotel {
         private long hotelUltimoLogin;
         private bool habilitado;
         List<string> roles;
+        List<Hotel> hoteles;
         private bool exists;
 
         public string getDocTipo() { return docTipo; }
@@ -40,6 +41,7 @@ namespace FrbaHotel {
         public long getHotelUltimoLogin() { return hotelUltimoLogin; }
         public bool getHabilitado() { return habilitado; }
         public List<string> getRoles() { return roles; }
+        public List<Hotel> getHoteles() { return hoteles; }
         public bool getExists() { return exists; }
 
         public void setDocTipo(string docTipo) { this.docTipo = docTipo; }
@@ -56,7 +58,9 @@ namespace FrbaHotel {
         public void setHotelUltimoLogin(long hotelUltimoLogin) { this.hotelUltimoLogin = hotelUltimoLogin; }
         public void setHabilitado(bool habilitado) { this.habilitado = habilitado; }
         public void agregarRol(string rol) { this.roles.Add(rol); }
+        public void agregarHotel(Hotel hotel) { this.hoteles.Add(hotel); }
         public void limpiarRoles() { this.roles = new List<string>(); }
+        public void limpiarHoteles() { this.hoteles = new List<Hotel>(); }
 
         public Usuario(string username) {
             this.username = username;
@@ -65,6 +69,7 @@ namespace FrbaHotel {
             this.loginFallidos = 0;
             this.habilitado = false;
             this.roles = new List<string>();
+            this.hoteles = new List<Hotel>();
             this.exists = false;
         }
 
@@ -74,6 +79,7 @@ namespace FrbaHotel {
             this.hotelUltimoLogin = 0;
             this.habilitado = false;
             this.roles = new List<string>();
+            this.hoteles = new List<Hotel>();
             this.exists = false;
         }
 
@@ -112,16 +118,13 @@ namespace FrbaHotel {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT usua_username, usua_password FROM FAAE.Usuario");
 
             while (dataReader.Read()) {
-
                 user = (dataReader["usua_username"].ToString());
                 pass = (dataReader["usua_password"].ToString());
-
                 if ( this.coincide(user, pass) ) {
                     dataReader.Close();
                     return this.exists = true;
                 }
             }
-
             dataReader.Close();
             return this.exists = false;
         }
@@ -180,6 +183,20 @@ namespace FrbaHotel {
                 this.roles.Add(dataReader["rous_rol_nombre"].ToString());
 
             dataReader.Close();
+
+            query = "SELECT hote_codigo, hote_nombre FROM FAAE.Hotel_Usuario JOIN FAAE.Hotel ON (hous_hote_codigo = hote_codigo)";
+            query += " WHERE hous_usua_doc_tipo = '" + this.docTipo + "' AND hous_usua_doc_nro = " + this.docNro + " AND hous_usua_mail = '" + this.mail + "'";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+
+            int cod;
+            string nom;
+            while (dataReader.Read()) {
+                cod = Convert.ToInt32(dataReader["hote_codigo"]);
+                nom = dataReader["hote_nombre"].ToString();
+                this.hoteles.Add(new Hotel(cod, nom));            
+            }
+
+            dataReader.Close();
         }
 
         public void guardar() {
@@ -196,6 +213,16 @@ namespace FrbaHotel {
             this.roles.ForEach(rol => {
                 object[] args3 = { this.username, rol };
                 DBConnection.getInstance().executeProcedure("FAAE.asignar_rol_usuario", param3, args3);
+            });
+
+            string[] param4 = { "@usua_username" };
+            object[] args4 = { this.username };
+            DBConnection.getInstance().executeProcedure("FAAE.eliminar_hoteles_usuario", param4, args4);
+
+            string[] param5 = { "@usua_username", "@hous_hote_codigo" };
+            this.hoteles.ForEach(hotel => {
+                object[] args5 = { this.username, hotel.getCodigo() };
+                DBConnection.getInstance().executeProcedure("FAAE.asignar_hotel_usuario", param5, args5);
             });
         }
 

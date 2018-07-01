@@ -29,6 +29,7 @@ namespace FrbaHotel.AbmRol {
             tbNombreRol.Text = rol.getNombre();
             rol.getFuncionalidades().ForEach(funcionalidad => lvFuncionalidades.Items.Add(new ListViewItem(funcionalidad)));
             cbHabilitado.Checked = rol.getHabilitado();
+            tbNombreRol.ReadOnly = true;
         }
 
         private void btnAgregarFuncionalidad_Click(object sender, EventArgs e) {

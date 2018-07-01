@@ -22,20 +22,19 @@ namespace FrbaHotel.FacturarEstadia {
                 string nroReserva = tbNroReserva.Text.ToString();
                 Factura factura = new Factura(nroReserva, cbFormaDePago.SelectedItem.ToString());
                 if (factura.reservaExists()) {
-                    if (factura.disponibleParaFacturar()) {
+                    if (factura.reservaCanceladaOFacturada()) {
                         factura.generar();
-                        MessageBox.Show("hote factura : " + factura.getHotelCodigo(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        MessageBox.Show("hote usuario : " + DBConnection.getInstance().getUsuario().getHotelUltimoLogin(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                         if (factura.getHotelCodigo() == DBConnection.getInstance().getUsuario().getHotelUltimoLogin()) {
+                            //if (factura.estadiaFinalizada()) {
                             List<Item> items = new List<Item>();
                             for (int i = 0; i < lvConsumibles.Items.Count; i++)
                                 factura.agregarItem(this.getItem(i));
                             frmConfirmarFactura frmA = new frmConfirmarFactura();
                             frmA.setFactura(factura);
                             frmA.Show();                        
+                            //} else this.msgEstadiaNoFinalizada();
                         } else this.msgReservaDeOtroHotel();
-                    } else this.msgReservaInvalida();
+                    } else this.msgReservaCanceladaOFacturada();
                 } else this.msgCodigoReservaIncorrecto();
             }
         }
@@ -116,12 +115,16 @@ namespace FrbaHotel.FacturarEstadia {
             MessageBox.Show("No se encontro una reserva con ese código", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void msgReservaInvalida() {
+        private void msgReservaCanceladaOFacturada() {
             MessageBox.Show("La reserva con ese código fue cancelada o ya fue facturada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void msgReservaDeOtroHotel() {
             MessageBox.Show("La reserva se realizo en otro hotel", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void msgEstadiaNoFinalizada() {
+            MessageBox.Show("Se debe registrar la estadia como finalizada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

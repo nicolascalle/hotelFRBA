@@ -54,6 +54,12 @@
             this.btnAgregarRol = new System.Windows.Forms.Button();
             this.lvRoles = new System.Windows.Forms.ListView();
             this.btnQuitar = new System.Windows.Forms.Button();
+            this.btnQuitarHotel = new System.Windows.Forms.Button();
+            this.cbHoteles = new System.Windows.Forms.ComboBox();
+            this.btnAgregarHotel = new System.Windows.Forms.Button();
+            this.lvHoteles = new System.Windows.Forms.ListView();
+            this.label15 = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -174,6 +180,7 @@
             this.tbDocNro.Name = "tbDocNro";
             this.tbDocNro.Size = new System.Drawing.Size(149, 22);
             this.tbDocNro.TabIndex = 13;
+            this.tbDocNro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDocNro_KeyPress);
             // 
             // label9
             // 
@@ -240,12 +247,13 @@
             this.tbTelefono.Name = "tbTelefono";
             this.tbTelefono.Size = new System.Drawing.Size(94, 22);
             this.tbTelefono.TabIndex = 21;
+            this.tbTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbTelefono_KeyPress);
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(600, 387);
+            this.btnAceptar.Location = new System.Drawing.Point(897, 359);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 29);
+            this.btnAceptar.Size = new System.Drawing.Size(87, 37);
             this.btnAceptar.TabIndex = 22;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -264,6 +272,7 @@
             this.tbDireNro.Name = "tbDireNro";
             this.tbDireNro.Size = new System.Drawing.Size(72, 22);
             this.tbDireNro.TabIndex = 24;
+            this.tbDireNro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDireNro_KeyPress);
             // 
             // cbHabilitado
             // 
@@ -326,11 +335,78 @@
             this.btnQuitar.UseVisualStyleBackColor = true;
             this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             // 
+            // btnQuitarHotel
+            // 
+            this.btnQuitarHotel.Location = new System.Drawing.Point(900, 141);
+            this.btnQuitarHotel.Name = "btnQuitarHotel";
+            this.btnQuitarHotel.Size = new System.Drawing.Size(84, 30);
+            this.btnQuitarHotel.TabIndex = 36;
+            this.btnQuitarHotel.Text = "Quitar";
+            this.btnQuitarHotel.UseVisualStyleBackColor = true;
+            this.btnQuitarHotel.Click += new System.EventHandler(this.btnQuitarHotel_Click);
+            // 
+            // cbHoteles
+            // 
+            this.cbHoteles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbHoteles.FormattingEnabled = true;
+            this.cbHoteles.Location = new System.Drawing.Point(730, 98);
+            this.cbHoteles.Name = "cbHoteles";
+            this.cbHoteles.Size = new System.Drawing.Size(154, 24);
+            this.cbHoteles.TabIndex = 35;
+            // 
+            // btnAgregarHotel
+            // 
+            this.btnAgregarHotel.Location = new System.Drawing.Point(900, 94);
+            this.btnAgregarHotel.Name = "btnAgregarHotel";
+            this.btnAgregarHotel.Size = new System.Drawing.Size(84, 30);
+            this.btnAgregarHotel.TabIndex = 34;
+            this.btnAgregarHotel.Text = "Agregar";
+            this.btnAgregarHotel.UseVisualStyleBackColor = true;
+            this.btnAgregarHotel.Click += new System.EventHandler(this.btnAgregarHotel_Click);
+            // 
+            // lvHoteles
+            // 
+            this.lvHoteles.FullRowSelect = true;
+            this.lvHoteles.GridLines = true;
+            this.lvHoteles.Location = new System.Drawing.Point(730, 140);
+            this.lvHoteles.MultiSelect = false;
+            this.lvHoteles.Name = "lvHoteles";
+            this.lvHoteles.Size = new System.Drawing.Size(154, 149);
+            this.lvHoteles.TabIndex = 33;
+            this.lvHoteles.UseCompatibleStateImageBehavior = false;
+            this.lvHoteles.View = System.Windows.Forms.View.Details;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(726, 65);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(79, 24);
+            this.label15.TabIndex = 32;
+            this.label15.Text = "Hoteles:";
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(797, 358);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(87, 39);
+            this.btnLimpiar.TabIndex = 37;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // frmAltaUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(687, 428);
+            this.ClientSize = new System.Drawing.Size(1015, 428);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.btnQuitarHotel);
+            this.Controls.Add(this.cbHoteles);
+            this.Controls.Add(this.btnAgregarHotel);
+            this.Controls.Add(this.lvHoteles);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.btnQuitar);
             this.Controls.Add(this.cbRoles);
             this.Controls.Add(this.btnAgregarRol);
@@ -402,5 +478,11 @@
         private System.Windows.Forms.Button btnAgregarRol;
         private System.Windows.Forms.ListView lvRoles;
         private System.Windows.Forms.Button btnQuitar;
+        private System.Windows.Forms.Button btnQuitarHotel;
+        private System.Windows.Forms.ComboBox cbHoteles;
+        private System.Windows.Forms.Button btnAgregarHotel;
+        private System.Windows.Forms.ListView lvHoteles;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

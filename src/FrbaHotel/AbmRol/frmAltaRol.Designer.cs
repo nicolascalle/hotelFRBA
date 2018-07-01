@@ -47,9 +47,9 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(380, 350);
+            this.btnAceptar.Location = new System.Drawing.Point(370, 320);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(84, 30);
+            this.btnAceptar.Size = new System.Drawing.Size(84, 40);
             this.btnAceptar.TabIndex = 38;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 392);
+            this.ClientSize = new System.Drawing.Size(476, 379);
             this.Controls.Add(this.cbHabilitado);
             this.Controls.Add(this.btnQuitarFuncionalidad);
             this.Controls.Add(this.btnAceptar);

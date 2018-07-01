@@ -15,6 +15,7 @@ namespace FrbaHotel {
         string formaDePago;
         long hotelCodigo;
         string hotelNombre;
+        string regimen;
         string nombreCliente;
         List<Item> items;
         decimal total;
@@ -25,13 +26,18 @@ namespace FrbaHotel {
         public string getReservaNro() { return this.reservaNro; }
         public string getFormaDePago() { return this.formaDePago; }
         public string getHotelNombre() { return this.hotelNombre; }
+        public string getRegimen() { return this.regimen; }
         public long getHotelCodigo() { return this.hotelCodigo; }
         public string getNombreCliente() { return this.nombreCliente; }
         public decimal getTotalEstadia() { return this.total - this.calcularTotalConsumibles(); }
         public decimal getTotal() { return this.total; }
         public List<Item> getItems() { return this.items; }
 
-        public void agregarItem(Item i) { items.Add(i); }
+        public void agregarItem(Item i) {
+            if (this.regimen.Equals("All inclusive"))
+                i.setPrecioUnitario(0);
+            items.Add(i); 
+        }
 
         public Factura(string reservaNro, string formaDePago) {
             this.reservaNro = reservaNro;
@@ -39,35 +45,44 @@ namespace FrbaHotel {
             this.items = new List<Item>() { };
         }
 
-        public bool disponibleParaFacturar() {
+        public bool reservaCanceladaOFacturada() {
             string query = "SELECT 1 FROM FAAE.Reserva WHERE rese_codigo = " + this.reservaNro;
             query += " AND rese_estado NOT LIKE '%cancelada%' AND rese_codigo NOT IN (SELECT fact_rese_codigo FROM FAAE.Factura)";
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
-            if (dataReader.Read()) {
-                dataReader.Close();
-                return true;
-            }
-            else {
-                dataReader.Close();
-                return false;
-            }                
+            bool cancelada = dataReader.Read();
+            dataReader.Close();
+            return cancelada;
         }
 
+        // Tendria que ir en Reserva
         public bool reservaExists() {
             string query = "SELECT 1 FROM FAAE.Reserva WHERE rese_codigo = " + this.reservaNro;
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
-            if (dataReader.Read()) {
-                dataReader.Close();
-                return true;
-            }
-            else {
-                dataReader.Close();
-                return false;
-            }
+            bool exists = dataReader.Read();
+            dataReader.Close();
+            return exists;
+        }
+
+        //public bool estadiaFinalizada() {
+        //    string query = "SELECT 1 FROM FAAE.Estadia WHERE esta_rese_codigo = " + this.reservaNro + " AND esta_fecha_salida IS NOT NULL";
+        //    SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+        //    bool finalizada = dataReader.Read();
+        //    dataReader.Close();
+        //    return finalizada;
+        //}
+
+        public int cantidadNochesReservadas() {
+            int cantNoches;
+            string query = "SELECT DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)-1 cantNoches FROM FROM FAAE.Reserva WHERE rese_codigo = " + this.reservaNro;
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            cantNoches = Convert.ToInt32(dataReader["cantNoches"]);
+            dataReader.Close();
+            return cantNoches;
         }
 
         public void generar() {
-            string query = "SELECT fact_tipo, fact_nro, hote_codigo, hote_nombre, nombreApellido";
+            string query = "SELECT fact_tipo, fact_nro, hote_codigo, hote_nombre, regi_codigo, nombreApellido";
             query += " FROM FAAE.NuevaFactura(" + this.reservaNro + ")";
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
 
@@ -78,10 +93,11 @@ namespace FrbaHotel {
                 this.hotelNombre = dataReader["hote_nombre"].ToString();
                 this.nombreCliente = dataReader["nombreApellido"].ToString();
             }
-            this.fecha = DateTime.Now;
-
             dataReader.Close();
+
+            this.fecha = DateTime.Now;
             this.total = this.calcularTotalEstadia() + this.calcularTotalConsumibles();
+            this.agregarItem(new Item("0000", "Estadia " + this.cantidadNochesReservadas() + " noches", 1, this.getTotalEstadia()));
         }
 
         public decimal calcularTotalEstadia() {

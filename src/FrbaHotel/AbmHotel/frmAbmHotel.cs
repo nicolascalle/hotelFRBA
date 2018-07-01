@@ -30,6 +30,12 @@ namespace FrbaHotel.AbmHotel {
             dataReader.Close();
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e) {
+            new List<TextBox>() { tbNombreHotel, tbCiudad, tbPais }.ForEach(tb => tb.Clear());
+            cbCantidadEstrellas.Text = "";
+        }
+
+
         private void frmAlta_Click(object sender, EventArgs e) {
             AbmHotel.frmAltaHotel frmA = new AbmHotel.frmAltaHotel();
             frmA.setTitle("Nuevo Hotel");
