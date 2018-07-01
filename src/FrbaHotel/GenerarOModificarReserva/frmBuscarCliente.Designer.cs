@@ -34,7 +34,9 @@
             this.tbMail = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAgregarRol = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbDocNro
@@ -67,7 +69,7 @@
             // 
             // tbMail
             // 
-            this.tbMail.Location = new System.Drawing.Point(133, 116);
+            this.tbMail.Location = new System.Drawing.Point(133, 154);
             this.tbMail.Margin = new System.Windows.Forms.Padding(2);
             this.tbMail.Name = "tbMail";
             this.tbMail.Size = new System.Drawing.Size(96, 20);
@@ -76,7 +78,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(91, 123);
+            this.label9.Location = new System.Drawing.Point(91, 161);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 13);
@@ -93,22 +95,45 @@
             this.label1.TabIndex = 23;
             this.label1.Text = "Nro. de identificación:";
             // 
-            // btnAgregarRol
+            // btnBuscar
             // 
-            this.btnAgregarRol.Location = new System.Drawing.Point(94, 156);
-            this.btnAgregarRol.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAgregarRol.Name = "btnAgregarRol";
-            this.btnAgregarRol.Size = new System.Drawing.Size(83, 24);
-            this.btnAgregarRol.TabIndex = 34;
-            this.btnAgregarRol.Text = "Buscar";
-            this.btnAgregarRol.UseVisualStyleBackColor = true;
+            this.btnBuscar.Location = new System.Drawing.Point(266, 73);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(82, 63);
+            this.btnBuscar.TabIndex = 34;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 123);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "O buscar por:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "Buscar por:";
             // 
             // frmBuscarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(265, 204);
-            this.Controls.Add(this.btnAgregarRol);
+            this.ClientSize = new System.Drawing.Size(363, 204);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbMail);
             this.Controls.Add(this.label9);
@@ -130,6 +155,8 @@
         private System.Windows.Forms.TextBox tbMail;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnAgregarRol;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
