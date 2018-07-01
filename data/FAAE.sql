@@ -169,6 +169,21 @@ IF OBJECT_ID('FAAE.eliminar_regimenes_hotel') IS NOT NULL
 IF OBJECT_ID('FAAE.inhabilitar_hotel') IS NOT NULL
     DROP PROC FAAE.inhabilitar_hotel;
 
+IF OBJECT_ID('FAAE.guardar_reserva') IS NOT NULL
+    DROP PROC FAAE.guardar_reserva;
+
+IF OBJECT_ID('FAAE.obtenerPrimeraHabitacionDisponible') IS NOT NULL
+    DROP FUNCTION FAAE.obtenerPrimeraHabitacionDisponible;
+
+IF OBJECT_ID('FAAE.guardar_reservaPorHabitacion') IS NOT NULL
+    DROP PROC FAAE.guardar_reservaPorHabitacion;
+
+IF OBJECT_ID('FAAE.guardar_checkIn') IS NOT NULL
+    DROP PROC FAAE.guardar_checkIn;
+
+IF OBJECT_ID('FAAE.guardar_cliente') IS NOT NULL
+    DROP PROC FAAE.guardar_cliente;
+
 GO
 
 
