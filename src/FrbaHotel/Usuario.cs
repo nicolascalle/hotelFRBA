@@ -83,6 +83,21 @@ namespace FrbaHotel {
             this.exists = false;
         }
 
+        private string encriptarContrasena()
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(this.password);
+            System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
+
+            byte[] hash = sha256hashstring.ComputeHash(bytes);
+            string hashstring = string.Empty;
+            foreach (byte x in hash)
+            {
+                hashstring += String.Format("{0:x2}", x);
+
+            }
+            return hashstring;
+        }
+
         private bool estaHabilitado() {
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT usua_habilitado FROM FAAE.Usuario WHERE usua_username = '" + this.username + "'");
             dataReader.Read();
@@ -142,7 +157,7 @@ namespace FrbaHotel {
         }
 
         private bool coincide(string usuario, string contrasena) {
-            return usuario.Equals(this.username) && contrasena.Equals(this.password);
+            return usuario.Equals(this.username) && contrasena.Equals(this.encriptarContrasena());
         }
 
         public void inhabilitar() {
@@ -202,7 +217,7 @@ namespace FrbaHotel {
         public void guardar() {
             string sqlDate = this.fechaNacimiento.ToString("yyyy-MM-dd HH:mm:ss.fff");
             string[] param1 = { "@usua_doc_tipo", "@usua_doc_nro", "@usua_username", "@usua_password", "@usua_nombre", "@usua_apellido", "@usua_mail", "@usua_telefono", "@usua_dire_calle", "@usua_dire_nro", "@usua_fecha_nacimiento", "@usua_cant_log_in_fallidos", "@usua_hote_codigo_ultimo_log_in", "@usua_habilitado" };
-            object[] args1 = { this.docTipo, this.docNro, this.username, this.password, this.nombre, this.apellido, this.mail, this.telefono, this.direCalle, this.direNro, sqlDate, this.loginFallidos, this.hotelUltimoLogin, this.habilitado };
+            object[] args1 = { this.docTipo, this.docNro, this.username, this.encriptarContrasena(), this.nombre, this.apellido, this.mail, this.telefono, this.direCalle, this.direNro, sqlDate, this.loginFallidos, this.hotelUltimoLogin, this.habilitado };
             DBConnection.getInstance().executeProcedure("FAAE.guardar_usuario", param1, args1);
 
             string[] param2 = { "@usua_username" };
