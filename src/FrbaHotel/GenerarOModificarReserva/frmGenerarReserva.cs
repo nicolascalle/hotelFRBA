@@ -13,16 +13,25 @@ namespace FrbaHotel.GenerarOModificarReserva
 {
     public partial class frmGenerarReserva : Form
     {
-        long nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
+        long nroHotel;
         SqlDataReader dataReader;
         string regimen;
         string numReserva;
-        public frmGenerarReserva()
+        string tipoUsuario;
+        public frmGenerarReserva(string tipoUsuario)
         {
             InitializeComponent();
             dtFechaInicioReserva.MinDate = dtFechaInicioReserva.Value;
-            tbNombreHotel.Text = nroHotel.ToString();
-            tbNombreHotel.Enabled = false;
+            if (tipoUsuario == "guest")
+            {
+
+            }
+            else if (tipoUsuario == "recepcionista")
+            {
+                nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
+                tbNombreHotel.Text = nroHotel.ToString();
+                tbNombreHotel.Enabled = false;
+            }
         }
 
        

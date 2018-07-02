@@ -13,14 +13,16 @@ namespace FrbaHotel.GenerarOModificarReserva
 {
     public partial class frmGenerarOModificarReserva : Form
     {
-        public frmGenerarOModificarReserva()
+        string tipoUsuario;
+        public frmGenerarOModificarReserva(string tipoUsuario)
         {
             InitializeComponent();
+            this.tipoUsuario = tipoUsuario;
         }
 
         private void btnGenerarReserva_Click(object sender, EventArgs e)
         {
-            frmGenerarReserva ventanaGenerarReserva = new frmGenerarReserva();
+            frmGenerarReserva ventanaGenerarReserva = new frmGenerarReserva(tipoUsuario);
             ventanaGenerarReserva.Show();
         }
 

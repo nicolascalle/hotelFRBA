@@ -14,7 +14,7 @@ namespace FrbaHotel.Login {
         public frmFuncionalidadesRecepcionista() { InitializeComponent(); }
 
         private void btnGenerarModificacionReserva_Click(object sender, EventArgs e) {
-            GenerarOModificarReserva.frmGenerarOModificarReserva ventanaGenerarOModificar = new GenerarOModificarReserva.frmGenerarOModificarReserva();
+            GenerarOModificarReserva.frmGenerarOModificarReserva ventanaGenerarOModificar = new GenerarOModificarReserva.frmGenerarOModificarReserva("recepcionista");
             ventanaGenerarOModificar.Show();
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace FrbaHotel.GenerarOModificarReserva
 {
     public partial class frmSeleccionarReserva : Form
     {
+        SqlDataReader dataReader;
         public frmSeleccionarReserva()
         {
             InitializeComponent();
@@ -19,8 +21,26 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void btSeleccionar_Click(object sender, EventArgs e)
         {
-            frmSeleccionarModificarReserva ventanaModificar = new frmSeleccionarModificarReserva();
+            this.buscarReserva();
+            frmModificarReserva ventanaModificar = new frmModificarReserva(tbNumReserva.Text.ToString());
             ventanaModificar.Show();
         }
+
+        private void buscarReserva()
+        {
+            string query = "SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = " + tbNumReserva.Text.ToString();
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            if (dataReader.Read())
+            {
+                //int precioTipo = Convert.ToInt32(dataReader["tipo_cant_personas"].ToString());
+                MessageBox.Show("se encontro");
+                dataReader.Close();
+            }
+            else
+                MessageBox.Show("No se encontro");
+            
+        }
+
+
     }
 }

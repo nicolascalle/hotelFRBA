@@ -248,12 +248,6 @@
     <Compile Include="GenerarOModificarReserva\frmGenerarReserva.Designer.cs">
       <DependentUpon>frmGenerarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.Designer.cs">
-      <DependentUpon>frmSeleccionarModificarReserva.cs</DependentUpon>
-    </Compile>
     <Compile Include="GenerarOModificarReserva\frmSeleccionarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,9 +409,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmMostrarCliente.resx">
       <DependentUpon>frmMostrarCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GenerarOModificarReserva\frmSeleccionarModificarReserva.resx">
-      <DependentUpon>frmSeleccionarModificarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarOModificarReserva\frmMostrarNumeroDeReserva.resx">
       <DependentUpon>frmMostrarNumeroDeReserva.cs</DependentUpon>
