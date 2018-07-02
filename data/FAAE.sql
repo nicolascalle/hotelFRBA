@@ -357,7 +357,7 @@ CREATE TABLE FAAE.Usuario (
     usua_doc_tipo nvarchar(10) default 'pasaporte',
 	usua_doc_nro numeric(10),
 	usua_username nvarchar(10) not null,
-	usua_password nvarchar(10) not null,
+	usua_password nvarchar(255) not null,
 	usua_nombre nvarchar(16) not null,
 	usua_apellido nvarchar(16) not null,
 	usua_mail nvarchar(50) not null,
@@ -493,7 +493,7 @@ GO
 
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento) 
-		values	(0000000000,'admin','w23e','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
+		values	(0000000000,'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
 
 	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
 
