@@ -25,7 +25,7 @@ namespace FrbaHotel {
         public SqlConnection getConnection() {
             if (connection == null ) {
                 connection = new SqlConnection();
-                connection.ConnectionString = "SERVER=" + server + "\\SQLSERVER2012;DATABASE=GD1C2018;UID=" + user + ";PASSWORD=" + password + ";";
+                connection.ConnectionString = "SERVER=" + server + "\\SQLSERVER2012;DATABASE=GD1C2018;UID=" + user + ";PASSWORD=" + password + ";MultipleActiveResultSets=true;";
                 connection.Open();
             }
             return connection;
