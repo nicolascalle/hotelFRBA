@@ -36,11 +36,13 @@ namespace FrbaHotel.RegistrarEstadia
             {
                 if (textBox2.Text.Length != 0)
                 {
+                    this.Close();
                     CheckInRestantes ventanaCliente = new CheckInRestantes(textBox2.Text.ToString(), codigoReserva);
                     ventanaCliente.ShowDialog();
                 }
                 else
                 {
+                    this.Close();
                     CheckInRestantes ventanaCliente = new CheckInRestantes(this.buscarPorDocumento(), codigoReserva);
                     ventanaCliente.ShowDialog();
                 }

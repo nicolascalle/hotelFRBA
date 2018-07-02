@@ -37,6 +37,12 @@ namespace FrbaHotel.RegistrarEstadia
                     CheckIn checkIn = new CheckIn(codigoReserva, buscarClienteDocTipo(), Convert.ToInt32(buscarClienteDocNro()), codigoCliente, docTipo, Convert.ToInt32(docNro), mail);
                     checkIn.guardar();
                     MessageBox.Show("Check-in realizado correctamente");
+                    this.Close();
+                    if (espaciosEnLaReserva(codigoReserva))
+                    {
+                        Form1 CheckInRestantes = new Form1(codigoReserva);
+                        CheckInRestantes.Show();
+                    }
                 }
                 else
                 {
