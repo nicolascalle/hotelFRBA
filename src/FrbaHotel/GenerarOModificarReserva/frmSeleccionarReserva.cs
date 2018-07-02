@@ -21,24 +21,24 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void btSeleccionar_Click(object sender, EventArgs e)
         {
-            this.buscarReserva();
-            frmModificarReserva ventanaModificar = new frmModificarReserva(tbNumReserva.Text.ToString());
-            ventanaModificar.Show();
+            this.existeReserva();
         }
 
-        private void buscarReserva()
+        private void existeReserva()
         {
             string query = "SELECT rese_codigo FROM FAAE.Reserva WHERE rese_codigo = " + tbNumReserva.Text.ToString();
             dataReader = DBConnection.getInstance().executeQuery(query);
             if (dataReader.Read())
             {
-                //int precioTipo = Convert.ToInt32(dataReader["tipo_cant_personas"].ToString());
-                MessageBox.Show("se encontro");
                 dataReader.Close();
+                frmModificarReserva ventanaModificar = new frmModificarReserva(tbNumReserva.Text.ToString());
+                ventanaModificar.Show();
             }
             else
-                MessageBox.Show("No se encontro");
-            
+            {
+                dataReader.Close();
+                MessageBox.Show("No existe esa reserva", "Error codigo reserva", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

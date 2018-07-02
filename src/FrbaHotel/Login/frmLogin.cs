@@ -24,6 +24,7 @@ namespace FrbaHotel.Login {
         }
 
         private void btnIngresarHuesped_Click(object sender, EventArgs e) {
+            DBConnection.getInstance().conexionCorrecta();
             Login.frmFuncionalidadesCliente i = new Login.frmFuncionalidadesCliente();
             i.Show();
         }

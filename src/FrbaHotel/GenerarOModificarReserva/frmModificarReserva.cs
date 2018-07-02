@@ -25,7 +25,6 @@ namespace FrbaHotel.GenerarOModificarReserva
         private void mostrarReserva()
         {
             tbNumeroDeReserva.Text = numeroReserva;
-            
             string query = "SELECT * FROM FAAE.Reserva WHERE rese_codigo = " + this.numeroReserva;
             dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
@@ -38,6 +37,9 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+           // string[] param = { "@", "@rese_fecha_desde", "@rese_fecha_hasta", "@rese_hote_codigo" };//, "@rese_regi_codigo" , "@rese_clie_doc_tipo", "@rese_clie_doc_nro", "@rese_clie_mail" };
+            //[] args = { tbNumeroDeReserva.Text, dtFechaInicioReserva, dtFechaFinalReserva, tbNombreHotel.Text };//, //this.tipoReg };, this.tipoHab };, this.estado };
+           // DBConnection.getInstance().executeProcedure("FAAE.modificar_reserva", param, args);
             this.Close();
         }
 

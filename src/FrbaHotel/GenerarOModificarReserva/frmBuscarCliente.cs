@@ -32,41 +32,60 @@ namespace FrbaHotel.GenerarOModificarReserva
             }
             else
             {
-                this.Close();
+                
                 if (tbMail.Text.Length != 0)
                 {
-                    frmMostrarCliente ventanaCliente = new frmMostrarCliente(this.buscarPorMail());
-                    ventanaCliente.ShowDialog();
+                    this.buscarPorMail();
+                    
                 }
                 else
                 {
-                    frmMostrarCliente ventanaCliente = new frmMostrarCliente(this.buscarPorDocumento());
-                    ventanaCliente.ShowDialog();
+                    this.buscarPorDocumento();
                 }
             }
                 
         }
 
-        private string buscarPorDocumento()
+        private void buscarPorDocumento()
         {
             string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_doc_tipo LIKE '" + cbDocTipo.Text.ToString() + "' AND clie_doc_nro = " + tbDocNro.Text.ToString();
             dataReader = DBConnection.getInstance().executeQuery(query);
-            dataReader.Read();
-            string nombre = dataReader["clie_nombre"].ToString();
-            string apellido = dataReader["clie_apellido"].ToString();
-            dataReader.Close();
-            return nombre + " " + apellido;
+            if (dataReader.Read())
+            {
+                string nombre = dataReader["clie_nombre"].ToString();
+                string apellido = dataReader["clie_apellido"].ToString();
+                dataReader.Close();
+                this.Close();
+                frmMostrarCliente ventanaCliente = new frmMostrarCliente(nombre + " " + apellido);
+                ventanaCliente.ShowDialog();
+            }
+            else
+            {
+                dataReader.Close();
+                MessageBox.Show("No es escontro cliente con ese documento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private string buscarPorMail()
+        private void buscarPorMail()
         {
             string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_mail LIKE '" + tbMail.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
-            dataReader.Read();
-            string nombre = dataReader["clie_nombre"].ToString();
-            string apellido = dataReader["clie_apellido"].ToString();
-            dataReader.Close();
-            return nombre + " " + apellido;
+            if (dataReader.Read())
+            {
+                string nombre = dataReader["clie_nombre"].ToString();
+                string apellido = dataReader["clie_apellido"].ToString();
+                dataReader.Close();
+                this.Close();
+                frmMostrarCliente ventanaCliente = new frmMostrarCliente(nombre + " " + apellido);
+                ventanaCliente.ShowDialog();
+            }
+            else
+            {
+                dataReader.Close();
+                MessageBox.Show("No es escontro cliente con ese email", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            
         }
 
         private void setDocTipoOptions()

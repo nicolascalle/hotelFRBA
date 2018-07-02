@@ -13,14 +13,14 @@ namespace FrbaHotel
         private DateTime fechaDesde;
         private DateTime fechaHasta;
         private int codigohotel = Convert.ToInt32(DBConnection.getInstance().getUsuario().getHotelUltimoLogin());
-        private string codigoRegimen; //?
+        private string codigoRegimen;
         private string clienteDocTipo;
         private int clienteDocNro;
         private string estado;
 
 
-        private string tipoHab;//falta en la tabla de sql
-        private string tipoReg;//esta en la tabla reserva como "codigo" pero en la tabla regimen como "nombre"???
+        private string tipoHab;
+        private string tipoReg;
         private DateTime dateTime1;
         private DateTime dateTime2;
         private string p1;

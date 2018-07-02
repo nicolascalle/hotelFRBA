@@ -40,9 +40,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(71, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(170, 13);
+            this.label2.Size = new System.Drawing.Size(149, 13);
             this.label2.TabIndex = 56;
-            this.label2.Text = "El costo por hotel de la reserva es:";
+            this.label2.Text = "El costo total de la reserva es:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // tbCostoHabitacion

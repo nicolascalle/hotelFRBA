@@ -47,15 +47,11 @@ namespace FrbaHotel.GenerarOModificarReserva
                     frmInformarCostoDeLaReserva ventanaCosto = new frmInformarCostoDeLaReserva(costoDeRegimen);
                     ventanaCosto.ShowDialog();
                     if (ventanaCosto.aceptoCosto())
-                    {
-                       
-                       
+                    {            
                         Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value);//, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
                         nuevaReserva.guardar();
                         this.obtenerNumeroReserva();
                         nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
-     
-
                        // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
                         nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
 
@@ -85,7 +81,7 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private bool determinarDisponibilidadDelPedido()
         {
-           string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimen + "' AND hote_codigo = " + tbNombreHotel.Text.ToString();//this.cambiarNombreHotelPorNumeroHotel();
+           string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimen + "' AND hote_codigo = " + tbNombreHotel.Text.ToString();
            dataReader = DBConnection.getInstance().executeQuery(query);
            dataReader.Read();
            bool hayDisponibilidad =  Convert.ToInt32(dataReader["cantDisponibles"].ToString()) >= Convert.ToInt32(tbCantHabitaciones.Text);          
