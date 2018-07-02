@@ -1027,7 +1027,7 @@ RETURNS TABLE
 AS
 	RETURN (SELECT hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais, COUNT(*) reservasCanceladas, COUNT(*) criterioOrdenar
 		FROM FAAE.Reserva r JOIN FAAE.Hotel h ON (r.rese_hote_codigo = h.hote_codigo)
-		WHERE rese_estado LIKE 'cancelada' AND rese_fecha_realizacion BETWEEN @fechaDesde AND @fechaHasta
+		WHERE rese_estado LIKE '%cancelada%' AND rese_fecha_realizacion BETWEEN @fechaDesde AND @fechaHasta
 		GROUP BY hote_nombre, hote_cant_estrellas, hote_dire_calle, hote_dire_nro, hote_ciudad, hote_pais)
 
 
@@ -1183,7 +1183,6 @@ BEGIN
 END		--END		
 GO
 
---exec faae.inhabilitar_hotel
 
 --para generarOModificarReserva
 CREATE PROCEDURE FAAE.guardar_cliente
