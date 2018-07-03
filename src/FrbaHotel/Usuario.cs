@@ -115,19 +115,24 @@ namespace FrbaHotel {
         }
 
         private bool usernamePasswordCorrectos() {
-            String user, pass;
-            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT usua_username, usua_password FROM FAAE.Usuario");
-
-            while (dataReader.Read()) {
-                user = (dataReader["usua_username"].ToString());
-                pass = (dataReader["usua_password"].ToString());
-                if ( this.coincide(user, pass) ) {
-                    dataReader.Close();
-                    return this.exists = true;
-                }
-            }
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT 1 FROM FAAE.Usuario WHERE usua_username = '" + this.username + "' AND usua_password = HASHBYTES('SHA2_256', CONVERT(VARCHAR(255), '" + this.password + "'))");
+            this.exists = dataReader.Read();
             dataReader.Close();
-            return this.exists = false;
+            return this.exists;
+
+            //String user, pass;
+            //SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT usua_username, usua_password FROM FAAE.Usuario");
+
+            //while (dataReader.Read()) {
+            //    user = (dataReader["usua_username"].ToString());
+            //    pass = (dataReader["usua_password"].ToString());
+            //    if ( this.coincide(user, pass) ) {
+            //        dataReader.Close();
+            //        return this.exists = true;
+            //    }
+            //}
+            //dataReader.Close();
+            //return this.exists = false;
         }
 
         private void limpiarLoginFallidos() {
@@ -143,23 +148,22 @@ namespace FrbaHotel {
         }
 
         private bool coincide(string usuario, string contrasena) {
-            return usuario.Equals(this.username) && contrasena.Equals("0x"+encriptarContrasena().ToUpper());      
+            return usuario.Equals(this.username) && contrasena.Equals(this.password);      
         }
 
-        private string encriptarContrasena()
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(this.password);
-            System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
+        //private string encriptarContrasena()
+        //{
+        //    byte[] bytes = Encoding.UTF8.GetBytes(this.password);
+        //    System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
 
-            byte[] hash = sha256hashstring.ComputeHash(bytes);
-            string hashstring = string.Empty;
-            foreach (byte x in hash)
-            {
-                hashstring += String.Format("{0:x2}", x);
+        //    byte[] hash = sha256hashstring.ComputeHash(bytes);
+        //    string hashstring = string.Empty;
+        //    foreach (byte x in hash) {
+        //        hashstring += String.Format("{0:x2}", x);
 
-            }
-            return hashstring;
-        }
+        //    }
+        //    return hashstring;
+        //}
 
         public void inhabilitar() {
             string[] param = { "@username" };

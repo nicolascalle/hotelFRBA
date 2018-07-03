@@ -491,9 +491,40 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER FAAE.encriptar_contrasena_insert
+ON FAAE.Usuario
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_mail nvarchar(50)
+	SELECT @usua_doc_tipo = usua_doc_tipo, @usua_doc_nro = usua_doc_nro, @usua_mail = usua_mail FROM inserted
+
+	UPDATE FAAE.Usuario
+	SET usua_password = HASHBYTES('SHA2_256', usua_password)
+	WHERE usua_doc_tipo = @usua_doc_tipo AND usua_doc_nro = @usua_doc_nro AND usua_mail = @usua_mail
+END
+
+GO
+CREATE TRIGGER FAAE.encriptar_contrasena_update
+ON FAAE.Usuario
+AFTER UPDATE
+AS
+BEGIN
+	IF (SELECT usua_password FROM inserted) != (SELECT usua_password FROM deleted)
+	BEGIN
+		DECLARE @usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_mail nvarchar(50)
+		SELECT @usua_doc_tipo = usua_doc_tipo, @usua_doc_nro = usua_doc_nro, @usua_mail = usua_mail FROM inserted
+
+		UPDATE FAAE.Usuario
+		SET usua_password = HASHBYTES('SHA2_256', usua_password)
+		WHERE usua_doc_tipo = @usua_doc_tipo AND usua_doc_nro = @usua_doc_nro AND usua_mail = @usua_mail
+	END
+END
+
+-- 0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento) 
-		values	(0000000000,'admin','0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
+		values	(0000000000,'admin','w23e','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
 
 	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
 
@@ -822,11 +853,10 @@ GO
 
 -- ABM USUARIO
 
-
 GO
 CREATE PROCEDURE FAAE.guardar_usuario
 @usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_username nvarchar(10), @usua_password nvarchar(10), @usua_nombre nvarchar(16), @usua_apellido nvarchar(16),
-@usua_mail nvarchar(25), @usua_telefono nvarchar(10), @usua_dire_calle nvarchar(25), @usua_dire_nro numeric(5), @usua_fecha_nacimiento smalldatetime, @usua_cant_log_in_fallidos numeric(1),
+@usua_mail nvarchar(50), @usua_telefono nvarchar(10), @usua_dire_calle nvarchar(25), @usua_dire_nro numeric(5), @usua_fecha_nacimiento smalldatetime, @usua_cant_log_in_fallidos numeric(1),
 @usua_hote_codigo_ultimo_log_in numeric(10), @usua_habilitado bit
 AS
 BEGIN
@@ -840,7 +870,7 @@ BEGIN
 				SET usua_doc_tipo = @usua_doc_tipo,
 					usua_doc_nro = @usua_doc_nro,
 					usua_username = @usua_username,
-					usua_password = HASHBYTES('SHA2_256', @usua_password),
+					usua_password = @usua_password,
 					usua_nombre = @usua_nombre, 
 					usua_mail = @usua_mail, 
 					usua_telefono = @usua_telefono, 
@@ -855,7 +885,7 @@ BEGIN
 	ELSE
 		BEGIN
 			INSERT INTO FAAE.Usuario
-			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, HASHBYTES('SHA2_256', @usua_password), @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
+			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, @usua_password, @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
 		END
 END
 
