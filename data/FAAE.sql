@@ -1218,3 +1218,15 @@ BEGIN
 		@clie_dire_calle, @clie_dire_nro, @clie_dire_localidad, @clie_dire_pais, @clie_nacionalidad, @clie_fecha_nacimiento)
 END				
 GO
+
+--determinar disponibilidad de habitacion, prueba MIRA LO QUE ESTA ESE JOIN PAPA
+SELECT COUNT(habi_nro) AS cantDisponibles 
+FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo)
+JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) 
+WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE 'Base Simple') -- esa habitacion de tipo tal
+AND 
+habi_habilitada = 1  --  que este habilitada
+AND reho_regi_codigo LIKE 'All Inclusive' -- tal regimen
+AND hote_codigo = 1 -- tal hotel, ejemplo hotel codigo 1
+AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion -- y que no pertenezca a ninguna reserva de ese hotel
+		WHERE reha_hote_codigo = 1 AND habi_nro = reha_habi_nro) -- ejemplo hotel codigo 1
