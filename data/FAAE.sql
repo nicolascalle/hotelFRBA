@@ -521,7 +521,6 @@ BEGIN
 	END
 END
 
--- 0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento) 
 		values	(0000000000,'admin','w23e','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
@@ -888,6 +887,19 @@ BEGIN
 			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, @usua_password, @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
 		END
 END
+
+--create function FAAE.Hashh (@pass nvarchar(60))
+--returns char(150)
+--as begin
+--declare @return char(150)
+--	set @return = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', @pass)), 3, 100)
+--	return @return
+--end
+
+--drop function FAAE.Hashh
+
+--select  FAAE.Hashh ('w23e')
+
 
 GO
 CREATE PROCEDURE FAAE.asignar_rol_usuario
