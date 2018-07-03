@@ -184,6 +184,9 @@ IF OBJECT_ID('FAAE.guardar_checkIn') IS NOT NULL
 IF OBJECT_ID('FAAE.guardar_cliente') IS NOT NULL
     DROP PROC FAAE.guardar_cliente;
 
+IF OBJECT_ID('FAAE.encriptar_contrasena_update') IS NOT NULL
+    DROP TRIGGER FAAE.encriptar_contrasena_update;
+
 GO
 
 
@@ -491,35 +494,22 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER FAAE.encriptar_contrasena_insert
-ON FAAE.Usuario
-AFTER INSERT
-AS
-BEGIN
-	DECLARE @usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_mail nvarchar(50)
-	SELECT @usua_doc_tipo = usua_doc_tipo, @usua_doc_nro = usua_doc_nro, @usua_mail = usua_mail FROM inserted
-
-	UPDATE FAAE.Usuario
-	SET usua_password = HASHBYTES('SHA2_256', usua_password)
-	WHERE usua_doc_tipo = @usua_doc_tipo AND usua_doc_nro = @usua_doc_nro AND usua_mail = @usua_mail
-END
-
-GO
 CREATE TRIGGER FAAE.encriptar_contrasena_update
 ON FAAE.Usuario
-AFTER UPDATE
+AFTER UPDATE, INSERT
 AS
 BEGIN
-	IF (SELECT usua_password FROM inserted) != (SELECT usua_password FROM deleted)
+	IF ((SELECT usua_password FROM inserted) != (SELECT usua_password FROM deleted)) OR NOT EXISTS (SELECT 1 FROM deleted) 
 	BEGIN
 		DECLARE @usua_doc_tipo nvarchar(10), @usua_doc_nro numeric(10), @usua_mail nvarchar(50)
 		SELECT @usua_doc_tipo = usua_doc_tipo, @usua_doc_nro = usua_doc_nro, @usua_mail = usua_mail FROM inserted
 
 		UPDATE FAAE.Usuario
-		SET usua_password = HASHBYTES('SHA2_256', usua_password)
-		WHERE usua_doc_tipo = @usua_doc_tipo AND usua_doc_nro = @usua_doc_nro AND usua_mail = @usua_mail
+			SET usua_password = HASHBYTES('SHA2_256', CONVERT(VARCHAR(255), usua_password))
+			WHERE usua_doc_tipo = @usua_doc_tipo AND usua_doc_nro = @usua_doc_nro AND usua_mail = @usua_mail
 	END
 END
+GO
 
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento) 
@@ -887,19 +877,6 @@ BEGIN
 			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, @usua_password, @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
 		END
 END
-
---create function FAAE.Hashh (@pass nvarchar(60))
---returns char(150)
---as begin
---declare @return char(150)
---	set @return = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', @pass)), 3, 100)
---	return @return
---end
-
---drop function FAAE.Hashh
-
---select  FAAE.Hashh ('w23e')
-
 
 GO
 CREATE PROCEDURE FAAE.asignar_rol_usuario
