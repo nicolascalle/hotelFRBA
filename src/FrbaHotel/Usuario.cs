@@ -143,7 +143,8 @@ namespace FrbaHotel {
         }
 
         private bool coincide(string usuario, string contrasena) {
-            return usuario.Equals(this.username) && contrasena.Equals("0x"+encriptarContrasena().ToUpper());      
+            MessageBox.Show(encriptarContrasena());
+            return usuario.Equals(this.username) && contrasena.Equals(encriptarContrasena());      
         }
 
         private string encriptarContrasena()

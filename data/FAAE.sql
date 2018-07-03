@@ -493,7 +493,7 @@ GO
 
 /** Migración **/
 	insert FAAE.Usuario(usua_doc_nro,usua_username,usua_password,usua_nombre,usua_apellido,usua_mail,usua_telefono,usua_dire_calle, usua_dire_nro, usua_fecha_nacimiento) 
-		values	(0000000000,'admin','0xE6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
+		values	(0000000000,'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','admin','admin','admin@admin.com',00000000,'admin',0000,getdate())
 
 	insert FAAE.Rol (rol_nombre) values ('admin'), ('cliente'), ('recepcion')
 
@@ -840,7 +840,7 @@ BEGIN
 				SET usua_doc_tipo = @usua_doc_tipo,
 					usua_doc_nro = @usua_doc_nro,
 					usua_username = @usua_username,
-					usua_password = HASHBYTES('SHA2_256', @usua_password),
+					usua_password = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', @usua_password)), 3, 100),
 					usua_nombre = @usua_nombre, 
 					usua_mail = @usua_mail, 
 					usua_telefono = @usua_telefono, 
@@ -855,9 +855,22 @@ BEGIN
 	ELSE
 		BEGIN
 			INSERT INTO FAAE.Usuario
-			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, HASHBYTES('SHA2_256', @usua_password), @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
+			VALUES(@usua_doc_tipo, @usua_doc_nro, @usua_username, (select SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', @usua_password)), 3, 100)), @usua_nombre, @usua_apellido, @usua_mail, @usua_telefono, @usua_dire_calle, @usua_dire_nro, @usua_fecha_nacimiento, @usua_cant_log_in_fallidos, @usua_hote_codigo_ultimo_log_in, @usua_habilitado)
 		END
 END
+
+--create function FAAE.Hashh (@pass nvarchar(60))
+--returns char(150)
+--as begin
+--declare @return char(150)
+--	set @return = SUBSTRING(master.dbo.fn_varbintohexstr(HashBytes('SHA2_256', @pass)), 3, 100)
+--	return @return
+--end
+
+--drop function FAAE.Hashh
+
+--select  FAAE.Hashh ('w23e')
+
 
 GO
 CREATE PROCEDURE FAAE.asignar_rol_usuario
