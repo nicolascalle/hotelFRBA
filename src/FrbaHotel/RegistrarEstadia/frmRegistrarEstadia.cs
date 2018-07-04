@@ -46,12 +46,12 @@ namespace FrbaHotel.RegistrarEstadia
                 if (textBox1.Text.ToString().Length > 0 && estadiaConEfecto())
                 {
                     DBConnection.getInstance().executeQuery(
-                        "insert FAAE.Estadia(esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail, esta_habi_nro, esta_hote_codigo, esta_rese_codigo, esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail) select top 1 rese_clie_doc_tipo, rese_clie_doc_nro, rese_clie_mail, reha_habi_nro, reha_hote_codigo, rese_codigo, '" + docTipo + "', " + Convert.ToInt32(docNro) + ", '" + mail + "' from FAAE.Reserva join FAAE.Reserva_Habitacion on reha_rese_codigo = rese_codigo where rese_codigo = " + textBox1.Text.ToString()).Close();
+                        "insert FAAE.Estadia(esta_clie_doc_tipo, esta_clie_doc_nro, esta_clie_mail, esta_habi_nro, esta_hote_codigo, esta_rese_codigo, esta_usuaIn_doc_tipo, esta_usuaIn_doc_nro, esta_usuaIn_mail) select top 1 rese_clie_doc_tipo, rese_clie_doc_nro, rese_clie_mail, reha_habi_nro, reha_hote_codigo, rese_codigo, '" + docTipo + "', " + Convert.ToInt32(docNro) + ", '" + mail + "' from FAAE.Reserva join FAAE.Reserva_Habitacion on reha_rese_codigo = rese_codigo where rese_codigo = " + textBox1.Text).Close();
                     MessageBox.Show("Check-in realizado correctamente");
-                    if (espaciosEnLaReserva(textBox1.Text.ToString()))
+                    if (espaciosEnLaReserva(textBox1.Text))
                     {
                         this.Close();
-                        Form1 CheckInRestantes = new Form1(textBox1.Text.ToString());
+                        Form1 CheckInRestantes = new Form1(textBox1.Text);
                         CheckInRestantes.Show();
                     }
                 }
@@ -67,7 +67,7 @@ namespace FrbaHotel.RegistrarEstadia
             try
             {
                 Boolean quedanEspacios;
-                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("select * from FAAE.Reserva_Habitacion join FAAE.Habitacion on habi_nro = reha_habi_nro and habi_hote_codigo = reha_hote_codigo join FAAE.Tipo on habi_tipo_codigo = tipo_codigo	where " + reseCodigo + " = reha_rese_codigo and tipo_cant_personas < (select count(*) from FAAE.Estadia where esta_habi_nro = reha_habi_nro and esta_hote_codigo = reha_hote_codigo and esta_rese_codigo = @reseCodigo)");
+                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("select * from FAAE.Reserva_Habitacion join FAAE.Habitacion on habi_nro = reha_habi_nro and habi_hote_codigo = reha_hote_codigo join FAAE.Tipo on habi_tipo_codigo = tipo_codigo	where reha_rese_codigo = " + reseCodigo + " and tipo_cant_personas < (select count(*) from FAAE.Estadia where esta_habi_nro = reha_habi_nro and esta_hote_codigo = reha_hote_codigo and esta_rese_codigo =" + reseCodigo + ")");
                 quedanEspacios = dataReader.Read();
                 dataReader.Close();
                 return quedanEspacios;
@@ -83,13 +83,12 @@ namespace FrbaHotel.RegistrarEstadia
             try
             {
                 Boolean estadiaConEfecto;
-                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT rese_codigo AS 'date' FROM FAAE.Reserva WHERE rese_fecha_inicio = getdate() and rese_codigo = " + textBox1.Text.ToString() + "group by rese_codigo");
+                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT 1 FROM FAAE.Reserva WHERE getdate() >= rese_fecha_desde AND getdate() <= rese_fecha_hasta AND rese_codigo = " + textBox1.Text.ToString());
                 estadiaConEfecto = dataReader.Read();
                 dataReader.Close();
                 return estadiaConEfecto;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 MessageBox.Show("Reserva sin efecto, realizar una nueva"); return false;
             }
         }

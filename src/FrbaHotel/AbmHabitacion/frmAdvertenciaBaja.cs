@@ -26,8 +26,8 @@ namespace FrbaHotel.AbmHabitacion
         {
             string[] param = { "@habi_nro", "@habi_hote_codigo"};
             object[] args = { this.numeroHabitacion, this.codigoHotel};
-            DBConnection.getInstance().executeProcedure("FAAE.baja_habitacion", param, args);
-            MessageBox.Show("Se Elimino satisfactoriamente");
+            DBConnection.getInstance().executeProcedure("FAAE.inhabilitar_habitacion", param, args);
+            MessageBox.Show("Se inhabilito satisfactoriamente");
             this.Close();
         }
 
