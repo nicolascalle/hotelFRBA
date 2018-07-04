@@ -19,10 +19,12 @@ namespace FrbaHotel.GenerarOModificarReserva
         private string numReserva;
         private int cantDeHabitaciones;
         private int precioPorHabitacion;
+        private int numeroHotel;
+        private string nombreHotel;
+
         public frmGenerarReserva(string tipoUsuario)
         {
             InitializeComponent();
-            
             dtFechaInicioReserva.MinDate = dtFechaInicioReserva.Value;
             if (tipoUsuario == "guest")
             {
@@ -31,10 +33,9 @@ namespace FrbaHotel.GenerarOModificarReserva
             else if (tipoUsuario == "recepcionista")
             {
                 nroHotel = DBConnection.getInstance().getUsuario().getHotelUltimoLogin();
-                tbNombreHotel.Text = nroHotel.ToString();
+                tbNombreHotel.Text = this.cambiarNumeroHotelPorNombreHotel();
                 tbNombreHotel.Enabled = false;
-            }
-            
+            }   
         }
 
        
@@ -46,15 +47,15 @@ namespace FrbaHotel.GenerarOModificarReserva
                 this.determinarRegimen();
                 if (this.determinarDisponibilidadDelPedido())
                 {
-                    int costoDeRegimen = this.calcularCostoDeHabitacion();
+                    int costoDeReserva = this.calcularCostoDeHabitacion();
                     dataReader.Close(); // por el calcularCostoDeHabitacion
-                    frmInformarCostoDeLaReserva ventanaCosto = new frmInformarCostoDeLaReserva(costoDeRegimen);
+                    frmInformarCostoDeLaReserva ventanaCosto = new frmInformarCostoDeLaReserva(costoDeReserva);
                     ventanaCosto.ShowDialog();
                     if (ventanaCosto.aceptoCosto())
                     {
                         frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
                         ventanaCliente.ShowDialog();
-                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, Convert.ToInt32(tbNombreHotel.Text), DBConnection.getInstance().getCliente(), this.regimen, this.precioPorHabitacion);
+                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, Convert.ToInt32(this.nroHotel), DBConnection.getInstance().getCliente(), this.regimen, this.precioPorHabitacion, this.determinarTipo( cbTipoHab.Text.ToString())) ;
                         nuevaReserva.guardar();
                         this.obtenerNumeroReserva(); //solo se puede obtener el numero despues de haberlo guardado
                         nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
@@ -84,7 +85,7 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private bool determinarDisponibilidadDelPedido()
         {
-            string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimen + "' AND hote_codigo = " + tbNombreHotel.Text.ToString() + " AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion WHERE reha_hote_codigo = hote_codigo  AND habi_nro = reha_habi_nro)";
+            string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + regimen + "' AND hote_codigo = " + nroHotel.ToString() + " AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion WHERE reha_hote_codigo = hote_codigo  AND habi_nro = reha_habi_nro)";
            dataReader = DBConnection.getInstance().executeQuery(query);
            if (dataReader.Read())
            {
@@ -112,7 +113,7 @@ namespace FrbaHotel.GenerarOModificarReserva
             int precioTipo = Convert.ToInt32(dataReader["tipo_cant_personas"].ToString());
             dataReader.Close();
 
-            query = "SELECT hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_nombre LIKE '" + this.cambiarNumeroHotelPorNombreHotel() + "'";
+            query = "SELECT hote_recarga_estrellas FROM FAAE.Hotel WHERE hote_nombre LIKE '" + tbNombreHotel.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
             int precioHotel = (int) (Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString()));
@@ -139,18 +140,17 @@ namespace FrbaHotel.GenerarOModificarReserva
             string query = "SELECT hote_codigo FROM FAAE.Hotel WHERE hote_nombre LIKE '" + tbNombreHotel.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
-            string numeroHotel =  dataReader["hote_codigo"].ToString();
+            string numeroHotel = dataReader["hote_codigo"].ToString();
             dataReader.Close();
             return numeroHotel;
         }
 
         private string cambiarNumeroHotelPorNombreHotel() //cuando se hardcodee el numero de hotel en donde esta el recepcionista que genera la reserva
         {
-            string nombreHotel;
             string query = "SELECT hote_nombre FROM FAAE.Hotel WHERE hote_codigo  = " + nroHotel.ToString();
             dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
-            nombreHotel = dataReader["hote_nombre"].ToString();
+            string nombreHotel = dataReader["hote_nombre"].ToString();
             dataReader.Close();
             return nombreHotel;
         }
@@ -169,6 +169,16 @@ namespace FrbaHotel.GenerarOModificarReserva
             dataReader.Close();
         }
 
+
+        private int determinarTipo(string tipo)
+        {
+            int nroTipo;
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + tipo + "'");
+            dataReader.Read();
+            nroTipo = Convert.ToInt32(dataReader["tipo_codigo"]);
+            dataReader.Close();
+            return nroTipo;
+        }
     }
 
 }

@@ -20,6 +20,7 @@ namespace FrbaHotel.GenerarOModificarReserva
             InitializeComponent();
             this.numeroReserva = numeroReserva;
             this.mostrarReserva();
+            tbNombreHotel.Enabled = false;
         }
 
         private void mostrarReserva()
@@ -44,10 +45,48 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-           // string[] param = { "@", "@rese_fecha_desde", "@rese_fecha_hasta", "@rese_hote_codigo" };//, "@rese_regi_codigo" , "@rese_clie_doc_tipo", "@rese_clie_doc_nro", "@rese_clie_mail" };
-            //[] args = { tbNumeroDeReserva.Text, dtFechaInicioReserva, dtFechaFinalReserva, tbNombreHotel.Text };//, //this.tipoReg };, this.tipoHab };, this.estado };
-           // DBConnection.getInstance().executeProcedure("FAAE.modificar_reserva", param, args);
+            string[] param = { "@rese_codigo", "@rese_fecha_desde", "@rese_fecha_hasta", "@rese_regi_codigo" };
+            object[] args = { this.numeroReserva, dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, cbTipoRegimen.Text.ToString()};//, //this.tipoReg };, this.tipoHab };, this.estado };
+            DBConnection.getInstance().executeProcedure("FAAE.modificar_reserva", param, args);
+            
+            string[] param2 = { "@rese_codigo" };
+            object[] args2 = { this.numeroReserva };
+            DBConnection.getInstance().executeProcedure("FAAE.borrar_habitacionesDeReservaAntigua", param2, args2);
+
+            this.generarNuevasReservas();
+
+            MessageBox.Show("Se modifico satisfactoriamente");
             this.Close();
+        }
+
+        private void generarNuevasReservas()
+        {
+
+        }
+
+        private bool determinarDisponibilidadDelPedido()
+        {
+            string query = "SELECT COUNT(habi_nro) AS cantDisponibles FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo) JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE '" + cbTipoHab.Text.ToString() + "') AND habi_habilitada = 1 AND reho_regi_codigo LIKE '" + cbTipoRegimen.Text.ToString() + "' AND hote_codigo = " + tbNombreHotel.Text.ToString() + " AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion WHERE reha_hote_codigo = hote_codigo  AND habi_nro = reha_habi_nro)";
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            if (dataReader.Read())
+            {
+                bool hayDisponibilidad = Convert.ToInt32(dataReader["cantDisponibles"].ToString()) >= Convert.ToInt32(this.calcularCantidadHabitaciones());
+                dataReader.Close();
+                return hayDisponibilidad;
+            }
+            else
+                dataReader.Close();
+            return false;
+        }
+
+        private int calcularCantidadHabitaciones()
+        {
+            string query = "SELECT COUNT(reha_habi_nro) cantDeHabitaciones FROM FAAE.Reserva_Habitacion WHERE reha_rese_codigo = " + numeroReserva;
+            dataReader = DBConnection.getInstance().executeQuery(query);
+            dataReader.Read();
+            int cantHab = Convert.ToInt32(dataReader["cantDeHabitaciones"]);
+            dataReader.Close();
+            return cantHab;
         }
 
 

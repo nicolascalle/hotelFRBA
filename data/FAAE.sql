@@ -1185,29 +1185,30 @@ END
 GO
 
 
-CREATE FUNCTION FAAE.obtenerPrimeraHabitacionDisponible (@hote_codigo numeric(10))--, @habi_tipo_codigo numeric(10))
+CREATE FUNCTION FAAE.obtenerPrimeraHabitacionDisponible (@hote_codigo numeric(10), @habi_tipo_codigo numeric(10))
 RETURNS numeric(10)
 AS
 BEGIN
 	RETURN  (SELECT top 1 habi_nro
-		FROM FAAE.Habitacion WHERE habi_hote_codigo = @hote_codigo --dame todas las habitaciones que esten en este hotel
+		FROM FAAE.Habitacion 
+		WHERE habi_hote_codigo = @hote_codigo --dame todas las habitaciones que esten en este hotel
 		AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion 
-		WHERE reha_hote_codigo = @hote_codigo AND habi_nro = reha_habi_nro)) -- y que no aparezca en ninguna reservaHabi que tenga ese hotel		   
+		WHERE reha_hote_codigo = @hote_codigo AND habi_nro = reha_habi_nro) -- y que no aparezca en ninguna reservaHabi que tenga ese hotel
+		AND habi_tipo_codigo = @habi_tipo_codigo) --y que sea de este tipo		   
 END
 GO
 
 CREATE PROCEDURE FAAE.guardar_reservaPorHabitacion
-@reha_rese_codigo numeric(10), @rese_hote_codigo numeric(10), @reha_precio numeric(10)
+@reha_rese_codigo numeric(10), @rese_hote_codigo numeric(10), @reha_precio numeric(10), @habi_tipo_codigo numeric(10)
 AS
 BEGIN
 		BEGIN --nuevas reserva_habitacion, la cantidad depende de la reserva(un for se encarga de eso)
 		INSERT INTO FAAE.Reserva_Habitacion
 		(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio)
-		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo), @rese_hote_codigo, @reha_precio)
+		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo, @habi_tipo_codigo), @rese_hote_codigo, @reha_precio)
 		END
 END			
 GO
-
 
 --para generarOModificarReserva
 CREATE PROCEDURE FAAE.guardar_cliente
@@ -1225,6 +1226,41 @@ BEGIN
 END				
 GO
 
+
+CREATE PROCEDURE FAAE.modificar_reserva
+@rese_codigo numeric(10), @rese_fecha_desde smalldatetime, @rese_fecha_hasta smalldatetime, @rese_regi_codigo nvarchar(30)
+AS
+BEGIN
+		UPDATE FAAE.Reserva 
+		SET rese_fecha_desde = @rese_fecha_desde,
+			rese_fecha_hasta = @rese_fecha_hasta,
+			rese_regi_codigo = @rese_regi_codigo
+		WHERE rese_codigo = @rese_codigo
+END				
+GO
+
+--borra las reservas_habitaciones creadas junto a la reserva (no borra a la reserva ppal.)
+CREATE PROCEDURE FAAE.borrar_habitacionesDeReservaAntigua
+@rese_codigo numeric(10) 
+AS
+BEGIN
+		DELETE FROM FAAE.Reserva_Habitacion
+		WHERE reha_rese_codigo = @rese_codigo
+END				
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
 --determinar disponibilidad de habitacion, prueba MIRA LO QUE ESTA ESE JOIN PAPA
 SELECT COUNT(habi_nro) AS cantDisponibles 
 FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo)
@@ -1236,6 +1272,21 @@ AND reho_regi_codigo LIKE 'All Inclusive' -- tal regimen
 AND hote_codigo = 1 -- tal hotel, ejemplo hotel codigo 1
 AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion -- y que no pertenezca a ninguna reserva de ese hotel
 		WHERE reha_hote_codigo = 1 AND habi_nro = reha_habi_nro) -- ejemplo hotel codigo 1
+
+SELECT *
+FROM FAAE.Reserva
+WHERE rese_codigo = 106974
+
+DELETE FROM FAAE.Reserva_Habitacion
+		WHERE reha_rese_codigo = 106972
+
+SELECT COUNT(reha_habi_nro) cantDeHabitaciones
+FROM FAAE.Reserva_Habitacion
+WHERE reha_rese_codigo =  10005
+
+SELECT *
+FROM FAAE.Reserva_Habitacion
+WHERE reha_habi_nro =  117
 
 --query para saber el tipo de una reserva
 SELECT DISTINCT tipo_descripcion
