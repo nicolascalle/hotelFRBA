@@ -47,16 +47,17 @@ namespace FrbaHotel.GenerarOModificarReserva
                     frmInformarCostoDeLaReserva ventanaCosto = new frmInformarCostoDeLaReserva(costoDeRegimen);
                     ventanaCosto.ShowDialog();
                     if (ventanaCosto.aceptoCosto())
-                    {            
-                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value);//, cbTipoHab.Text.ToString(), cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
+                    {
+                        frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
+                        ventanaCliente.ShowDialog();
+                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, Convert.ToInt32(tbNombreHotel.Text), DBConnection.getInstance().getCliente());//falta enviar regimen // cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
                         nuevaReserva.guardar();
-                        this.obtenerNumeroReserva();
+                        this.obtenerNumeroReserva(); //solo se puede obtener el numero despues de haberlo guardado
                         nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
                        // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
                         nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
 
-                        frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
-                        ventanaCliente.ShowDialog();
+                        
                         this.Close();
                         frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
                         ventanaMostrarNumReserva.ShowDialog();

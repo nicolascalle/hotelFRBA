@@ -1167,14 +1167,14 @@ go
 CREATE PROCEDURE FAAE.guardar_reserva
 @rese_fecha_desde smalldatetime, @rese_fecha_hasta smalldatetime, 
 @rese_hote_codigo numeric(10)--, @rese_regi_codigo nvarchar(30) 
---,@rese_clie_doc_tipo nvarchar(10), @rese_clie_doc_nro numeric(10), @rese_clie_mail nvarchar(50)
+,@rese_clie_doc_tipo nvarchar(10), @rese_clie_doc_nro numeric(10), @rese_clie_mail nvarchar(50)
 AS
 BEGIN
 		BEGIN --nuevo registro
 			INSERT INTO FAAE.Reserva
-			(rese_fecha_realizacion, rese_fecha_desde, rese_fecha_hasta, rese_hote_codigo)
-			VALUES(getdate(), @rese_fecha_desde, @rese_fecha_hasta, @rese_hote_codigo)
-			--, @rese_regi_codigo, @rese_clie_doc_tipo, @rese_clie_doc_nro, @rese_clie_mail)
+			(rese_fecha_realizacion, rese_fecha_desde, rese_fecha_hasta, rese_hote_codigo, rese_clie_doc_tipo, rese_clie_doc_nro, rese_clie_mail)
+			VALUES(getdate(), @rese_fecha_desde, @rese_fecha_hasta, @rese_hote_codigo, @rese_clie_doc_tipo, @rese_clie_doc_nro, @rese_clie_mail)
+			--, @rese_regi_codigo)
 		END
 END
 GO

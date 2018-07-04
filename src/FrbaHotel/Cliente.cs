@@ -48,6 +48,13 @@ namespace FrbaHotel
             this.depto = depto;
         }
 
+        public Cliente(string tipoDoc, int nroDoc, string mail) //para guardarlo en la reserva solo necesita estos 3 atributos
+        {
+            this.tipoDoc = tipoDoc;
+            this.nroDoc = nroDoc;
+            this.mail = mail;
+        }
+
 
 
         public void setTipoDoc(string tipoDoc) { this.tipoDoc = tipoDoc; }

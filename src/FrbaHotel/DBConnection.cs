@@ -14,6 +14,7 @@ namespace FrbaHotel {
         private static readonly DBConnection instance = new DBConnection();
         private SqlConnection connection;
         private Usuario usuario;
+        private Cliente cliente;
 
         public DBConnection() { }
 
@@ -21,6 +22,8 @@ namespace FrbaHotel {
 
         public Usuario getUsuario() { return usuario; }
         public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+        public void setCliente(Cliente cliente) { this.cliente = cliente; }
+        public Cliente getCliente() { return cliente; }
 
         public SqlConnection getConnection() {
             if (connection == null ) {

@@ -48,12 +48,14 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void buscarPorDocumento()
         {
-            string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_doc_tipo LIKE '" + cbDocTipo.Text.ToString() + "' AND clie_doc_nro = " + tbDocNro.Text.ToString();
+            string query = "SELECT clie_nombre, clie_apellido, clie_doc_tipo, clie_doc_nro, clie_mail FROM FAAE.Cliente WHERE clie_doc_tipo LIKE '" + cbDocTipo.Text.ToString() + "' AND clie_doc_nro = " + tbDocNro.Text.ToString();
             dataReader = DBConnection.getInstance().executeQuery(query);
             if (dataReader.Read())
             {
                 string nombre = dataReader["clie_nombre"].ToString();
                 string apellido = dataReader["clie_apellido"].ToString();
+                Cliente unCliente = new Cliente(dataReader["clie_doc_tipo"].ToString(), Convert.ToInt32(dataReader["clie_doc_nro"]), dataReader["clie_mail"].ToString());
+                DBConnection.getInstance().setCliente(unCliente);
                 dataReader.Close();
                 this.Close();
                 frmMostrarCliente ventanaCliente = new frmMostrarCliente(nombre + " " + apellido);
@@ -68,12 +70,14 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         private void buscarPorMail()
         {
-            string query = "SELECT clie_nombre, clie_apellido FROM FAAE.Cliente WHERE clie_mail LIKE '" + tbMail.Text.ToString() + "'";
+            string query = "SELECT clie_nombre, clie_apellido, clie_doc_tipo, clie_doc_nro, clie_mail FROM FAAE.Cliente WHERE clie_mail LIKE '" + tbMail.Text.ToString() + "'";
             dataReader = DBConnection.getInstance().executeQuery(query);
             if (dataReader.Read())
             {
                 string nombre = dataReader["clie_nombre"].ToString();
                 string apellido = dataReader["clie_apellido"].ToString();
+                Cliente unCliente = new Cliente(dataReader["clie_doc_tipo"].ToString(), Convert.ToInt32(dataReader["clie_doc_nro"]), dataReader["clie_mail"].ToString());
+                DBConnection.getInstance().setCliente(unCliente);
                 dataReader.Close();
                 this.Close();
                 frmMostrarCliente ventanaCliente = new frmMostrarCliente(nombre + " " + apellido);

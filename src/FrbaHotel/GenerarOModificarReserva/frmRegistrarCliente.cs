@@ -26,6 +26,8 @@ namespace FrbaHotel.GenerarOModificarReserva
 
         public void guardarCliente()
         {
+            Cliente unCliente = new Cliente(cbDocTipo.Text.ToString(), Convert.ToInt32(tbDocNro.Text), tbMail.Text.ToString()); //Cliente para la reserva
+            DBConnection.getInstance().setCliente(unCliente); //Cliente para la reserva
             string[] param = { "@clie_nombre", "@clie_apellido", "@clie_doc_tipo", 
                                  "@clie_doc_nro", "@clie_mail", "@clie_telefono", 
                                  "@clie_dire_calle",  "@clie_dire_nro", "@clie_dire_localidad"
