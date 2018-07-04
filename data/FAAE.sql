@@ -836,15 +836,15 @@ END
 GO
 
 --Baja
-CREATE PROCEDURE FAAE.baja_habitacion
-@habi_nro numeric(10), @habi_hote_codigo numeric(10)
-AS
-BEGIN
-	DELETE FROM FAAE.Habitacion
-	WHERE habi_nro = @habi_nro
-	AND habi_hote_codigo = @habi_hote_codigo
-END
-GO
+--CREATE PROCEDURE FAAE.baja_habitacion
+--@habi_nro numeric(10), @habi_hote_codigo numeric(10)
+--AS
+--BEGIN
+--	DELETE FROM FAAE.Habitacion
+--	WHERE habi_nro = @habi_nro
+--	AND habi_hote_codigo = @habi_hote_codigo
+--END
+--GO
 
 --Inhabilitar
 CREATE PROCEDURE FAAE.inhabilitar_habitacion
