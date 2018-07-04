@@ -19,13 +19,11 @@ namespace FrbaHotel.GenerarOModificarReserva
         private string numReserva;
         private int cantDeHabitaciones;
         private int precioPorHabitacion;
-        private int numeroHotel;
-        private string nombreHotel;
 
         public frmGenerarReserva(string tipoUsuario)
         {
             InitializeComponent();
-            dtFechaInicioReserva.MinDate = dtFechaInicioReserva.Value;
+            //dtFechaInicioReserva.MinDate = dtFechaInicioReserva.Value;
             if (tipoUsuario == "guest")
             {
 

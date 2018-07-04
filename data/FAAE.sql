@@ -187,6 +187,14 @@ IF OBJECT_ID('FAAE.guardar_cliente') IS NOT NULL
 IF OBJECT_ID('FAAE.encriptar_contrasena_update') IS NOT NULL
     DROP TRIGGER FAAE.encriptar_contrasena_update;
 
+IF OBJECT_ID('FAAE.modificar_reserva') IS NOT NULL
+    DROP PROC FAAE.modificar_reserva;
+
+IF OBJECT_ID('FAAE.borrar_habitacionesDeReservaAntigua') IS NOT NULL
+    DROP PROC FAAE.borrar_habitacionesDeReservaAntigua;
+Go
+
+
 GO
 
 
@@ -1210,7 +1218,7 @@ BEGIN
 END			
 GO
 
---para generarOModificarReserva
+--para generar Reserva
 CREATE PROCEDURE FAAE.guardar_cliente
 @clie_nombre nvarchar(25), @clie_apellido nvarchar(25), @clie_doc_tipo nvarchar(10), 
 @clie_doc_nro numeric(10), @clie_mail nvarchar(50) , @clie_telefono nvarchar(16), 
@@ -1234,7 +1242,8 @@ BEGIN
 		UPDATE FAAE.Reserva 
 		SET rese_fecha_desde = @rese_fecha_desde,
 			rese_fecha_hasta = @rese_fecha_hasta,
-			rese_regi_codigo = @rese_regi_codigo
+			rese_regi_codigo = @rese_regi_codigo,
+			rese_estado = 'Reserva modificada'
 		WHERE rese_codigo = @rese_codigo
 END				
 GO
@@ -1248,48 +1257,3 @@ BEGIN
 		WHERE reha_rese_codigo = @rese_codigo
 END				
 GO
-
-
-
-
-
-
-
-
-
-
-
-
-
---determinar disponibilidad de habitacion, prueba MIRA LO QUE ESTA ESE JOIN PAPA
-SELECT COUNT(habi_nro) AS cantDisponibles 
-FROM FAAE.Habitacion JOIN FAAE.Hotel ON (habi_hote_codigo = hote_codigo)
-JOIN FAAE.Regimen_Hotel ON (hote_codigo = reho_hote_codigo) 
-WHERE habi_tipo_codigo = (SELECT tipo_codigo FROM FAAE.Tipo WHERE tipo_descripcion LIKE 'Base Simple') -- esa habitacion de tipo tal
-AND 
-habi_habilitada = 1  --  que este habilitada
-AND reho_regi_codigo LIKE 'All Inclusive' -- tal regimen
-AND hote_codigo = 1 -- tal hotel, ejemplo hotel codigo 1
-AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion -- y que no pertenezca a ninguna reserva de ese hotel
-		WHERE reha_hote_codigo = 1 AND habi_nro = reha_habi_nro) -- ejemplo hotel codigo 1
-
-SELECT *
-FROM FAAE.Reserva
-WHERE rese_codigo = 106974
-
-DELETE FROM FAAE.Reserva_Habitacion
-		WHERE reha_rese_codigo = 106972
-
-SELECT COUNT(reha_habi_nro) cantDeHabitaciones
-FROM FAAE.Reserva_Habitacion
-WHERE reha_rese_codigo =  10005
-
-SELECT *
-FROM FAAE.Reserva_Habitacion
-WHERE reha_habi_nro =  117
-
---query para saber el tipo de una reserva
-SELECT DISTINCT tipo_descripcion
-FROM FAAE.Reserva_Habitacion JOIN FAAE.Habitacion ON (reha_habi_nro = habi_nro AND reha_hote_codigo = habi_hote_codigo)
-	 JOIN FAAE.Tipo ON (tipo_codigo = habi_tipo_codigo)
-WHERE reha_rese_codigo =  10001

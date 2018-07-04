@@ -54,7 +54,8 @@ namespace FrbaHotel.GenerarOModificarReserva
         private bool quiereModificarUnDiaAntes()
         {
             TimeSpan diferencia = fechaDeHoy - fechaInicioReserva;
-            return diferencia.Days < 1;
+            TimeSpan baseInterval = new TimeSpan(24, 0, 0);
+            return baseInterval > diferencia;
         }
 
 

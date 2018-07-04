@@ -57,7 +57,7 @@
             this.tbNombreHotel.Location = new System.Drawing.Point(230, 56);
             this.tbNombreHotel.Name = "tbNombreHotel";
             this.tbNombreHotel.Size = new System.Drawing.Size(100, 20);
-            this.tbNombreHotel.TabIndex = 82;
+            this.tbNombreHotel.TabIndex = 2;
             // 
             // label5
             // 
@@ -74,7 +74,7 @@
             this.dtFechaFinalReserva.Margin = new System.Windows.Forms.Padding(2);
             this.dtFechaFinalReserva.Name = "dtFechaFinalReserva";
             this.dtFechaFinalReserva.Size = new System.Drawing.Size(192, 20);
-            this.dtFechaFinalReserva.TabIndex = 78;
+            this.dtFechaFinalReserva.TabIndex = 4;
             // 
             // dtFechaInicioReserva
             // 
@@ -82,14 +82,14 @@
             this.dtFechaInicioReserva.Margin = new System.Windows.Forms.Padding(2);
             this.dtFechaInicioReserva.Name = "dtFechaInicioReserva";
             this.dtFechaInicioReserva.Size = new System.Drawing.Size(192, 20);
-            this.dtFechaInicioReserva.TabIndex = 77;
+            this.dtFechaInicioReserva.TabIndex = 3;
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(13, 217);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 27);
-            this.btnGuardar.TabIndex = 76;
+            this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -123,7 +123,7 @@
             this.cbTipoRegimen.Location = new System.Drawing.Point(226, 175);
             this.cbTipoRegimen.Name = "cbTipoRegimen";
             this.cbTipoRegimen.Size = new System.Drawing.Size(121, 21);
-            this.cbTipoRegimen.TabIndex = 73;
+            this.cbTipoRegimen.TabIndex = 6;
             // 
             // label1
             // 
@@ -146,7 +146,7 @@
             this.cbTipoHab.Location = new System.Drawing.Point(226, 148);
             this.cbTipoHab.Name = "cbTipoHab";
             this.cbTipoHab.Size = new System.Drawing.Size(121, 21);
-            this.cbTipoHab.TabIndex = 71;
+            this.cbTipoHab.TabIndex = 5;
             // 
             // label7
             // 
@@ -162,7 +162,7 @@
             this.tbNumeroDeReserva.Location = new System.Drawing.Point(230, 27);
             this.tbNumeroDeReserva.Name = "tbNumeroDeReserva";
             this.tbNumeroDeReserva.Size = new System.Drawing.Size(100, 20);
-            this.tbNumeroDeReserva.TabIndex = 84;
+            this.tbNumeroDeReserva.TabIndex = 1;
             // 
             // frmModificarReserva
             // 
