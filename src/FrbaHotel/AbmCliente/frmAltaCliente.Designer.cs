@@ -50,7 +50,6 @@
             this.cbHabilitado = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.tbTipoDoc = new System.Windows.Forms.TextBox();
             this.tbNroDoc = new System.Windows.Forms.TextBox();
             this.tbNumero = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -61,11 +60,12 @@
             this.tbDepto = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnAtras = new System.Windows.Forms.Button();
+            this.cbTipoDoc = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // dtFechaNac
             // 
-            this.dtFechaNac.Location = new System.Drawing.Point(165, 312);
+            this.dtFechaNac.Location = new System.Drawing.Point(391, 109);
             this.dtFechaNac.Margin = new System.Windows.Forms.Padding(2);
             this.dtFechaNac.Name = "dtFechaNac";
             this.dtFechaNac.Size = new System.Drawing.Size(192, 20);
@@ -73,7 +73,7 @@
             // 
             // tbNacionalidad
             // 
-            this.tbNacionalidad.Location = new System.Drawing.Point(166, 269);
+            this.tbNacionalidad.Location = new System.Drawing.Point(392, 85);
             this.tbNacionalidad.Margin = new System.Windows.Forms.Padding(2);
             this.tbNacionalidad.Name = "tbNacionalidad";
             this.tbNacionalidad.Size = new System.Drawing.Size(91, 20);
@@ -81,7 +81,7 @@
             // 
             // tbCalle
             // 
-            this.tbCalle.Location = new System.Drawing.Point(166, 171);
+            this.tbCalle.Location = new System.Drawing.Point(166, 174);
             this.tbCalle.Margin = new System.Windows.Forms.Padding(2);
             this.tbCalle.Name = "tbCalle";
             this.tbCalle.Size = new System.Drawing.Size(92, 20);
@@ -94,6 +94,7 @@
             this.tbTelefono.Name = "tbTelefono";
             this.tbTelefono.Size = new System.Drawing.Size(92, 20);
             this.tbTelefono.TabIndex = 37;
+            this.tbTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroDoc_KeyPress);
             // 
             // tbMail
             // 
@@ -114,7 +115,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(55, 294);
+            this.label9.Location = new System.Drawing.Point(283, 198);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 13);
@@ -124,7 +125,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(56, 272);
+            this.label7.Location = new System.Drawing.Point(282, 88);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 13);
@@ -134,7 +135,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(56, 222);
+            this.label6.Location = new System.Drawing.Point(283, 42);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 13);
@@ -144,7 +145,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(56, 173);
+            this.label5.Location = new System.Drawing.Point(56, 176);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 13);
@@ -174,7 +175,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 318);
+            this.label2.Location = new System.Drawing.Point(281, 115);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(109, 13);
@@ -193,7 +194,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(331, 390);
+            this.btnAceptar.Location = new System.Drawing.Point(511, 224);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(62, 26);
@@ -231,7 +232,7 @@
             // 
             // tbLocalidad
             // 
-            this.tbLocalidad.Location = new System.Drawing.Point(166, 219);
+            this.tbLocalidad.Location = new System.Drawing.Point(393, 39);
             this.tbLocalidad.Margin = new System.Windows.Forms.Padding(2);
             this.tbLocalidad.Name = "tbLocalidad";
             this.tbLocalidad.Size = new System.Drawing.Size(92, 20);
@@ -240,7 +241,7 @@
             // cbHabilitado
             // 
             this.cbHabilitado.AutoSize = true;
-            this.cbHabilitado.Location = new System.Drawing.Point(128, 293);
+            this.cbHabilitado.Location = new System.Drawing.Point(356, 197);
             this.cbHabilitado.Name = "cbHabilitado";
             this.cbHabilitado.Size = new System.Drawing.Size(15, 14);
             this.cbHabilitado.TabIndex = 47;
@@ -264,14 +265,6 @@
             this.label10.TabIndex = 50;
             this.label10.Text = "Numero documento:";
             // 
-            // tbTipoDoc
-            // 
-            this.tbTipoDoc.Location = new System.Drawing.Point(166, 39);
-            this.tbTipoDoc.Margin = new System.Windows.Forms.Padding(2);
-            this.tbTipoDoc.Name = "tbTipoDoc";
-            this.tbTipoDoc.Size = new System.Drawing.Size(92, 20);
-            this.tbTipoDoc.TabIndex = 51;
-            // 
             // tbNroDoc
             // 
             this.tbNroDoc.Location = new System.Drawing.Point(166, 62);
@@ -279,19 +272,22 @@
             this.tbNroDoc.Name = "tbNroDoc";
             this.tbNroDoc.Size = new System.Drawing.Size(92, 20);
             this.tbNroDoc.TabIndex = 52;
+            this.tbNroDoc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroDoc_KeyPress);
             // 
             // tbNumero
             // 
-            this.tbNumero.Location = new System.Drawing.Point(165, 195);
+            this.tbNumero.Location = new System.Drawing.Point(166, 198);
             this.tbNumero.Margin = new System.Windows.Forms.Padding(2);
             this.tbNumero.Name = "tbNumero";
             this.tbNumero.Size = new System.Drawing.Size(92, 20);
             this.tbNumero.TabIndex = 54;
+
+            this.tbNumero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroDoc_KeyPress);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(55, 197);
+            this.label12.Location = new System.Drawing.Point(56, 200);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(47, 13);
@@ -300,7 +296,7 @@
             // 
             // tbPais
             // 
-            this.tbPais.Location = new System.Drawing.Point(165, 243);
+            this.tbPais.Location = new System.Drawing.Point(392, 63);
             this.tbPais.Margin = new System.Windows.Forms.Padding(2);
             this.tbPais.Name = "tbPais";
             this.tbPais.Size = new System.Drawing.Size(92, 20);
@@ -309,7 +305,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(55, 246);
+            this.label13.Location = new System.Drawing.Point(282, 66);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(27, 13);
@@ -318,16 +314,17 @@
             // 
             // tbPiso
             // 
-            this.tbPiso.Location = new System.Drawing.Point(166, 336);
+            this.tbPiso.Location = new System.Drawing.Point(392, 133);
             this.tbPiso.Margin = new System.Windows.Forms.Padding(2);
             this.tbPiso.Name = "tbPiso";
             this.tbPiso.Size = new System.Drawing.Size(92, 20);
             this.tbPiso.TabIndex = 58;
+            this.tbPiso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNroDoc_KeyPress);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(56, 339);
+            this.label14.Location = new System.Drawing.Point(282, 136);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(27, 13);
@@ -336,7 +333,7 @@
             // 
             // tbDepto
             // 
-            this.tbDepto.Location = new System.Drawing.Point(166, 360);
+            this.tbDepto.Location = new System.Drawing.Point(392, 157);
             this.tbDepto.Margin = new System.Windows.Forms.Padding(2);
             this.tbDepto.Name = "tbDepto";
             this.tbDepto.Size = new System.Drawing.Size(92, 20);
@@ -345,7 +342,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(56, 363);
+            this.label15.Location = new System.Drawing.Point(282, 160);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(36, 13);
@@ -354,7 +351,7 @@
             // 
             // btnAtras
             // 
-            this.btnAtras.Location = new System.Drawing.Point(58, 390);
+            this.btnAtras.Location = new System.Drawing.Point(393, 226);
             this.btnAtras.Name = "btnAtras";
             this.btnAtras.Size = new System.Drawing.Size(75, 23);
             this.btnAtras.TabIndex = 61;
@@ -362,11 +359,20 @@
             this.btnAtras.UseVisualStyleBackColor = true;
             this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
             // 
+            // cbTipoDoc
+            // 
+            this.cbTipoDoc.FormattingEnabled = true;
+            this.cbTipoDoc.Location = new System.Drawing.Point(166, 36);
+            this.cbTipoDoc.Name = "cbTipoDoc";
+            this.cbTipoDoc.Size = new System.Drawing.Size(92, 21);
+            this.cbTipoDoc.TabIndex = 62;
+            // 
             // frmAltaCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 427);
+            this.ClientSize = new System.Drawing.Size(601, 272);
+            this.Controls.Add(this.cbTipoDoc);
             this.Controls.Add(this.btnAtras);
             this.Controls.Add(this.tbDepto);
             this.Controls.Add(this.label15);
@@ -377,7 +383,6 @@
             this.Controls.Add(this.tbNumero);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.tbNroDoc);
-            this.Controls.Add(this.tbTipoDoc);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cbHabilitado);
@@ -431,7 +436,6 @@
         private System.Windows.Forms.CheckBox cbHabilitado;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbTipoDoc;
         private System.Windows.Forms.TextBox tbNroDoc;
         private System.Windows.Forms.TextBox tbNumero;
         private System.Windows.Forms.Label label12;
@@ -442,6 +446,7 @@
         private System.Windows.Forms.TextBox tbDepto;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnAtras;
+        private System.Windows.Forms.ComboBox cbTipoDoc;
 
     }
 }

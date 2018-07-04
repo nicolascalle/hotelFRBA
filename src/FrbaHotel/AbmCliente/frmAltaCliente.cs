@@ -17,13 +17,14 @@ namespace FrbaHotel.AbmCliente
         public frmAltaCliente()
         {
             InitializeComponent();
+            this.setDocTipoOptions();
         }
 
         private int habilitado;
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string tipoDoc = tbTipoDoc.Text.ToString();
+            string tipoDoc = cbTipoDoc.Text.ToString();
             int nroDoc = Convert.ToInt32(tbNroDoc.Text);
             string nombre = tbNombre.Text.ToString();
             string apellido = tbApellido.Text.ToString();
@@ -49,6 +50,29 @@ namespace FrbaHotel.AbmCliente
             this.Close();
             frmABMCliente abmCliente = new frmABMCliente();
             abmCliente.Show();
+        }
+
+        private void setDocTipoOptions()
+        {
+            new List<string>() { "Pasaporte", "DNI", "LE" }.ForEach(docTipo => cbTipoDoc.Items.Add(docTipo));
+            cbTipoDoc.SelectedItem = "Pasaporte";
+        }
+
+        private void tbTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+        private void tbNroDoc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+        private void tbNumero_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+        private void tbPiso_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
       
     }
