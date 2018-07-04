@@ -119,20 +119,6 @@ namespace FrbaHotel {
             this.exists = dataReader.Read();
             dataReader.Close();
             return this.exists;
-
-            //String user, pass;
-            //SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT usua_username, usua_password FROM FAAE.Usuario");
-
-            //while (dataReader.Read()) {
-            //    user = (dataReader["usua_username"].ToString());
-            //    pass = (dataReader["usua_password"].ToString());
-            //    if ( this.coincide(user, pass) ) {
-            //        dataReader.Close();
-            //        return this.exists = true;
-            //    }
-            //}
-            //dataReader.Close();
-            //return this.exists = false;
         }
 
         private void limpiarLoginFallidos() {
@@ -146,24 +132,6 @@ namespace FrbaHotel {
             string[] args = { this.username };
             DBConnection.getInstance().executeProcedure("FAAE.login_fallido", param, args);
         }
-
-        private bool coincide(string usuario, string contrasena) {
-            return usuario.Equals(this.username) && contrasena.Equals(this.password);      
-        }
-
-        //private string encriptarContrasena()
-        //{
-        //    byte[] bytes = Encoding.UTF8.GetBytes(this.password);
-        //    System.Security.Cryptography.SHA256Managed sha256hashstring = new System.Security.Cryptography.SHA256Managed();
-
-        //    byte[] hash = sha256hashstring.ComputeHash(bytes);
-        //    string hashstring = string.Empty;
-        //    foreach (byte x in hash) {
-        //        hashstring += String.Format("{0:x2}", x);
-
-        //    }
-        //    return hashstring;
-        //}
 
         public void inhabilitar() {
             string[] param = { "@username" };
@@ -181,7 +149,7 @@ namespace FrbaHotel {
                 this.docTipo = dataReader["usua_doc_tipo"].ToString();
                 this.docNro = Convert.ToInt64(dataReader["usua_doc_nro"].ToString());
                 this.username = dataReader["usua_username"].ToString();
-                this.password = dataReader["usua_password"].ToString();
+                //this.password = dataReader["usua_password"].ToString();
                 this.nombre = dataReader["usua_nombre"].ToString();
                 this.apellido = dataReader["usua_apellido"].ToString();
                 this.mail = dataReader["usua_mail"].ToString();
@@ -215,7 +183,6 @@ namespace FrbaHotel {
                 nom = dataReader["hote_nombre"].ToString();
                 this.hoteles.Add(new Hotel(cod, nom));            
             }
-
             dataReader.Close();
         }
 

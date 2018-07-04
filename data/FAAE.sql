@@ -725,8 +725,18 @@ CREATE PROCEDURE FAAE.eliminar_regimenes_hotel
 @hote_codigo NUMERIC(10)
 AS
 BEGIN
-	DELETE FROM FAAE.Regimen_Hotel
-		WHERE reho_hote_codigo = @hote_codigo
+	BEGIN TRY
+		DELETE FROM FAAE.Regimen_Hotel
+			WHERE reho_hote_codigo = @hote_codigo
+	END TRY
+	BEGIN CATCH
+		IF ERROR_NUMBER() != 547
+		BEGIN
+			DECLARE @ErrorMessage NVARCHAR(255)
+			SELECT @ErrorMessage = ERROR_MESSAGE()
+			RAISERROR (@ErrorMessage, 17, 1)
+		END
+	END CATCH
 END
 
 GO
@@ -857,7 +867,6 @@ CREATE PROCEDURE FAAE.guardar_usuario
 @usua_hote_codigo_ultimo_log_in numeric(10), @usua_habilitado bit
 AS
 BEGIN
-	
 	IF @usua_hote_codigo_ultimo_log_in = 0 
 		SET @usua_hote_codigo_ultimo_log_in = NULL
 
@@ -867,7 +876,7 @@ BEGIN
 				SET usua_doc_tipo = @usua_doc_tipo,
 					usua_doc_nro = @usua_doc_nro,
 					usua_username = @usua_username,
-					usua_password = @usua_password,
+					--usua_password = @usua_password,
 					usua_nombre = @usua_nombre, 
 					usua_mail = @usua_mail, 
 					usua_telefono = @usua_telefono, 
@@ -878,6 +887,11 @@ BEGIN
 					usua_hote_codigo_ultimo_log_in = @usua_hote_codigo_ultimo_log_in, 
 					usua_habilitado = @usua_habilitado 
 				WHERE usua_username = @usua_username
+
+			IF @usua_password IS NOT NULL AND @usua_password != ''
+				UPDATE FAAE.Usuario 
+					SET usua_password = @usua_password
+					WHERE usua_username = @usua_username
 		END
 	ELSE
 		BEGIN

@@ -62,13 +62,14 @@ namespace FrbaHotel.AbmUsuario {
                 else {
                     usuario.setDocTipo(cbDocTipo.SelectedItem.ToString());
                     usuario.setDocNro(Convert.ToInt64(tbDocNro.Text));
-                    usuario.setUsername(tbUsername.Text.ToString());
-                    usuario.setPassword(tbPassword.Text.ToString());
-                    usuario.setNombre(tbNombre.Text.ToString());
-                    usuario.setApellido(tbApellido.Text.ToString());
-                    usuario.setMail(tbMail.Text.ToString());
-                    usuario.setTelefono(tbTelefono.Text.ToString());
-                    usuario.setDireCalle(tbDireCalle.Text.ToString());
+                    usuario.setUsername(tbUsername.Text);
+                    if (tbPassword.Text.Length > 0)
+                        usuario.setPassword(tbPassword.Text);
+                    usuario.setNombre(tbNombre.Text);
+                    usuario.setApellido(tbApellido.Text);
+                    usuario.setMail(tbMail.Text);
+                    usuario.setTelefono(tbTelefono.Text);
+                    usuario.setDireCalle(tbDireCalle.Text);
                     usuario.setDireNro(Convert.ToInt64(tbDireNro.Text));
                     usuario.setFechaNacimiento(dtpFechaNacimiento.Value);
                     usuario.setHabilitado(cbHabilitado.Checked);
@@ -96,7 +97,7 @@ namespace FrbaHotel.AbmUsuario {
             cbDocTipo.Text          = usuario.getDocTipo();
             tbDocNro.Text           = usuario.getDocNro().ToString();
             tbUsername.Text         = usuario.getUsername();
-            tbPassword.Text         = usuario.getPassword();
+            //tbPassword.Text         = usuario.getPassword();
             tbNombre.Text           = usuario.getNombre();
             tbApellido.Text         = usuario.getApellido();
             tbMail.Text             = usuario.getMail();
@@ -143,7 +144,11 @@ namespace FrbaHotel.AbmUsuario {
         }
 
         public bool camposObligatoriosCompletos() {
-            return new List<Control> { cbDocTipo, tbDocNro, tbNombre, tbApellido, tbUsername, tbPassword, tbDireCalle, tbDireNro }.All(form => form.Text.Length != 0);
+            if (this.usuario == null) 
+                // Si es un nuevo usuario pide password
+                return new List<Control> { cbDocTipo, tbDocNro, tbNombre, tbApellido, tbUsername, tbPassword, tbDireCalle, tbDireNro }.All(form => form.Text.Length != 0);
+            else
+                return new List<Control> { cbDocTipo, tbDocNro, tbNombre, tbApellido, tbUsername, tbDireCalle, tbDireNro }.All(form => form.Text.Length != 0);
         }
 
         public void setLvProperties() {
