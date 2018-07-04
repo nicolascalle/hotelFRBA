@@ -63,17 +63,17 @@ namespace FrbaHotel {
             return exists;
         }
 
-        //public bool estadiaFinalizada() {
-        //    string query = "SELECT 1 FROM FAAE.Estadia WHERE esta_rese_codigo = " + this.reservaNro + " AND esta_fecha_salida IS NOT NULL";
-        //    SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
-        //    bool finalizada = dataReader.Read();
-        //    dataReader.Close();
-        //    return finalizada;
-        //}
+        public bool estadiaFinalizada() {
+            string query = "SELECT 1 FROM FAAE.Estadia WHERE esta_rese_codigo = " + this.reservaNro + " AND esta_fecha_salida IS NOT NULL";
+            SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
+            bool finalizada = dataReader.Read();
+            dataReader.Close();
+            return finalizada;
+        }
 
         public int cantidadNochesReservadas() {
             int cantNoches;
-            string query = "SELECT DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)-1 cantNoches FROM FROM FAAE.Reserva WHERE rese_codigo = " + this.reservaNro;
+            string query = "SELECT DATEDIFF(DAY, rese_fecha_desde, rese_fecha_hasta)-1 cantNoches FROM FAAE.Reserva WHERE rese_codigo = " + this.reservaNro;
             SqlDataReader dataReader = DBConnection.getInstance().executeQuery(query);
             dataReader.Read();
             cantNoches = Convert.ToInt32(dataReader["cantNoches"]);
@@ -91,6 +91,7 @@ namespace FrbaHotel {
                 this.nro = dataReader["fact_nro"].ToString();
                 this.hotelCodigo = Convert.ToInt64(dataReader["hote_codigo"]);
                 this.hotelNombre = dataReader["hote_nombre"].ToString();
+                this.regimen = dataReader["regi_codigo"].ToString();
                 this.nombreCliente = dataReader["nombreApellido"].ToString();
             }
             dataReader.Close();
@@ -115,12 +116,14 @@ namespace FrbaHotel {
         }
 
         public void guardar() {
-            string[] param1 = { "@fact_tipo", "@fact_nro", "fact_fecha", "fact_total", "fact_rese_codigo" };
+            string[] param1 = { "@fact_tipo", "@fact_nro", "@fact_fecha", "@fact_total", "@fact_rese_codigo" };
             object[] args1 = { this.tipo, this.nro, this.fecha, this.total, this.reservaNro };
             DBConnection.getInstance().executeProcedure("FAAE.guardar_factura", param1, args1);
-
+            
+            List<Item> consumibles = this.items;
+            consumibles.RemoveAt(0);  // El primer item siempre es la estadia, y se saltea
             string[] param2 = { "@fact_tipo", "@fact_nro", "@item_cons_codigo", "@cantidad", "@precio" };
-            this.items.ForEach(item => {
+            consumibles.ForEach(item => {
                 object[] args2 = { this.tipo, this.nro, item.getCodigo(), item.getCantidad(), item.getPrecioUnitario() };
                 DBConnection.getInstance().executeProcedure("FAAE.guardar_items_factura", param2, args2);
             });

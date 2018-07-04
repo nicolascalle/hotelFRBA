@@ -31,7 +31,7 @@ namespace FrbaHotel.FacturarEstadia {
                                 factura.agregarItem(this.getItem(i));
                             frmConfirmarFactura frmA = new frmConfirmarFactura();
                             frmA.setFactura(factura);
-                            frmA.Show();                        
+                            frmA.Show();
                             //} else this.msgEstadiaNoFinalizada();
                         } else this.msgReservaDeOtroHotel();
                     } else this.msgReservaCanceladaOFacturada();

@@ -54,14 +54,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 144);
+            this.label1.Location = new System.Drawing.Point(85, 177);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
+            this.label1.Size = new System.Drawing.Size(131, 17);
             this.label1.TabIndex = 45;
             this.label1.Text = "Tipo de Habitación:";
             // 
             // cbTipoHab
             // 
+            this.cbTipoHab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoHab.FormattingEnabled = true;
             this.cbTipoHab.Items.AddRange(new object[] {
             "Base Simple",
@@ -69,22 +71,25 @@
             "King",
             "Base Triple",
             "Base Cuádruple"});
-            this.cbTipoHab.Location = new System.Drawing.Point(186, 141);
+            this.cbTipoHab.Location = new System.Drawing.Point(248, 174);
+            this.cbTipoHab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbTipoHab.Name = "cbTipoHab";
-            this.cbTipoHab.Size = new System.Drawing.Size(121, 21);
+            this.cbTipoHab.Size = new System.Drawing.Size(160, 24);
             this.cbTipoHab.TabIndex = 5;
             // 
             // cbTipoRegimen
             // 
+            this.cbTipoRegimen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoRegimen.FormattingEnabled = true;
             this.cbTipoRegimen.Items.AddRange(new object[] {
             "All Inclusive",
             "All Inclusive moderado",
             "Media Pensión",
             "Pension Completa"});
-            this.cbTipoRegimen.Location = new System.Drawing.Point(186, 173);
+            this.cbTipoRegimen.Location = new System.Drawing.Point(248, 213);
+            this.cbTipoRegimen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbTipoRegimen.Name = "cbTipoRegimen";
-            this.cbTipoRegimen.Size = new System.Drawing.Size(121, 21);
+            this.cbTipoRegimen.Size = new System.Drawing.Size(160, 24);
             this.cbTipoRegimen.TabIndex = 6;
             // 
             // regimenBindingSource
@@ -109,26 +114,29 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(64, 176);
+            this.label3.Location = new System.Drawing.Point(85, 217);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(120, 17);
             this.label3.TabIndex = 48;
             this.label3.Text = "Tipo de Regimen:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(61, 90);
+            this.label4.Location = new System.Drawing.Point(81, 111);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.Size = new System.Drawing.Size(94, 17);
             this.label4.TabIndex = 49;
             this.label4.Text = "Fecha desde:";
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(25, 209);
+            this.btnGuardar.Location = new System.Drawing.Point(33, 257);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(75, 27);
+            this.btnGuardar.Size = new System.Drawing.Size(100, 33);
             this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
@@ -136,66 +144,71 @@
             // 
             // dtFechaInicioReserva
             // 
-            this.dtFechaInicioReserva.Location = new System.Drawing.Point(148, 84);
-            this.dtFechaInicioReserva.Margin = new System.Windows.Forms.Padding(2);
+            this.dtFechaInicioReserva.Location = new System.Drawing.Point(197, 103);
+            this.dtFechaInicioReserva.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtFechaInicioReserva.Name = "dtFechaInicioReserva";
-            this.dtFechaInicioReserva.Size = new System.Drawing.Size(192, 20);
+            this.dtFechaInicioReserva.Size = new System.Drawing.Size(255, 22);
             this.dtFechaInicioReserva.TabIndex = 3;
             // 
             // dtFechaFinalReserva
             // 
-            this.dtFechaFinalReserva.Location = new System.Drawing.Point(148, 112);
-            this.dtFechaFinalReserva.Margin = new System.Windows.Forms.Padding(2);
+            this.dtFechaFinalReserva.Location = new System.Drawing.Point(197, 138);
+            this.dtFechaFinalReserva.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtFechaFinalReserva.Name = "dtFechaFinalReserva";
-            this.dtFechaFinalReserva.Size = new System.Drawing.Size(192, 20);
+            this.dtFechaFinalReserva.Size = new System.Drawing.Size(255, 22);
             this.dtFechaFinalReserva.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(64, 118);
+            this.label5.Location = new System.Drawing.Point(85, 145);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 13);
+            this.label5.Size = new System.Drawing.Size(90, 17);
             this.label5.TabIndex = 53;
             this.label5.Text = "Fecha hasta:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(61, 62);
+            this.label2.Location = new System.Drawing.Point(81, 76);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 13);
+            this.label2.Size = new System.Drawing.Size(151, 17);
             this.label2.TabIndex = 54;
             this.label2.Text = "Cant. de Habitaciones:";
             // 
             // tbCantHabitaciones
             // 
-            this.tbCantHabitaciones.Location = new System.Drawing.Point(186, 59);
+            this.tbCantHabitaciones.Location = new System.Drawing.Point(248, 73);
+            this.tbCantHabitaciones.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbCantHabitaciones.Name = "tbCantHabitaciones";
-            this.tbCantHabitaciones.Size = new System.Drawing.Size(100, 20);
+            this.tbCantHabitaciones.Size = new System.Drawing.Size(132, 22);
             this.tbCantHabitaciones.TabIndex = 2;
             // 
             // tbNombreHotel
             // 
-            this.tbNombreHotel.Location = new System.Drawing.Point(186, 33);
+            this.tbNombreHotel.Location = new System.Drawing.Point(248, 41);
+            this.tbNombreHotel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbNombreHotel.Name = "tbNombreHotel";
-            this.tbNombreHotel.Size = new System.Drawing.Size(100, 20);
+            this.tbNombreHotel.Size = new System.Drawing.Size(132, 22);
             this.tbNombreHotel.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(61, 36);
+            this.label6.Location = new System.Drawing.Point(81, 44);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 13);
+            this.label6.Size = new System.Drawing.Size(122, 17);
             this.label6.TabIndex = 57;
             this.label6.Text = "Nombre del Hotel:";
             // 
             // frmGenerarReserva
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 253);
+            this.ClientSize = new System.Drawing.Size(487, 311);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tbNombreHotel);
             this.Controls.Add(this.tbCantHabitaciones);
@@ -209,6 +222,7 @@
             this.Controls.Add(this.cbTipoRegimen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbTipoHab);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmGenerarReserva";
             this.Text = "frmGenerarReserva";
             this.Load += new System.EventHandler(this.frmGenerarReserva_Load);

@@ -125,6 +125,13 @@ namespace FrbaHotel {
             object[] args1 = { this.codigo, this.nombre, this.mail, this.telefono, this.dire_calle, this.dire_nro, this.estrellas, this.ciudad, this.pais, sqlDate, this.recargaEstrellas };
             DBConnection.getInstance().executeProcedure("FAAE.guardar_hotel", param1, args1);
 
+            if (this.codigo == 0) {
+                SqlDataReader dataReader = DBConnection.getInstance().executeQuery("SELECT MAX(hote_codigo) hote_codigo FROM FAAE.Hotel");
+                dataReader.Read();
+                this.codigo = Convert.ToInt32(dataReader["hote_codigo"]);
+                dataReader.Close();
+            }
+
             string[] param2 = { "@hote_codigo" };
             object[] args2 = { this.codigo };
             DBConnection.getInstance().executeProcedure("FAAE.eliminar_regimenes_hotel", param2, args2);
