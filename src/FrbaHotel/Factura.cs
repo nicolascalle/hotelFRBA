@@ -98,7 +98,7 @@ namespace FrbaHotel {
 
             this.fecha = DateTime.Now;
             this.total = this.calcularTotalEstadia() + this.calcularTotalConsumibles();
-            this.agregarItem(new Item("0000", "Estadia " + this.cantidadNochesReservadas() + " noches", 1, this.getTotalEstadia()));
+            this.agregarItem(new Item("0000", "Estadia " + this.cantidadNochesReservadas() + " noches " + this.regimen, 1, this.getTotalEstadia()));
         }
 
         public decimal calcularTotalEstadia() {

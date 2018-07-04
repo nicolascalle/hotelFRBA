@@ -25,14 +25,14 @@ namespace FrbaHotel.FacturarEstadia {
                     if (factura.reservaCanceladaOFacturada()) {
                         factura.generar();
                         if (factura.getHotelCodigo() == DBConnection.getInstance().getUsuario().getHotelUltimoLogin()) {
-                            //if (factura.estadiaFinalizada()) {
+                            if (factura.estadiaFinalizada()) {
                             List<Item> items = new List<Item>();
                             for (int i = 0; i < lvConsumibles.Items.Count; i++)
                                 factura.agregarItem(this.getItem(i));
                             frmConfirmarFactura frmA = new frmConfirmarFactura();
                             frmA.setFactura(factura);
                             frmA.Show();
-                            //} else this.msgEstadiaNoFinalizada();
+                            } else this.msgEstadiaNoFinalizada();
                         } else this.msgReservaDeOtroHotel();
                     } else this.msgReservaCanceladaOFacturada();
                 } else this.msgCodigoReservaIncorrecto();
