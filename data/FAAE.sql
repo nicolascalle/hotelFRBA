@@ -1165,16 +1165,21 @@ go
 
 --generar reserva
 CREATE PROCEDURE FAAE.guardar_reserva
-@rese_fecha_desde smalldatetime, @rese_fecha_hasta smalldatetime, 
-@rese_hote_codigo numeric(10)--, @rese_regi_codigo nvarchar(30) 
-,@rese_clie_doc_tipo nvarchar(10), @rese_clie_doc_nro numeric(10), @rese_clie_mail nvarchar(50)
+@rese_fecha_desde smalldatetime, @rese_fecha_hasta smalldatetime, @rese_hote_codigo numeric(10), 
+@rese_regi_codigo nvarchar(30), @rese_clie_doc_tipo nvarchar(10), @rese_clie_doc_nro numeric(10), 
+@rese_clie_mail nvarchar(50)
 AS
 BEGIN
 		BEGIN --nuevo registro
 			INSERT INTO FAAE.Reserva
-			(rese_fecha_realizacion, rese_fecha_desde, rese_fecha_hasta, rese_hote_codigo, rese_clie_doc_tipo, rese_clie_doc_nro, rese_clie_mail)
-			VALUES(getdate(), @rese_fecha_desde, @rese_fecha_hasta, @rese_hote_codigo, @rese_clie_doc_tipo, @rese_clie_doc_nro, @rese_clie_mail)
-			--, @rese_regi_codigo)
+			(rese_fecha_realizacion, 
+			rese_fecha_desde, rese_fecha_hasta, rese_hote_codigo, 
+			rese_regi_codigo, rese_clie_doc_tipo, rese_clie_doc_nro, 
+			rese_clie_mail)
+			VALUES(getdate(), 
+			@rese_fecha_desde, @rese_fecha_hasta, @rese_hote_codigo, 
+			@rese_regi_codigo, @rese_clie_doc_tipo, @rese_clie_doc_nro, 
+			@rese_clie_mail)
 		END
 END
 GO
@@ -1192,14 +1197,15 @@ END
 GO
 
 CREATE PROCEDURE FAAE.guardar_reservaPorHabitacion
-@reha_rese_codigo numeric(10), @rese_hote_codigo numeric(10)
+@reha_rese_codigo numeric(10), @rese_hote_codigo numeric(10), @reha_precio numeric(10)
 AS
 BEGIN
-		--BEGIN --nuevos reserva_habitacion, la cantidad depende de la reserva
+		BEGIN --nuevas reserva_habitacion, la cantidad depende de la reserva(un for se encarga de eso)
 		INSERT INTO FAAE.Reserva_Habitacion
-		(reha_rese_codigo, reha_habi_nro,reha_hote_codigo)
-		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo) ,@rese_hote_codigo)
-END		--END		
+		(reha_rese_codigo, reha_habi_nro, reha_hote_codigo, reha_precio)
+		VALUES(@reha_rese_codigo, FAAE.obtenerPrimeraHabitacionDisponible(@rese_hote_codigo), @rese_hote_codigo, @reha_precio)
+		END
+END			
 GO
 
 
@@ -1230,3 +1236,9 @@ AND reho_regi_codigo LIKE 'All Inclusive' -- tal regimen
 AND hote_codigo = 1 -- tal hotel, ejemplo hotel codigo 1
 AND NOT exists (SELECT NULL FROM FAAE.Reserva_Habitacion -- y que no pertenezca a ninguna reserva de ese hotel
 		WHERE reha_hote_codigo = 1 AND habi_nro = reha_habi_nro) -- ejemplo hotel codigo 1
+
+--query para saber el tipo de una reserva
+SELECT DISTINCT tipo_descripcion
+FROM FAAE.Reserva_Habitacion JOIN FAAE.Habitacion ON (reha_habi_nro = habi_nro AND reha_hote_codigo = habi_hote_codigo)
+	 JOIN FAAE.Tipo ON (tipo_codigo = habi_tipo_codigo)
+WHERE reha_rese_codigo =  10001

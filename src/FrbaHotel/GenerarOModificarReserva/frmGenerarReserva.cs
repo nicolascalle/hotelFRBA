@@ -13,14 +13,16 @@ namespace FrbaHotel.GenerarOModificarReserva
 {
     public partial class frmGenerarReserva : Form
     {
-        long nroHotel;
-        SqlDataReader dataReader;
-        string regimen;
-        string numReserva;
-        string tipoUsuario;
+        private long nroHotel;
+        private SqlDataReader dataReader;
+        private string regimen;
+        private string numReserva;
+        private int cantDeHabitaciones;
+        private int precioPorHabitacion;
         public frmGenerarReserva(string tipoUsuario)
         {
             InitializeComponent();
+            
             dtFechaInicioReserva.MinDate = dtFechaInicioReserva.Value;
             if (tipoUsuario == "guest")
             {
@@ -32,11 +34,13 @@ namespace FrbaHotel.GenerarOModificarReserva
                 tbNombreHotel.Text = nroHotel.ToString();
                 tbNombreHotel.Enabled = false;
             }
+            
         }
 
        
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            cantDeHabitaciones = Convert.ToInt32(tbCantHabitaciones.Text);//no se porque si lo instancio mas abajo no me toma el numero
             if (this.camposObligatoriosCompletos())
             {
                 this.determinarRegimen();
@@ -50,14 +54,12 @@ namespace FrbaHotel.GenerarOModificarReserva
                     {
                         frmSeleccionarSiSeAlojoAlgunaVez ventanaCliente = new frmSeleccionarSiSeAlojoAlgunaVez();
                         ventanaCliente.ShowDialog();
-                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, Convert.ToInt32(tbNombreHotel.Text), DBConnection.getInstance().getCliente());//falta enviar regimen // cbTipoRegimen.Text.ToString()); Convert.ToInt32(cbTipoHab.Text.ToString()), 
+                        Reserva nuevaReserva = new Reserva(dtFechaInicioReserva.Value, dtFechaFinalReserva.Value, Convert.ToInt32(tbNombreHotel.Text), DBConnection.getInstance().getCliente(), this.regimen, this.precioPorHabitacion);
                         nuevaReserva.guardar();
                         this.obtenerNumeroReserva(); //solo se puede obtener el numero despues de haberlo guardado
                         nuevaReserva.setCodigo(Convert.ToInt32(this.numReserva));
-                       // for (int i = 0; i < Convert.ToInt32(tbCantHabitaciones.Text); i++)
-                        nuevaReserva.guardarReservaPorHabitacion();//falta que se haga varias veces
-
-                        
+                        for (int i = 0; i < cantDeHabitaciones; i++) //genera las reservasPorHabitacion
+                        {   nuevaReserva.guardarReservaPorHabitacion();    }   
                         this.Close();
                         frmMostrarNumeroDeReserva ventanaMostrarNumReserva = new frmMostrarNumeroDeReserva(this.numReserva);
                         ventanaMostrarNumReserva.ShowDialog();
@@ -93,7 +95,6 @@ namespace FrbaHotel.GenerarOModificarReserva
            else
                dataReader.Close();
                return false;
-           
         }
 
         private int calcularCostoDeHabitacion()
@@ -116,8 +117,9 @@ namespace FrbaHotel.GenerarOModificarReserva
             dataReader.Read();
             int precioHotel = (int) (Convert.ToDecimal(dataReader["hote_recarga_estrellas"].ToString()));
             dataReader.Close();
-            
-            return precioRegimen * precioTipo * precioHotel;   
+            precioPorHabitacion = precioRegimen * precioTipo * precioHotel;
+            int precioTotal = precioPorHabitacion * Convert.ToInt32(tbCantHabitaciones.Text);
+            return precioTotal;   
         }
 
         private void determinarRegimen()

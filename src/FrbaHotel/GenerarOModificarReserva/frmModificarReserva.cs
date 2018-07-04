@@ -14,7 +14,7 @@ namespace FrbaHotel.GenerarOModificarReserva
     public partial class frmModificarReserva : Form
     {
         string numeroReserva;
-        SqlDataReader dataReader;
+        SqlDataReader dataReader;        
         public frmModificarReserva(string numeroReserva)
         {
             InitializeComponent();
@@ -27,12 +27,19 @@ namespace FrbaHotel.GenerarOModificarReserva
             tbNumeroDeReserva.Text = numeroReserva;
             string query = "SELECT * FROM FAAE.Reserva WHERE rese_codigo = " + this.numeroReserva;
             dataReader = DBConnection.getInstance().executeQuery(query);
-            dataReader.Read();
-            tbNombreHotel.Text = dataReader["rese_hote_codigo"].ToString();
-            dtFechaInicioReserva.Value = Convert.ToDateTime(dataReader["rese_fecha_desde"]);
-            dtFechaFinalReserva.Value = Convert.ToDateTime(dataReader["rese_fecha_hasta"]);
-            cbTipoRegimen.Text = dataReader["rese_regi_codigo"].ToString();
-            dataReader.Close();
+            dataReader.Read();//no es necesario controlar, lo hace la anterior ventana
+
+                tbNombreHotel.Text = dataReader["rese_hote_codigo"].ToString();
+                dtFechaInicioReserva.Value = Convert.ToDateTime(dataReader["rese_fecha_desde"]);
+                dtFechaFinalReserva.Value = Convert.ToDateTime(dataReader["rese_fecha_hasta"]);
+                cbTipoRegimen.Text = dataReader["rese_regi_codigo"].ToString();
+                dataReader.Close();//no es necesario controlar
+                //JOIN para saber de que tipo es la reserva 
+                query = "SELECT DISTINCT tipo_descripcion FROM FAAE.Reserva_Habitacion JOIN FAAE.Habitacion ON (reha_habi_nro = habi_nro AND reha_hote_codigo = habi_hote_codigo)  JOIN FAAE.Tipo ON (tipo_codigo = habi_tipo_codigo) WHERE reha_rese_codigo = " + this.numeroReserva;
+                dataReader = DBConnection.getInstance().executeQuery(query);
+                dataReader.Read();
+                cbTipoHab.Text = dataReader["tipo_descripcion"].ToString();
+                dataReader.Close();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -42,6 +49,7 @@ namespace FrbaHotel.GenerarOModificarReserva
            // DBConnection.getInstance().executeProcedure("FAAE.modificar_reserva", param, args);
             this.Close();
         }
+
 
     }
 }
